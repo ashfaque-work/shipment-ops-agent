@@ -289,7 +289,11 @@ docker compose up --build        # UI http://localhost:3000 · API http://localh
 Without a key the agent runs the rule-based baseline, and the UI tells you so. For the LLM
 agent, add a free key and restart: `cp .env.example .env`, set `GROQ_API_KEY` and/or
 `GEMINI_API_KEY`, then `docker compose up`. If ports 8000/3000 are taken:
-`API_PORT=8010 UI_PORT=3010 docker compose up --build`.
+`API_PORT=8010 UI_PORT=3010 docker compose up --build`. If the build stops with
+`error reading from server: EOF`, Docker Desktop ran out of memory while building the images
+in parallel. Give it more memory, or build them one at a time:
+`docker compose build mock-carrier && docker compose build api && docker compose build frontend`,
+then `docker compose up`.
 
 ### Without Docker (for development)
 
