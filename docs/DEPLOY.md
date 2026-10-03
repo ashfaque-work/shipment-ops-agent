@@ -38,23 +38,63 @@ If you created the service before you knew the Vercel URL, update `CORS_ORIGINS`
 comma-separated. Vercel preview deployments get their own URLs; add them too if you want
 previews to talk to the API.
 
-### Environment variables (API)
+### Environment variables
+
+Everything the app reads is listed here (a test, `tests/test_docs.py`, fails if a setting
+is added without being documented). Names only; never put values in the repo.
+
+**Render: you must set these** (dashboard → Environment, or when the Blueprint prompts):
+
+| Variable | Value | Purpose |
+|---|---|---|
+| `GROQ_API_KEY` | your Groq key | Chat agent (default provider) |
+| `GEMINI_API_KEY` | your Gemini key | Document extraction incl. scans; chat fallback on 429 |
+| `CORS_ORIGINS` | your Vercel URL, e.g. `https://shipment-ops-agent.vercel.app` | Comma-separated allowed browser origins |
+
+At least one key is needed for the LLM agent; with none, the API still starts and runs the
+rule-based baseline, and `/api/health` shows a `notice`.
+
+**Render: already set by `render.yaml`** (change only if you want different behaviour):
+
+| Variable | render.yaml value | Default in code | Purpose |
+|---|---|---|---|
+| `DEMO_MODE` | `true` | `false` | Mock carrier **in-process** (forced, whatever `CARRIER` / `MOCK_CARRIER_URL` say) + request limits |
+| `TRUST_PROXY` | `true` | `false` | Client IP from the last `X-Forwarded-For` hop (Render's proxy) |
+| `MOCK_CLOCK` | `now` | `2026-10-01T09:00:00+00:00` | Scenario dates relative to now; keep the fixed default for evals |
+| `LLM_PROVIDER` | `groq` | `groq` | `groq` / `gemini` (live, fallback to the other on 429), `offline` (rule-based), `replay` |
+| `RATE_LIMIT_PER_MINUTE` | `10` | `20` | Per client IP (demo mode) |
+| `DEMO_DAILY_REQUEST_CAP` | `400` | `500` | All clients together per UTC day (demo mode; `0` = off) |
+| `MAX_UPLOAD_MB` | `3` | `5` | PDF upload limit |
+
+**Optional (defaults are fine):**
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `LLM_PROVIDER` | `groq` | Primary chat model provider (`groq`, `gemini`, or `offline` = rule-based, no key) |
-| `GROQ_MODEL` / `GEMINI_MODEL` | `openai/gpt-oss-120b` / `gemini-3.1-flash-lite` | Chat models |
-| `GEMINI_VISION_MODEL` | `gemini-3.1-flash-lite` | Document extraction (text + scans) |
-| `DEMO_MODE` | `false` | Runs the mock carrier **in-process** (forced, whatever `CARRIER` / `MOCK_CARRIER_URL` say) and enables request limits |
-| `RATE_LIMIT_PER_MINUTE` | `20` | Per client IP (demo mode) |
-| `DEMO_DAILY_REQUEST_CAP` | `500` | All clients together per UTC day (demo mode) |
-| `TRUST_PROXY` | `false` | Read client IP from `X-Forwarded-For` (set `true` on Render) |
-| `MAX_UPLOAD_MB` | `5` | PDF upload limit |
-| `CORS_ORIGINS` | `http://localhost:3000` | Comma-separated allowed origins |
-| `MOCK_CARRIER_URL` | `http://127.0.0.1:8001` | Mock carrier base URL outside demo mode, or `inprocess` (ignored in demo mode) |
-| `CARRIER_TIMEOUT_S` | `3` | Carrier timeout; in-process it also bounds the simulated outage |
-| `MOCK_CLOCK` | fixed `2026-10-01T09:00Z` | `now` for live demos; keep fixed for evals |
+| `GROQ_MODEL` | `openai/gpt-oss-120b` | Groq chat model |
+| `GEMINI_MODEL` | `gemini-3.1-flash-lite` | Gemini chat model (fallback) |
+| `GEMINI_VISION_MODEL` | `gemini-3.1-flash-lite` | Document extraction model (text + scans) |
+| `GROQ_BASE_URL` | `https://api.groq.com/openai/v1` | OpenAI-compatible endpoint |
+| `GEMINI_BASE_URL` | `https://generativelanguage.googleapis.com/v1beta/openai/` | OpenAI-compatible endpoint |
+| `LLM_TIMEOUT_S` | `60` | Per LLM request |
+| `LLM_MAX_RPM` | `0` | Client-side request throttle (`0` = off) |
+| `LLM_RETRIES` | `0` | Wait-and-retry when every provider returns 429/5xx (`0` = fail fast) |
+| `EXTRACTOR` | `auto` | `auto` (Gemini when a key is set) or `rules` (deterministic, no LLM calls) |
+| `LLM_REPLAY_PATH` | — | With `LLM_PROVIDER=replay`: recorded responses, e.g. `data/demo/demo_llm.json` |
+| `LLM_RECORD_PATH` | — | With a live provider: record every response to this file (demo recordings) |
 | `CARRIER` | `mock` | `fedex` selects the documented stub (not functional) |
+| `MOCK_CARRIER_URL` | `http://127.0.0.1:8001` | Separate mock carrier outside demo mode, or `inprocess` |
+| `CARRIER_TIMEOUT_S` | `3` | Carrier timeout; in-process it also bounds the simulated outage |
+| `CARRIER_MAX_RETRIES` | `2` | Retries for carrier reads (writes are never retried) |
+| `MOCK_TIMEOUT_DELAY_S` | `10` | How long the simulated carrier outage stalls (separate mock carrier only) |
+
+**Set by the host:** `PORT` is injected by Render; the Docker image listens on it
+(default `8000`).
+
+**Vercel** (Project → Settings → Environment Variables):
+
+| Variable | Value | Purpose |
+|---|---|---|
+| `NEXT_PUBLIC_API_URL` | `https://shipops-api.onrender.com` (your Render URL, no trailing slash) | API base URL; inlined at **build** time, so redeploy after changing it |
 
 ### Free-tier realities
 
@@ -75,8 +115,9 @@ previews to talk to the API.
 
 1. Vercel dashboard: **Add New → Project**, import the repo.
 2. **Root Directory:** `frontend` (framework preset: Next.js is detected).
-3. **Environment variable:** `NEXT_PUBLIC_API_URL = https://shipops-api.onrender.com`.
-   It is inlined at build time, so redeploy after changing it.
+3. **Environment variable:** `NEXT_PUBLIC_API_URL` = your Render URL, e.g.
+   `https://shipops-api.onrender.com` (the only variable the frontend needs). It is
+   inlined at build time, so redeploy after changing it.
 4. Deploy, then put the resulting URL into the API's `CORS_ORIGINS` on Render.
 
 ## 3. Check it end to end

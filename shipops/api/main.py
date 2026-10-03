@@ -59,8 +59,24 @@ def public_record(rec: dict) -> dict:
     }
 
 
+NO_KEY_NOTICE = (
+    "No LLM API key is configured, so the agent runs the rule-based baseline (not an LLM). "
+    "Add a free GROQ_API_KEY or GEMINI_API_KEY to .env and restart for the LLM agent."
+)
+
+
+def resolve_llm_mode(settings: Settings) -> tuple[Settings, str | None]:
+    """A live provider with no key at all falls back to the rule-based baseline, with a
+    notice, so a fresh clone works out of the box instead of starting degraded."""
+    live = settings.llm_provider in ("groq", "gemini")
+    if live and not (settings.groq_api_key or settings.gemini_api_key):
+        log.warning(NO_KEY_NOTICE)
+        return settings.model_copy(update={"llm_provider": "offline"}), NO_KEY_NOTICE
+    return settings, None
+
+
 def create_app(settings: Settings | None = None, service: AgentService | None = None) -> FastAPI:
-    settings = settings or get_settings()
+    settings, notice = resolve_llm_mode(settings or get_settings())
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -117,6 +133,7 @@ def create_app(settings: Settings | None = None, service: AgentService | None = 
             ),
             "demo_mode": settings.demo_mode,
             "max_upload_mb": settings.max_upload_mb,
+            "notice": notice,
         }
 
     @app.post("/api/chat", response_model=TurnResult, dependencies=[Depends(limited)])

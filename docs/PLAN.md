@@ -234,6 +234,13 @@ covered by the CI diff). `docs/DEMO_SCRIPT.md`: 214-word, 90-second narration ti
 the run's `timeline.txt`. The phone-width browser test caught the new masthead link
 overflowing; fixed with short labels on phones.
 
+**Step 5 — pre-push.** MIT `LICENSE`; README "Run locally in 3 commands" (clone, cd,
+`docker compose up --build`). To make that true without a key, a live provider with no key
+now falls back to the rule-based baseline with a visible notice (`/api/health` `notice`, UI
+banner) instead of starting degraded. `docs/DEPLOY.md` env section restructured (must set /
+set by render.yaml / optional / host / Vercel) and made complete: `tests/test_docs.py` fails
+if any setting is undocumented (it found 11). Unused `UPLOAD_DIR` setting removed.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All
@@ -288,7 +295,6 @@ overflowing; fixed with short labels on phones.
 - Python 3.12 locally via `uv` to match CI (system Python is 3.14).
 
 ## Open questions / needs the owner
-- Record the demo GIF (`docs/demo.gif`, placeholder in the README).
 - Deploying needs Render + Vercel accounts (free); not done on the owner's behalf.
 - Free-tier model names and quotas drift; re-probe and re-record if a default disappears.
 - Note: ports 8000 and 3000 on the dev machine are used by other local projects, so local

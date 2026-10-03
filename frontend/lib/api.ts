@@ -91,6 +91,7 @@ export type Health = {
   carrier: string;
   demo_mode: boolean;
   max_upload_mb: number;
+  notice: string | null;
 };
 
 export class ApiError extends Error {

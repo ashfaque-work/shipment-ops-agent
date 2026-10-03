@@ -255,6 +255,7 @@ export default function Home() {
                 </div>
                 {healthError && <p className="msg error">{healthError}</p>}
                 {health?.error && <p className="msg error">{health.error}</p>}
+                {health?.notice && <p className="msg note notice">{health.notice}</p>}
               </div>
             )}
             {items.map((it) =>

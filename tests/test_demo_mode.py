@@ -81,3 +81,29 @@ def test_inprocess_outage_is_bounded_by_carrier_timeout() -> None:
 def test_outside_demo_mode_uses_the_carrier_url() -> None:
     carrier = get_carrier(Settings(demo_mode=False, mock_carrier_url="http://127.0.0.1:8001"))
     assert str(carrier._client.base_url).startswith("http://127.0.0.1:8001")
+
+
+def test_no_keys_falls_back_to_rule_based_with_a_notice() -> None:
+    from shipops.api.main import resolve_llm_mode
+
+    s, notice = resolve_llm_mode(Settings(llm_provider="groq", groq_api_key="", gemini_api_key=""))
+    assert s.llm_provider == "offline" and "GROQ_API_KEY" in notice
+    s, notice = resolve_llm_mode(Settings(llm_provider="groq", groq_api_key="k"))
+    assert s.llm_provider == "groq" and notice is None
+    s, notice = resolve_llm_mode(Settings(llm_provider="replay", llm_replay_path="x"))
+    assert s.llm_provider == "replay" and notice is None
+
+
+def test_fresh_clone_api_starts_without_keys(monkeypatch) -> None:
+    for var in ("GROQ_API_KEY", "GEMINI_API_KEY", "LLM_PROVIDER"):
+        monkeypatch.delenv(var, raising=False)
+    from shipops.api.main import create_app
+
+    s = Settings(_env_file=None, mock_carrier_url="inprocess")
+    with TestClient(create_app(s)) as api:
+        h = api.get("/api/health").json()
+        assert h["status"] == "ok" and h["llm_provider"] == "offline" and h["notice"]
+        assert (
+            "customs"
+            in api.post("/api/chat", json={"message": "Where is order 4518?"}).json()["reply"]
+        )

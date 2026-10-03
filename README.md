@@ -278,11 +278,25 @@ so a prompt or tool change shows up as *drift* and CI fails until it is re-recor
 
 ## Run it locally
 
-Prerequisites: Python 3.11+ with [uv](https://docs.astral.sh/uv/), Node 22+.
-Optional: Docker.
+### In 3 commands (Docker, no API key needed)
 
 ```bash
-cp .env.example .env             # add GROQ_API_KEY and/or GEMINI_API_KEY (both free)
+git clone https://github.com/<your-username>/shipment-ops-agent.git
+cd shipment-ops-agent
+docker compose up --build        # UI http://localhost:3000 · API http://localhost:8000
+```
+
+Without a key the agent runs the rule-based baseline, and the UI tells you so. For the LLM
+agent, add a free key and restart: `cp .env.example .env`, set `GROQ_API_KEY` and/or
+`GEMINI_API_KEY`, then `docker compose up`. If ports 8000/3000 are taken:
+`API_PORT=8010 UI_PORT=3010 docker compose up --build`.
+
+### Without Docker (for development)
+
+Prerequisites: Python 3.11+ with [uv](https://docs.astral.sh/uv/), Node 22+.
+
+```bash
+cp .env.example .env             # optional: add GROQ_API_KEY and/or GEMINI_API_KEY (both free)
 uv sync --all-extras
 
 # terminal 1 - mock carrier
@@ -293,11 +307,10 @@ uv run uvicorn shipops.api.main:app --port 8000
 cd frontend && npm install && npm run dev       # http://localhost:3000
 ```
 
-Or everything at once: `docker compose up --build`. If ports 8000/3000 are taken,
-use `API_PORT=8010 UI_PORT=3010 docker compose up --build`.
-
-**No API key?** Set `LLM_PROVIDER=offline` to run the full stack on the rule-based
-baseline. Document extraction then uses the rule parser, so scans can't be read.
+**No API key?** It just works: the agent falls back to the rule-based baseline (not an
+LLM) and says so in the UI. Document extraction then uses the rule parser, so scans can't
+be read. `LLM_PROVIDER=replay LLM_REPLAY_PATH=data/demo/demo_llm.json` replays the recorded
+demo conversation instead.
 
 **API keys** (free, no card):
 - Groq: <https://console.groq.com/keys> → `GROQ_API_KEY` (chat agent)
@@ -368,3 +381,5 @@ Docker, GitHub Actions, Render, Vercel.
 
 All companies, people, addresses, phone numbers and documents in this repository are
 fictitious and generated for testing. No real carrier accounts or credentials are used.
+
+Licensed under the [MIT License](LICENSE).
