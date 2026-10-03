@@ -29,3 +29,6 @@ uploads/
 Thumbs.db
 .vscode/
 .idea/
+
+# Browser automation artefacts
+.playwright-mcp/

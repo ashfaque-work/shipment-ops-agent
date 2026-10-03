@@ -20,6 +20,7 @@ from shipops.config import Settings, get_settings
 from shipops.documents import DocumentStore, get_extractor
 from shipops.documents.pdf import PdfError
 from shipops.llm import LLMError, get_llm
+from shipops.samples import SAMPLES, get_sample, sample_files
 
 log = logging.getLogger(__name__)
 
@@ -120,6 +121,22 @@ def create_app(settings: Settings | None = None, service: AgentService | None = 
         except PdfError as exc:
             raise HTTPException(422, str(exc)) from exc
         return public_record(rec)
+
+    @app.get("/api/samples")
+    def list_samples() -> list[dict]:
+        return [
+            {k: s[k] for k in ("id", "title", "prompt")} | {"files": len(s["files"])}
+            for s in SAMPLES
+        ]
+
+    @app.post("/api/samples/{sample_id}")
+    def load_sample(sample_id: str, request: Request) -> dict:
+        sample = get_sample(sample_id)
+        if sample is None:
+            raise HTTPException(404, f"Unknown sample '{sample_id}'")
+        store = svc(request).ctx.documents
+        docs = [public_record(store.add(name, data)) for name, data in sample_files(sample)]
+        return {"id": sample_id, "prompt": sample["prompt"], "documents": docs}
 
     return app
 

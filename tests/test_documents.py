@@ -277,3 +277,15 @@ def test_upload_endpoint(ctx: ToolContext, store: DocumentStore) -> None:
         api.post("/api/documents", files={"file": ("big.pdf", big, "application/pdf")}).status_code
         == 413
     )
+
+
+def test_sample_endpoints(ctx: ToolContext, store: DocumentStore) -> None:
+    ctx.documents = store
+    api = TestClient(
+        create_app(Settings(llm_provider="offline"), service=AgentService(RuleBasedLLM(), ctx))
+    )
+    samples = api.get("/api/samples").json()
+    assert {s["id"] for s in samples} >= {"weight-mismatch", "missing-hs-code"}
+    r = api.post("/api/samples/weight-mismatch").json()
+    assert len(r["documents"]) == 2 and r["prompt"]
+    assert api.post("/api/samples/nope").status_code == 404
