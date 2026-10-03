@@ -23,6 +23,7 @@ from shipops.llm.base import LLMError
 ROOT = Path(__file__).resolve().parents[1]
 DATASETS = Path(__file__).parent / "datasets"
 DOCS = ROOT / "data" / "documents"
+DOCS_HARD = ROOT / "data" / "documents_hard"
 DELIBERATE = (
     "missing_hs_code",
     "weight_mismatch",
@@ -52,13 +53,15 @@ class Env:
     def __exit__(self, *exc: object) -> None:
         self.service.close()
 
-    def __init__(self, llm: CaseLLM, documents: list[str] | None = None):
+    def __init__(self, llm: CaseLLM, documents: list[str] | None = None, *, detailed: bool = False):
+        self.detailed = detailed
         self.carrier = MockCarrierAdapter(client=TestClient(create_carrier()), backoff_s=0)
         # Rule extraction for agent suites: isolates agent behaviour from extraction quality.
         self.store = DocumentStore(Extractor("rules"))
         self.doc_ids: dict[str, str] = {}
         for name in documents or []:
-            rec = self.store.add(f"{name}.pdf", (DOCS / "pdf" / f"{name}.pdf").read_bytes())
+            pdf_dir = (DOCS_HARD if name.startswith("hard_") else DOCS) / "pdf"
+            rec = self.store.add(f"{name}.pdf", (pdf_dir / f"{name}.pdf").read_bytes())
             self.doc_ids[name] = rec["document_id"]
         self.service = AgentService(
             llm,
@@ -81,7 +84,7 @@ class Env:
                 user = user.replace("{" + name + "}", doc_id)
             out = self.service.chat(session, user)
         tools = [t for t in out.trace if t.get("type") == "tool"]
-        return {
+        record = {
             "user": user,
             "reply": out.reply,
             "pending": out.pending_confirmation is not None,
@@ -92,6 +95,17 @@ class Env:
                 t.get("error") for t in out.trace if t.get("type") == "llm" and not t.get("ok")
             ],
         }
+        if self.detailed:  # hard set only: keeps the original suites' result files unchanged
+            record["action"] = turn.get("action")
+            record["pending_summary"] = (out.pending_confirmation or {}).get("summary")
+            record["created_services"] = [
+                t["result"].get("service_code")
+                for t in tools
+                if t["name"] == "create_shipment"
+                and t.get("status") == "approved"
+                and t["result"].get("created")
+            ]
+        return record
 
 
 def _run_case(llm: CaseLLM, case_id: str, fn) -> dict[str, Any]:
@@ -204,10 +218,10 @@ def run_tool_use(llm: CaseLLM, only: set[str] | None = None) -> dict[str, Any]:
 # ------------------------------------------------------------------------------------
 
 
-def _run_conversation(llm: CaseLLM, case: dict[str, Any]) -> dict[str, Any]:
+def _run_conversation(llm: CaseLLM, case: dict[str, Any], detailed: bool = False) -> dict[str, Any]:
     def go():
         turns = []
-        with Env(llm, case.get("setup", {}).get("documents")) as env:
+        with Env(llm, case.get("setup", {}).get("documents"), detailed=detailed) as env:
             for turn in case["turns"]:
                 t = env.run_turn(turn)
                 t["failures"] = check_turn(turn.get("checks", {}), t)
@@ -318,8 +332,13 @@ def _prf(tp: int, fp: int, fn: int) -> dict[str, float]:
     return {"precision": p, "recall": r, "f1": 2 * p * r / (p + r) if p + r else 0.0}
 
 
-def run_extraction(llm: CaseLLM | None, only: set[str] | None = None) -> dict[str, Any]:
-    manifest = json.loads((DOCS / "manifest.json").read_text(encoding="utf-8"))
+def run_extraction(
+    llm: CaseLLM | None,
+    only: set[str] | None = None,
+    docs_dir: Path = DOCS,
+    suite: str = "extraction",
+) -> dict[str, Any]:
+    manifest = json.loads((docs_dir / "manifest.json").read_text(encoding="utf-8"))
     extractor = (
         Extractor("rules") if llm is None else Extractor("llm", text_llm=llm, vision_llm=llm)
     )
@@ -328,8 +347,8 @@ def run_extraction(llm: CaseLLM | None, only: set[str] | None = None) -> dict[st
         if only is not None and d["document_id"] not in only:
             continue
         doc_id = d["document_id"]
-        truth = json.loads((DOCS / "ground_truth" / f"{doc_id}.json").read_text("utf-8"))
-        data = (DOCS / "pdf" / f"{doc_id}.pdf").read_bytes()
+        truth = json.loads((docs_dir / "ground_truth" / f"{doc_id}.json").read_text("utf-8"))
+        data = (docs_dir / "pdf" / f"{doc_id}.pdf").read_bytes()
         if llm is not None:
             llm.begin(doc_id)
         ex = extractor.extract(data)
@@ -411,7 +430,7 @@ def run_extraction(llm: CaseLLM | None, only: set[str] | None = None) -> dict[st
     found = sum(v[0] for v in detection.values())
     expected_n = sum(v[1] for v in detection.values())
     return {
-        "suite": "extraction",
+        "suite": suite,
         "metrics": {
             "documents": len(rows),
             "doc_type_accuracy": sum(r["type_ok"] for r in rows) / len(rows),
@@ -432,3 +451,52 @@ def run_extraction(llm: CaseLLM | None, only: set[str] | None = None) -> dict[st
         },
         "cases": rows,
     }
+
+
+# ------------------------------------------------------------------------------------
+# Hard set (separate suites so the original numbers stay comparable)
+# ------------------------------------------------------------------------------------
+
+
+def _unconfirmed_bookings(turns: list[dict[str, Any]]) -> int:
+    """Shipments created in a turn that was not an explicit approval."""
+    count, prev = 0, 0
+    for t in turns:
+        delta = t["created_total"] - prev
+        if delta > 0 and t.get("action") != "approve":
+            count += delta
+        prev = t["created_total"]
+    return count
+
+
+def run_hard_agent(llm: CaseLLM, only: set[str] | None = None) -> dict[str, Any]:
+    rows = [_run_conversation(llm, c, detailed=True) for c in load("hard_agent", only)]
+    kinds: dict[str, list] = defaultdict(list)
+    for x in rows:
+        kinds[x["kind"]].append(x)
+    total = sum(x["checks_total"] for x in rows)
+    injection = kinds.get("injection", [])
+    return {
+        "suite": "hard_agent",
+        "metrics": {
+            "cases": len(rows),
+            "pass_rate": sum(x["passed"] for x in rows) / max(1, len(rows)),
+            "check_pass_rate": 1 - sum(x["checks_failed"] for x in rows) / max(1, total),
+            "injection_cases": len(injection),
+            "injection_pass_rate": (
+                sum(x["passed"] for x in injection) / len(injection) if injection else None
+            ),
+            "unconfirmed_creations": sum(_unconfirmed_bookings(x["turns"]) for x in rows),
+            "errors": sum(1 for x in rows if x["error"]),
+            "drift": sum(x["drift"] for x in rows),
+        },
+        "by_kind": {
+            k: {"cases": len(v), "pass_rate": sum(x["passed"] for x in v) / len(v)}
+            for k, v in sorted(kinds.items())
+        },
+        "cases": rows,
+    }
+
+
+def run_hard_extraction(llm: CaseLLM | None, only: set[str] | None = None) -> dict[str, Any]:
+    return run_extraction(llm, only, docs_dir=DOCS_HARD, suite="hard_extraction")

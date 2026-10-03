@@ -145,3 +145,24 @@ def test_preflight_missing_details(ctx: ToolContext) -> None:
 def test_tool_specs_are_well_formed() -> None:
     names = {t["function"]["name"] for t in T.TOOL_SPECS}
     assert names == set(T.EXECUTORS) | T.GATED_TOOLS
+
+
+def test_validate_address_order_plus_new_fields_checks_the_new_address(ctx: ToolContext) -> None:
+    r = T.execute(
+        "validate_address",
+        {
+            "order_id": "4550",
+            "street1": "7 Riverside Drive, Westlands",
+            "city": "Nairobi",
+            "postal_code": "00100",
+        },
+        ctx,
+    )
+    assert r["address"]["street1"] == "7 Riverside Drive, Westlands"
+    assert r["address"]["name"] == "Njeri Mwangi"  # unspecified fields come from the order
+    assert r["valid"] is True
+    # an order with a bad stored address can be corrected by passing the new fields
+    fixed = T.execute(
+        "validate_address", {"order_id": "4551", "street1": "14 Opebi Road, Ikeja"}, ctx
+    )
+    assert fixed["valid"] is True

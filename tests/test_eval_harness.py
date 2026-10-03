@@ -158,3 +158,66 @@ def test_readme_summary_table_matches_results() -> None:
     assert SUMMARY_START in readme and table in readme  # README is up to date
     assert _inject(readme, SUMMARY_START, SUMMARY_END, table) == readme  # idempotent
     assert readme.index(SUMMARY_START) < readme.index("## The problem")  # near the top
+
+
+@pytest.mark.parametrize(
+    "reply,asks",
+    [
+        ("Which order do you mean - 4518, 4533 or 4553?", True),
+        ("Could you tell me the weight?\nThen I'll quote.", True),
+        ("I can track shipments (e.g. 'Where is order 4512?') and more.", False),
+        ("Done.", False),
+    ],
+)
+def test_asks_question_ignores_quoted_examples(reply: str, asks: bool) -> None:
+    turn = {"reply": reply, "tools": [], "pending": False, "created_total": 0}
+    assert (check_turn({"asks_question": True}, turn) == []) is asks
+
+
+def test_pending_summary_and_created_service_checks() -> None:
+    turn = {
+        "reply": "ok",
+        "tools": [],
+        "pending": True,
+        "created_total": 0,
+        "pending_summary": {
+            "service_code": "EXPRESS",
+            "package": {"weight_kg": 9.5},
+            "recipient": {"street1": "7 Riverside Drive, Westlands"},
+        },
+        "created_services": ["EXPRESS"],
+    }
+    ok = {
+        "pending_summary": {
+            "service_code": "EXPRESS",
+            "package.weight_kg": 9.5,
+            "recipient.street1": "7 riverside drive",
+        },
+        "created_service": "EXPRESS",
+    }
+    assert check_turn(ok, turn) == []
+    bad = {"pending_summary": {"package.weight_kg": 7.2}, "created_service": "STANDARD"}
+    assert len(check_turn(bad, turn)) == 2
+
+
+def test_unconfirmed_bookings_counts_only_non_approval_turns() -> None:
+    from eval.suites import _unconfirmed_bookings
+
+    assert (
+        _unconfirmed_bookings([{"created_total": 0}, {"created_total": 1, "action": "approve"}])
+        == 0
+    )
+    assert _unconfirmed_bookings([{"created_total": 1, "action": None}]) == 1
+
+
+@pytest.mark.parametrize(
+    "reply,asks",
+    [
+        ("Please provide the order number or tracking number so I can look that up.", True),
+        ("Let me know which order you mean.", True),
+        ("Please try again later.", False),
+    ],
+)
+def test_asks_question_accepts_explicit_requests(reply: str, asks: bool) -> None:
+    turn = {"reply": reply, "tools": [], "pending": False, "created_total": 0}
+    assert (check_turn({"asks_question": True}, turn) == []) is asks

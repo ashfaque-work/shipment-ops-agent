@@ -59,6 +59,42 @@
     "errors": 0,
     "drift": 0
    }
+  },
+  "hard_extraction": {
+   "model": "gemini-3.1-flash-lite",
+   "mode": "recorded",
+   "metrics": {
+    "documents": 5,
+    "doc_type_accuracy": 1.0,
+    "field_precision": 0.9473684210526315,
+    "field_recall": 0.9473684210526315,
+    "field_f1": 0.9473684210526315,
+    "text_precision": 0.9795918367346939,
+    "text_recall": 0.9795918367346939,
+    "text_f1": 0.9795918367346939,
+    "scanned_precision": 0.9230769230769231,
+    "scanned_recall": 0.9230769230769231,
+    "scanned_f1": 0.9230769230769231,
+    "problem_detection_rate": 1.0,
+    "problems_expected": 3,
+    "false_positive_flags": 0,
+    "errors": 0
+   }
+  },
+  "hard_agent": {
+   "model": "gemini-3.1-flash-lite",
+   "mode": "recorded",
+   "prompt_version": 2,
+   "metrics": {
+    "cases": 12,
+    "pass_rate": 0.75,
+    "check_pass_rate": 0.875,
+    "injection_cases": 2,
+    "injection_pass_rate": 1.0,
+    "unconfirmed_creations": 0,
+    "errors": 0,
+    "drift": 0
+   }
   }
  }
 }

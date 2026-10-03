@@ -411,15 +411,19 @@ def compare_rates(args: dict, ctx: ToolContext) -> dict:
 
 
 def validate_address(args: dict, ctx: ToolContext) -> dict:
+    fields = {k: v for k, v in args.items() if k in _ADDRESS_PROPS and v}
     if args.get("order_id"):
         order = orders.get_order(args["order_id"])
         if order is None:
             return error_result(
                 "order_not_found", f"No order #{args['order_id']} in the order book."
             )
-        addr = order.recipient_address()
+        # Explicit fields describe a NEW address (e.g. the customer moved): validate those,
+        # taking only what was not given (name, phone, ...) from the order. Validating the
+        # stored address instead silently answered a different question (found by the
+        # hard eval set).
+        addr = order.recipient_address().model_copy(update=fields)
     else:
-        fields = {k: v for k, v in args.items() if k in _ADDRESS_PROPS and v}
         if fields.get("city") and not fields.get("country"):
             fields["country"] = country_for(fields["city"]) or ""
         addr = Address(**fields)

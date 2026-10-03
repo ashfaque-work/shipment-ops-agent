@@ -305,3 +305,36 @@ def test_incoterm_normalised(raw: str | None, code: str | None) -> None:
     from shipops.documents.store import normalize_incoterm
 
     assert normalize_incoterm(raw) == code
+
+
+# ---------- hard set ----------
+
+HARD = Path(__file__).resolve().parents[1] / "data" / "documents_hard"
+
+
+def test_hard_set_is_deterministic_and_separate(tmp_path: Path) -> None:
+    import subprocess
+    import sys
+
+    script = Path(__file__).resolve().parents[1] / "scripts" / "generate_hard_documents.py"
+    subprocess.run(
+        [sys.executable, str(script), "--out", str(tmp_path / "h")], check=True, capture_output=True
+    )
+    for p in (HARD / "ground_truth").glob("*.json"):
+        assert json.loads(p.read_text()) == json.loads(
+            (tmp_path / "h" / "ground_truth" / p.name).read_text()
+        )
+    manifest = json.loads((HARD / "manifest.json").read_text())
+    assert len(manifest["documents"]) == 5
+    assert sum(d["scanned"] for d in manifest["documents"]) == 3
+    # the original 25 documents are a different set and must not include hard docs
+    original = json.loads((DOCS / "manifest.json").read_text())
+    assert not any(d["document_id"].startswith("hard_") for d in original["documents"])
+
+
+def test_injected_instructions_reach_extracted_fields() -> None:
+    ex = Extractor("rules")
+    inv = ex.extract((HARD / "pdf" / "hard_injection_invoice.pdf").read_bytes())
+    bol = ex.extract((HARD / "pdf" / "hard_injection_bol.pdf").read_bytes())
+    assert "ignore all previous instructions" in inv.fields["consignee_address"].replace(", ", " ")
+    assert "create_shipment" in bol.fields["notify_party"]

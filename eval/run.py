@@ -33,19 +33,31 @@ os.environ.setdefault("MOCK_TIMEOUT_DELAY_S", "0.01")
 from eval import report  # noqa: E402
 from eval.cassette import CASSETTE_DIR, CaseLLM, Cassette, SuiteAborted  # noqa: E402
 from eval.suites import DOCS as DOCS_DIR  # noqa: E402
+from eval.suites import (  # noqa: E402
+    DOCS_HARD,  # noqa: E402
+    run_extraction,
+    run_hard_agent,
+    run_hard_extraction,
+    run_safety,
+    run_scenarios,
+    run_tool_use,
+)
 from eval.suites import load as load_dataset  # noqa: E402
-from eval.suites import run_extraction, run_safety, run_scenarios, run_tool_use  # noqa: E402
 from shipops.agent.prompts import CURRENT_PROMPT_VERSION  # noqa: E402
 from shipops.redact import scrub  # noqa: E402
 
 RESULTS = Path(__file__).parent / "results"
 AGENT_SUITES = ("tool_use", "scenarios", "safety")
-ALL_SUITES = (*AGENT_SUITES, "extraction")
+HARD_SUITES = ("hard_agent", "hard_extraction")  # separate, so original numbers stay comparable
+EXTRACTION_SUITES = ("extraction", "hard_extraction")
+ALL_SUITES = (*AGENT_SUITES, "extraction", *HARD_SUITES)
 RUNNERS = {
     "tool_use": run_tool_use,
     "scenarios": run_scenarios,
     "safety": run_safety,
     "extraction": run_extraction,
+    "hard_agent": run_hard_agent,
+    "hard_extraction": run_hard_extraction,
 }
 # Free-tier friendly defaults (requests per minute) - see docs/PLAN.md
 # Groq free tier is ~8k tokens/min per model (~2k tokens per agent call).
@@ -65,7 +77,7 @@ def live_llm(provider: str, suite: str, rpm: int, model_override: str | None = N
     key = {"groq": s.groq_api_key, "gemini": s.gemini_api_key}[provider]
     if not key:
         sys.exit(f"{provider.upper()}_API_KEY is not set (.env). See README 'API keys'.")
-    if suite == "extraction":
+    if suite in EXTRACTION_SUITES:
         model = s.gemini_vision_model if provider == "gemini" else s.groq_model
         opts: dict[str, Any] = {"request_options": {"response_format": {"type": "json_object"}}}
     else:
@@ -130,14 +142,14 @@ def main() -> None:
         pv: int | None = None
         if a.llm == "baseline":
             label = label or "baseline"
-            llm = None if suite == "extraction" else CaseLLM(_baseline(), None, "passthrough")
+            llm = None if suite in EXTRACTION_SUITES else CaseLLM(_baseline(), None, "passthrough")
             res = RUNNERS[suite](llm, only)
             model = "rule-based (not an LLM)"
         elif a.llm == "live":
             inner, model = live_llm(a.provider, suite, a.rpm or DEFAULT_RPM[a.provider], a.model)
             suite_label = label or f"{a.provider}-{_slug(model)}"
             cas = Cassette(CASSETTE_DIR / suite_label / f"{suite}.json")
-            pv = None if suite == "extraction" else CURRENT_PROMPT_VERSION
+            pv = None if suite in EXTRACTION_SUITES else CURRENT_PROMPT_VERSION
             if cas.data["cases"] and _cassette_prompt(cas, suite) != pv:
                 sys.exit(
                     f"{cas.path} was recorded with prompt v{_cassette_prompt(cas, suite)}; the "
@@ -206,8 +218,9 @@ def main() -> None:
 
 
 def _case_ids(suite: str) -> set[str]:
-    if suite == "extraction":
-        manifest = json.loads((DOCS_DIR / "manifest.json").read_text(encoding="utf-8"))
+    if suite in EXTRACTION_SUITES:
+        docs = DOCS_DIR if suite == "extraction" else DOCS_HARD
+        manifest = json.loads((docs / "manifest.json").read_text(encoding="utf-8"))
         return {d["document_id"] for d in manifest["documents"]}
     return {c["id"] for c in load_dataset(suite)}
 
@@ -220,7 +233,7 @@ def _baseline():
 
 def _cassette_prompt(cas: Cassette, suite: str) -> int | None:
     """Prompt version a cassette was recorded with (recordings before versioning: v1)."""
-    if suite == "extraction":
+    if suite in EXTRACTION_SUITES:
         return None
     return int(cas.data["meta"].get("prompt_version", 1))
 

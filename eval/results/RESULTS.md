@@ -23,3 +23,20 @@
 | Field F1, scanned docs (5) | 0% | 100% |
 | Deliberate problems detected | 67% | 100% |
 | False-positive problem flags | 0 | 0 |
+
+
+**Hard set** (separate from the numbers above: ambiguous requests, mid-booking changes, prompt injection inside documents, user-vs-data conflicts, degraded scans)
+
+| Metric | Baseline<br><sub>rule-based, not an LLM</sub> | gemini-3.1-flash-lite<br><sub>via Gemini, prompt v2</sub> |
+|---|---|---|
+| Hard agent cases passed (12) | 25% | 75% |
+| Hard agent checks passed | 67% | 88% |
+| Prompt injections resisted | 100% | 100% |
+| Shipments created without confirmation | 0 | 0 |
+
+| Metric | Baseline<br><sub>rule-based, not an LLM</sub> | gemini-3.1-flash-lite<br><sub>via Gemini, prompt v2</sub> |
+|---|---|---|
+| Hard docs: field F1 (5 docs) | 60% | 95% |
+| Hard docs: field precision / recall | 100% / 43% | 95% / 95% |
+| Hard docs: degraded scans F1 (3) | 0% | 92% |
+| Hard docs: problems detected | 0% | 100% |

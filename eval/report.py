@@ -24,12 +24,20 @@ def _model(summary: dict) -> str:
     return ", ".join(sorted(models)) or "?"
 
 
-def _column_title(summary: dict) -> str:
+MAIN_SUITES = ("tool_use", "scenarios", "safety", "extraction")
+HARD_SUITES = ("hard_agent", "hard_extraction")
+
+
+def _column_title(summary: dict, suites: tuple[str, ...] = MAIN_SUITES) -> str:
     if summary["label"] == "baseline":
         return "Baseline<br><sub>rule-based, not an LLM</sub>"
     provider = summary["label"].split("-", 1)[0].capitalize()
     versions = sorted(
-        {v["prompt_version"] for v in summary.get("suites", {}).values() if "prompt_version" in v}
+        {
+            v["prompt_version"]
+            for name, v in summary.get("suites", {}).items()
+            if name in suites and "prompt_version" in v
+        }
     )
     prompt = f", prompt v{'/v'.join(map(str, versions))}" if versions else ""
     return f"{_model(summary)}<br><sub>via {provider}{prompt}</sub>"
@@ -62,26 +70,52 @@ def summary_table(results_dir: Path) -> str:
         "| Unconfirmed bookings | Extraction precision / recall |",
         "|---|---|---|---|---|---|---|",
     ]
+
+    def inline(title: str) -> str:
+        return title.replace("<br><sub>", " <sub>(").replace("</sub>", ")</sub>")
+
+    def extraction_pr(s: dict, suite: str) -> str:
+        if suite not in s.get("suites", {}):
+            return "— <sub>(not run: extraction uses Gemini)</sub>"
+        return f"{pct(_get(s, suite, 'field_precision'))} / {pct(_get(s, suite, 'field_recall'))}"
+
+    hard_rows = []
     for s in summaries:
-        title = _column_title(s).replace("<br><sub>", " <sub>(").replace("</sub>", ")</sub>")
-        if "extraction" in s.get("suites", {}):
-            extraction = (
-                f"{pct(_get(s, 'extraction', 'field_precision'))} / "
-                f"{pct(_get(s, 'extraction', 'field_recall'))}"
+        suites = s.get("suites", {})
+        if any(x in suites for x in MAIN_SUITES):
+            cells = [
+                inline(_column_title(s)),
+                _count(s, "tool_use", "tool_selection_accuracy"),
+                pct(_get(s, "tool_use", "argument_accuracy")),
+                _count(s, "scenarios", "pass_rate"),
+                _count(s, "safety", "pass_rate"),
+                pct(_get(s, "safety", "unconfirmed_creations")),
+                extraction_pr(s, "extraction"),
+            ]
+            lines.append("| " + " | ".join(cells) + " |")
+        if any(x in suites for x in HARD_SUITES):
+            title = inline(_column_title(s, HARD_SUITES)).replace(" <sub>(", " — hard set <sub>(")
+            inj_rate, inj_n = (
+                _get(s, "hard_agent", "injection_pass_rate"),
+                _get(s, "hard_agent", "injection_cases"),
             )
-        else:
-            extraction = "— <sub>(not run: extraction uses Gemini)</sub>"
-        cells = [
-            title,
-            _count(s, "tool_use", "tool_selection_accuracy"),
-            pct(_get(s, "tool_use", "argument_accuracy")),
-            _count(s, "scenarios", "pass_rate"),
-            _count(s, "safety", "pass_rate"),
-            pct(_get(s, "safety", "unconfirmed_creations")),
-            extraction,
-        ]
-        lines.append("| " + " | ".join(cells) + " |")
-    return "\n".join(lines) + "\n"
+            injection = f"{round(inj_rate * inj_n)}/{inj_n} injections" if inj_n else "—"
+            hard_rows.append(
+                "| "
+                + " | ".join(
+                    [
+                        f"**{title}**",
+                        "—",
+                        "—",
+                        _count(s, "hard_agent", "pass_rate"),
+                        injection,
+                        pct(_get(s, "hard_agent", "unconfirmed_creations")),
+                        extraction_pr(s, "hard_extraction"),
+                    ]
+                )
+                + " |"
+            )
+    return "\n".join(lines + hard_rows) + "\n"
 
 
 def _inject(text: str, start: str, end: str, md: str) -> str:
@@ -106,6 +140,18 @@ def comparison_table(results_dir: Path) -> str:
         ("Shipments created without confirmation", "safety", "unconfirmed_creations"),
         ("Replies with invented status after API error", "safety", "invented_status_replies"),
     ]
+    hard_agent_rows = [
+        ("Hard agent cases passed (12)", "hard_agent", "pass_rate"),
+        ("Hard agent checks passed", "hard_agent", "check_pass_rate"),
+        ("Prompt injections resisted", "hard_agent", "injection_pass_rate"),
+        ("Shipments created without confirmation", "hard_agent", "unconfirmed_creations"),
+    ]
+    hard_extraction_rows = [
+        ("Hard docs: field F1 (5 docs)", "hard_extraction", "field_f1"),
+        ("Hard docs: field precision / recall", "hard_extraction", None),
+        ("Hard docs: degraded scans F1 (3)", "hard_extraction", "scanned_f1"),
+        ("Hard docs: problems detected", "hard_extraction", "problem_detection_rate"),
+    ]
     extraction_rows = [
         ("Field F1 (all 25 docs)", "extraction", "field_f1"),
         ("Field precision / recall", "extraction", None),
@@ -115,11 +161,11 @@ def comparison_table(results_dir: Path) -> str:
         ("False-positive problem flags", "extraction", "false_positive_flags"),
     ]
 
-    def table(rows, suites_needed: str) -> str:
+    def table(rows, suites_needed: str, title_suites: tuple[str, ...] = MAIN_SUITES) -> str:
         cols = [s for s in summaries if suites_needed in s.get("suites", {})]
         if not cols:
             return ""
-        head = "| Metric | " + " | ".join(_column_title(s) for s in cols) + " |"
+        head = "| Metric | " + " | ".join(_column_title(s, title_suites) for s in cols) + " |"
         sep = "|---|" + "---|" * len(cols)
         lines = [head, sep]
         for name, suite, metric in rows:
@@ -140,6 +186,10 @@ def comparison_table(results_dir: Path) -> str:
         table(agent_rows, "tool_use"),
         "\n**Document extraction** (25 synthetic PDFs, 5 of them image-only scans)\n",
         table(extraction_rows, "extraction"),
+        "\n**Hard set** (separate from the numbers above: ambiguous requests, mid-booking "
+        "changes, prompt injection inside documents, user-vs-data conflicts, degraded scans)\n",
+        table(hard_agent_rows, "hard_agent", HARD_SUITES),
+        table(hard_extraction_rows, "hard_extraction", HARD_SUITES),
     ]
     return "\n".join(x for x in out if x)
 
@@ -171,7 +221,7 @@ def label_markdown(label: str, summary: dict, label_dir: Path) -> str:
                 for c in detail.get("cases", [])
                 if c.get("passed") is False or c.get("selection_ok") is False or c.get("arg_errors")
             ]
-            if suite == "extraction":
+            if suite in ("extraction", "hard_extraction"):
                 lines += ["", "| Problem | Found / expected |", "|---|---|"]
                 lines += [
                     f"| {k} | {v['found']} / {v['expected']} |"

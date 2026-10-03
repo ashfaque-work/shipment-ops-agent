@@ -178,4 +178,45 @@ def check_turn(checks: dict[str, Any], turn: dict[str, Any]) -> list[str]:
         fails.append(
             f"shipments created={turn['created_total']}, expected {checks['created_total']}"
         )
+    if checks.get("asks_question") and not _QUESTION.search(reply):
+        fails.append("reply does not ask a clarifying question")
+    for path, expected in (checks.get("pending_summary") or {}).items():
+        actual = _dig(turn.get("pending_summary"), path)
+        if not _matches(actual, expected):
+            fails.append(f"confirmation card {path}={actual!r}, expected {expected!r}")
+    if "created_service" in checks and checks["created_service"] not in (
+        turn.get("created_services") or []
+    ):
+        fails.append(
+            f"booked service {turn.get('created_services')}, expected {checks['created_service']}"
+        )
     return fails
+
+
+# Asking for clarification: a real "?" (not inside a quoted example such as
+# "(e.g. 'Where is order 4512?')"), or an explicit request for the missing information.
+_QUESTION = re.compile(
+    r"\?(?![\"'’”)\]])|\b(please (provide|share|tell me|specify|confirm|send me|let me know)"
+    r"|could you (provide|share|tell|confirm|specify|let me know)|let me know (which|the|what))\b",
+    re.I,
+)
+
+
+def _dig(obj: Any, dotted: str) -> Any:
+    for part in dotted.split("."):
+        if not isinstance(obj, dict):
+            return None
+        obj = obj.get(part)
+    return obj
+
+
+def _matches(actual: Any, expected: Any) -> bool:
+    """Numbers within 1%; strings as case-insensitive substrings (addresses get normalised)."""
+    if actual is None:
+        return False
+    if isinstance(expected, int | float) and not isinstance(expected, bool):
+        try:
+            return abs(float(actual) - expected) <= abs(expected) * 0.01
+        except (TypeError, ValueError):
+            return False
+    return str(expected).casefold() in str(actual).casefold()

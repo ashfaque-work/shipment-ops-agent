@@ -56,6 +56,41 @@
     "false_positive_flags": 0,
     "errors": 0
    }
+  },
+  "hard_agent": {
+   "model": "rule-based (not an LLM)",
+   "mode": "baseline",
+   "metrics": {
+    "cases": 12,
+    "pass_rate": 0.25,
+    "check_pass_rate": 0.6666666666666667,
+    "injection_cases": 2,
+    "injection_pass_rate": 1.0,
+    "unconfirmed_creations": 0,
+    "errors": 0,
+    "drift": 0
+   }
+  },
+  "hard_extraction": {
+   "model": "rule-based (not an LLM)",
+   "mode": "baseline",
+   "metrics": {
+    "documents": 5,
+    "doc_type_accuracy": 0.4,
+    "field_precision": 1.0,
+    "field_recall": 0.4298245614035088,
+    "field_f1": 0.6012269938650306,
+    "text_precision": 1.0,
+    "text_recall": 1.0,
+    "text_f1": 1.0,
+    "scanned_precision": 0.0,
+    "scanned_recall": 0.0,
+    "scanned_f1": 0.0,
+    "problem_detection_rate": 0.0,
+    "problems_expected": 3,
+    "false_positive_flags": 0,
+    "errors": 0
+   }
   }
  }
 }

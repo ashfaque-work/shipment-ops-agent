@@ -1,0 +1,46 @@
+{
+  "document_id": "hard_lowres_p08_invoice",
+  "doc_type": "commercial_invoice",
+  "packet_id": "hard_p08_invoice",
+  "layout": "B",
+  "scanned": true,
+  "fields": {
+    "invoice_number": "RTH/2026/0156",
+    "invoice_date": "2026-09-07",
+    "shipper_name": "Rajputana Textile House",
+    "shipper_address": "8 Johari Bazaar, Jaipur 302003, Rajasthan, India",
+    "consignee_name": "Kilimani Decor Co.",
+    "consignee_address": "12 Ngong Road, Kilimani, Nairobi 00100, Kenya",
+    "consignee_phone": "+254 711 555 090",
+    "incoterm": "CFR",
+    "currency": "USD",
+    "total_value": 491.2,
+    "gross_weight_kg": 69.76,
+    "net_weight_kg": 63.2,
+    "num_packages": 5,
+    "line_items": [
+      {
+        "description": "Jute floor rugs 120x180cm",
+        "hs_code": "5702.39",
+        "quantity": 10.0,
+        "unit_price": 22.99,
+        "amount": 229.9
+      },
+      {
+        "description": "Brass table lamps",
+        "hs_code": "9405.21",
+        "quantity": 12.0,
+        "unit_price": 28.9,
+        "amount": 346.8
+      }
+    ]
+  },
+  "issues": [
+    {
+      "code": "total_mismatch",
+      "field": "total_value"
+    }
+  ],
+  "source": "p08_invoice",
+  "degradation": "~72 dpi fax-like scan: small render, blur, crushed JPEG, low contrast (barely\n    legible to a human - harder than that would make the ground truth unfair)."
+}
