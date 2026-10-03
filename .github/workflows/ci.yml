@@ -24,7 +24,7 @@ jobs:
           gitleaks git /repo --redact --verbose --no-banner"
       - uses: astral-sh/setup-uv@v6
       - name: Recorded LLM cassettes and results contain no credentials
-        run: uv run --no-project --with pydantic-settings python -m shipops.redact --check eval/cassettes eval/results
+        run: uv run --no-project --with pydantic-settings python -m shipops.redact --check eval/cassettes eval/results data/demo
 
   python:
     name: Lint and tests (Python)

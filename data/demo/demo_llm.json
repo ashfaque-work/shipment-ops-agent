@@ -1,0 +1,252 @@
+{
+ "meta": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite"
+ },
+ "responses": {
+  "c02d8413f82087f7": {
+   "message": {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+     {
+      "id": "call_1667947",
+      "type": "function",
+      "function": {
+       "name": "track_shipment",
+       "arguments": "{\"order_id\":\"4518\"}"
+      },
+      "extra_content": {
+       "google": {
+        "thought_signature": "EnMKcQFpFH0TDqtThDIDxHPy+MUgwuWocw9jzfbo7PfJ/hxCgM1x0Iu22R3UD4fOPM+YyM810NxETONjoPV3T1qypd46rY/gjnDbJw/qK5DipiMEq9nzTVZOFa5ZZ/TInuIKWxDviK/DJbibXX5O+i0Zss9Q"
+       }
+      }
+     }
+    ]
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 4104,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 1687,
+    "completion_tokens": 22
+   }
+  },
+  "76a034250d4f206b": {
+   "message": {
+    "role": "assistant",
+    "content": "Order 4518 is currently held by the Ghana Revenue Authority at Kotoka International Airport.\n\nThe shipment is stuck because the commercial invoice is missing the HS code for the second item, and the importer's Tax Identification Number (TIN) was not provided. You need to provide these documents within 5 days to avoid the shipment being returned."
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 3249,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 2160,
+    "completion_tokens": 72
+   }
+  },
+  "0673518352743e83": {
+   "message": {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+     {
+      "id": "call_1994657",
+      "type": "function",
+      "function": {
+       "name": "draft_customer_email",
+       "arguments": "{\"order_id\":\"4518\",\"tracking_number\":\"MC100004518\",\"email_type\":\"customs_hold\",\"note\":\"Please provide the missing HS code and your TIN so we can resolve this with customs.\"}"
+      },
+      "extra_content": {
+       "google": {
+        "thought_signature": "EnMKcQFpFH0TX84SNUVA/vfYo/bFgzl0s35CoteW5YGt7ZYS6Drhk8oX+6dqF04aEkiZC06xlPdbKHVS9OHj2MbIOMQsdog6f8tNXIuFH/89DFWvfwLEAj25pTPQTESrtu/JtJAajCvmCpCFGsWuvodpnEFF"
+       }
+      }
+     }
+    ]
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 6072,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 2244,
+    "completion_tokens": 73
+   }
+  },
+  "1802806c56d2e61b": {
+   "message": {
+    "role": "assistant",
+    "content": "Here is the draft email for your customer:\n\n**Subject:** Your order #4518 is being held at customs\n\n**Body:**\nHi Kwame,\n\nYour order #4518 has reached Accra, GH but is currently held by customs. Commercial invoice is missing the HS code for line 2 and the importer's TIN is not provided.\n\nWe are preparing the required documents with the carrier now and will update you as soon as it is released. If customs asks you directly for an importer ID/TIN, please reply to this email and we'll help.\n\nTracking number: MC100004518\n\nPlease provide the missing HS code and your TIN so we can resolve this with customs.\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 4350,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 2577,
+    "completion_tokens": 175
+   }
+  },
+  "bfa0342ac3d5de05": {
+   "message": {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+     {
+      "id": "call_2205091",
+      "type": "function",
+      "function": {
+       "name": "get_order",
+       "arguments": "{\"order_id\":\"4550\"}"
+      },
+      "extra_content": {
+       "google": {
+        "thought_signature": "EnMKcQFpFH0TwhuOyWh0Eq6cIi+XXaW/EhZhV3Y1jr0LlgtLg+hHJ41vmA4vCJFyzdHKbREzZOiCCGsELlDZcwXKenfM+spdDOeCfEvMZkmjjZAaC7IBcsMqSfnDNWpdduQlyKrj+dNKBtxEBvmifffNPlqF"
+       }
+      }
+     }
+    ]
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 2363,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 2778,
+    "completion_tokens": 21
+   }
+  },
+  "62c2d1534374f8c9": {
+   "message": {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+     {
+      "id": "call_1511249",
+      "type": "function",
+      "function": {
+       "name": "compare_rates",
+       "arguments": "{\"width_cm\":35,\"destination_city\":\"Nairobi\",\"length_cm\":45,\"destination_country\":\"KE\",\"height_cm\":20,\"weight_kg\":4.8,\"origin_country\":\"IN\",\"origin_city\":\"Kolkata\"}"
+      },
+      "extra_content": {
+       "google": {
+        "thought_signature": "EnMKcQFpFH0TCeUGLchdlUG9awP+ujdcScVbYMjP/O4uiHxUPGYtT3/WFHUsg61psLVADgurX8+1Yrt28FbAGabxdQwsQ4cymkBsLNmP+LxHPP47/BLnwXc5+S64+HLIGcryYtUp7isjaWJKyP2o6PDc0vVt"
+       }
+      }
+     }
+    ]
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 2759,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 3007,
+    "completion_tokens": 74
+   }
+  },
+  "61cd2a52d4f4b7bf": {
+   "message": {
+    "role": "assistant",
+    "content": "For order 4550 (4.8 kg) to Nairobi, here are your shipping options:\n\n*   **Mock Express Worldwide:** $240.96 (3\u20135 days, arrives by Oct 6)\n*   **Mock Standard International:** $147.39 (6\u20139 days, arrives by Oct 10)\n*   **Mock Economy Select:** $92.86 (10\u201315 days, arrives by Oct 16)\n\n**Recommendation:** I recommend **Mock Standard International**. It offers the best balance of price and speed, arriving by October 10th for $147.39. It is $54.53 more than the economy option but arrives up to 6 days sooner.\n\nWould you like me to book one of these for you?"
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 3653,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 3425,
+    "completion_tokens": 178
+   }
+  },
+  "ed12062f72f1d20b": {
+   "message": {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+     {
+      "id": "call_1615307",
+      "type": "function",
+      "function": {
+       "name": "create_shipment",
+       "arguments": "{\"order_id\":\"4550\",\"service_code\":\"STANDARD\"}"
+      },
+      "extra_content": {
+       "google": {
+        "thought_signature": "EnMKcQFpFH0TDZNegzzSpnWA+Cv5k87ez+wLSIhMI9Z/B2v3eadZHhSI3Np6cmiuAtP3u7fOZhyF0L7GGMd6shO/mP/Jchyuv4Asati+uP3UkoboxQPFmYUrSB9eI60/EWsZ3idkOXqOOVsXwUGTULT3kVce"
+       }
+      }
+     }
+    ]
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 2287,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 3610,
+    "completion_tokens": 30
+   }
+  },
+  "6a2b07666579999d": {
+   "message": {
+    "role": "assistant",
+    "content": "The shipment for order 4550 has been successfully booked using the Standard service.\n\n*   **Tracking Number:** MC202636735\n*   **Estimated Delivery:** October 10, 2026\n*   **Cost:** $147.39 USD\n\nYou can access the shipping label here: [Download Label](https://mock-carrier.example/labels/MC202636735.pdf)"
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 4909,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 3798,
+    "completion_tokens": 102
+   }
+  },
+  "95fe4af7b02988b2": {
+   "message": {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+     {
+      "id": "call_2088137",
+      "type": "function",
+      "function": {
+       "name": "analyze_documents",
+       "arguments": "{\"document_ids\":[\"doc_7f77aa7a23\",\"doc_5cfb9f84dc\"]}"
+      },
+      "extra_content": {
+       "google": {
+        "thought_signature": "EnMKcQFpFH0TrzZZXej0sjS5xaywwu3MCyFbeYkjm00BcMtbN36R3LRuaZN2j0sXV0T+aiCgXr01b4LHBPWCDSuwbMSBoGA1J9umrK9Qc6vqLl20rRjnKWq+wBGkZbGnAgfhZFk3XLBZbLe2fwYeCe4BiRWf"
+       }
+      }
+     }
+    ]
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 4989,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 3957,
+    "completion_tokens": 41
+   }
+  },
+  "f4c226b709ae0a30": {
+   "message": {
+    "role": "assistant",
+    "content": "I have analyzed the commercial invoice (doc_7f77aa7a23) and the bill of lading (doc_5cfb9f84dc). While the individual documents appear complete, there is a significant discrepancy between them that needs to be addressed before sending them to the forwarder:\n\n### **Cross-Document Issue**\n*   **Gross Weight Mismatch:** The gross weight on the commercial invoice is **60.68 kg**, while the bill of lading lists **73.32 kg**. This is a 21% difference. Customs authorities often flag shipments for inspection or re-weighing when these figures do not match, which could lead to delays.\n\n### **Document Summary**\n**Commercial Invoice (RTH/2026/0121)**\n*   **Shipper:** Rajputana Textile House\n*   **Consignee:** Lekki Home Stores Ltd\n*   **Total Value:** 774.56 USD\n*   **Items:** Jute floor rugs, Cane storage baskets, Silk stoles, Handloom cotton sarees (all with HS codes provided).\n\n**Bill of Lading (NSAAPP260339)**\n*   **Vessel/Voyage:** MV Tamarind Bay / 497W\n*   **Port of Loading:** Nhava Sheva, India\n*   **Port of Discharge:** Apapa, Lagos, Nigeria\n*   **Freight Terms:** COLLECT\n\nPlease reconcile the gross weight between these two documents before proceeding."
+   },
+   "provider": "gemini",
+   "model": "gemini-3.1-flash-lite",
+   "latency_ms": 3530,
+   "fallback_from": null,
+   "usage": {
+    "prompt_tokens": 4972,
+    "completion_tokens": 323
+   }
+  }
+ }
+}

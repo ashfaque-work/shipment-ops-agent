@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 README = Path(__file__).resolve().parents[1] / "README.md"
+APP_SUMMARY = Path(__file__).resolve().parents[1] / "frontend" / "public" / "eval-summary.json"
 START, END = "<!-- EVAL-RESULTS:START -->", "<!-- EVAL-RESULTS:END -->"
 SUMMARY_START, SUMMARY_END = "<!-- EVAL-SUMMARY:START -->", "<!-- EVAL-SUMMARY:END -->"
 
@@ -60,62 +61,104 @@ def _count(summary: dict, suite: str, rate_metric: str) -> str:
     return f"{round(rate * cases)}/{cases}"
 
 
-def summary_table(results_dir: Path) -> str:
-    """One row per model: the headline numbers for the top of the README."""
-    summaries = load_summaries(results_dir)
-    if not summaries:
-        return "_No eval results yet._\n"
-    lines = [
-        "| Model | Tool selection | Argument accuracy | Multi-turn scenarios | Safety checks "
-        "| Unconfirmed bookings | Extraction precision / recall |",
-        "|---|---|---|---|---|---|---|",
-    ]
+SUMMARY_COLUMNS = [
+    ("tool_selection", "Tool selection"),
+    ("argument_accuracy", "Argument accuracy"),
+    ("scenarios", "Multi-turn scenarios"),
+    ("safety", "Safety checks"),
+    ("unconfirmed", "Unconfirmed bookings"),
+    ("extraction", "Extraction precision / recall"),
+]
 
-    def inline(title: str) -> str:
-        return title.replace("<br><sub>", " <sub>(").replace("</sub>", ")</sub>")
 
-    def extraction_pr(s: dict, suite: str) -> str:
+def summary_rows(results_dir: Path) -> list[dict[str, Any]]:
+    """Headline numbers, one row per model (+ one per model for the hard set). Feeds both the
+    README table and the app's /evals page, so the two can never disagree."""
+
+    def extraction_pr(s: dict, suite: str) -> str | None:
         if suite not in s.get("suites", {}):
-            return "— <sub>(not run: extraction uses Gemini)</sub>"
+            return None
         return f"{pct(_get(s, suite, 'field_precision'))} / {pct(_get(s, suite, 'field_recall'))}"
 
-    hard_rows = []
-    for s in summaries:
+    def title_parts(s: dict, suites: tuple[str, ...]) -> tuple[str, str]:
+        title, sub = _column_title(s, suites).split("<br><sub>")
+        return title, sub.removesuffix("</sub>")
+
+    main, hard = [], []
+    for s in load_summaries(results_dir):
         suites = s.get("suites", {})
         if any(x in suites for x in MAIN_SUITES):
-            cells = [
-                inline(_column_title(s)),
-                _count(s, "tool_use", "tool_selection_accuracy"),
-                pct(_get(s, "tool_use", "argument_accuracy")),
-                _count(s, "scenarios", "pass_rate"),
-                _count(s, "safety", "pass_rate"),
-                pct(_get(s, "safety", "unconfirmed_creations")),
-                extraction_pr(s, "extraction"),
-            ]
-            lines.append("| " + " | ".join(cells) + " |")
+            title, sub = title_parts(s, MAIN_SUITES)
+            main.append(
+                {
+                    "model": title,
+                    "detail": sub,
+                    "hard_set": False,
+                    "tool_selection": _count(s, "tool_use", "tool_selection_accuracy"),
+                    "argument_accuracy": pct(_get(s, "tool_use", "argument_accuracy")),
+                    "scenarios": _count(s, "scenarios", "pass_rate"),
+                    "safety": _count(s, "safety", "pass_rate"),
+                    "unconfirmed": pct(_get(s, "safety", "unconfirmed_creations")),
+                    "extraction": extraction_pr(s, "extraction"),
+                }
+            )
         if any(x in suites for x in HARD_SUITES):
-            title = inline(_column_title(s, HARD_SUITES)).replace(" <sub>(", " — hard set <sub>(")
-            inj_rate, inj_n = (
-                _get(s, "hard_agent", "injection_pass_rate"),
-                _get(s, "hard_agent", "injection_cases"),
+            title, sub = title_parts(s, HARD_SUITES)
+            inj_rate = _get(s, "hard_agent", "injection_pass_rate")
+            inj_n = _get(s, "hard_agent", "injection_cases")
+            hard.append(
+                {
+                    "model": title,
+                    "detail": sub,
+                    "hard_set": True,
+                    "tool_selection": "—",
+                    "argument_accuracy": "—",
+                    "scenarios": _count(s, "hard_agent", "pass_rate"),
+                    "safety": f"{round(inj_rate * inj_n)}/{inj_n} injections" if inj_n else "—",
+                    "unconfirmed": pct(_get(s, "hard_agent", "unconfirmed_creations")),
+                    "extraction": extraction_pr(s, "hard_extraction"),
+                }
             )
-            injection = f"{round(inj_rate * inj_n)}/{inj_n} injections" if inj_n else "—"
-            hard_rows.append(
-                "| "
-                + " | ".join(
-                    [
-                        f"**{title}**",
-                        "—",
-                        "—",
-                        _count(s, "hard_agent", "pass_rate"),
-                        injection,
-                        pct(_get(s, "hard_agent", "unconfirmed_creations")),
-                        extraction_pr(s, "hard_extraction"),
-                    ]
-                )
-                + " |"
-            )
-    return "\n".join(lines + hard_rows) + "\n"
+    return main + hard
+
+
+def summary_table(results_dir: Path) -> str:
+    """One row per model: the headline numbers for the top of the README."""
+    rows = summary_rows(results_dir)
+    if not rows:
+        return "_No eval results yet._\n"
+    lines = [
+        "| Model | " + " | ".join(label for _, label in SUMMARY_COLUMNS) + " |",
+        "|---|" + "---|" * len(SUMMARY_COLUMNS),
+    ]
+    for r in rows:
+        name = f"{r['model']} — hard set" if r["hard_set"] else r["model"]
+        name = f"{name} <sub>({r['detail']})</sub>"
+        cells = [f"**{name}**" if r["hard_set"] else name]
+        for key, _ in SUMMARY_COLUMNS:
+            value = r[key]
+            if key == "extraction" and value is None:
+                value = "— <sub>(not run: extraction uses Gemini)</sub>"
+            cells.append(value)
+        lines.append("| " + " | ".join(cells) + " |")
+    return "\n".join(lines) + "\n"
+
+
+def write_summary_json(results_dir: Path, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    payload = {
+        "columns": [{"key": k, "label": label} for k, label in SUMMARY_COLUMNS],
+        "rows": summary_rows(results_dir),
+        "notes": [
+            "The carrier is a deterministic mock and all documents are synthetic, so results "
+            "are reproducible: model responses were recorded once and are replayed in CI.",
+            "The baseline is a rule-based policy, not an LLM. Hard-set rows are a separate, "
+            "harder set and are not directly comparable with the rows above them.",
+        ],
+    }
+    path.write_text(
+        json.dumps(payload, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n"
+    )
 
 
 def _inject(text: str, start: str, end: str, md: str) -> str:
@@ -205,6 +248,7 @@ def write_comparison(results_dir: Path) -> None:
         text = _inject(text, START, END, md)
         text = _inject(text, SUMMARY_START, SUMMARY_END, summary_table(results_dir))
         README.write_text(text, encoding="utf-8", newline="\n")
+    write_summary_json(results_dir, APP_SUMMARY)
 
 
 def label_markdown(label: str, summary: dict, label_dir: Path) -> str:

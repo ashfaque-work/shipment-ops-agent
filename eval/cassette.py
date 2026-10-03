@@ -12,25 +12,16 @@ it an error. Re-record with `--llm live --record` when it happens.
 
 from __future__ import annotations
 
-import hashlib
 import json
 from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
 from shipops.llm.base import LLM, LLMError, LLMResult, QuotaExhausted
+from shipops.llm.replay import request_hash  # shared with the app's demo replay
 from shipops.redact import scrub
 
 CASSETTE_DIR = Path(__file__).parent / "cassettes"
-
-
-def request_hash(messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> str:
-    def canonical(m: dict) -> dict:
-        # Round-trip through JSON so non-JSON values (e.g. dates) hash consistently.
-        return json.loads(json.dumps(m, sort_keys=True, default=str))
-
-    blob = json.dumps({"m": [canonical(m) for m in messages], "t": tools}, sort_keys=True)
-    return hashlib.sha256(blob.encode()).hexdigest()[:16]
 
 
 class CassetteMiss(LLMError):

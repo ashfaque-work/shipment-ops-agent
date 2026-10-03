@@ -32,3 +32,6 @@ Thumbs.db
 
 # Browser automation artefacts
 .playwright-mcp/
+
+# demo recorder scratch
+docs/demo/raw/

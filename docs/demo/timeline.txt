@@ -1,0 +1,8 @@
+0:00  Opening: empty dispatch desk
+0:05  1. Tracking: why is order 4518 stuck?
+0:16  2. Customer email draft
+0:28  3. Rate comparison
+0:41  4. Confirmation card -> Book
+0:58  5. Documents: weight mismatch
+1:09  6. Eval results
+1:19  End

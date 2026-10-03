@@ -109,3 +109,13 @@ test.describe("mobile width", () => {
     expect(docketOverflow).toBeLessThanOrEqual(0);
   });
 });
+
+test("eval results page shows the summary table", async ({ page }) => {
+  await page.getByRole("link", { name: "Eval results" }).click();
+  await expect(page.getByRole("heading", { name: "Original evaluation" })).toBeVisible();
+  const table = page.getByRole("region", { name: "Original evaluation" });
+  await expect(table.getByRole("rowheader", { name: /gemini-3\.1-flash-lite/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Hard set/ })).toBeVisible();
+  await page.getByRole("link", { name: "Back to the agent" }).click();
+  await expect(page.getByRole("heading", { name: "What needs shipping today?" })).toBeVisible();
+});

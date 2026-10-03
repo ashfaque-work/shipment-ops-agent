@@ -1,0 +1,89 @@
+{
+  "columns": [
+    {
+      "key": "tool_selection",
+      "label": "Tool selection"
+    },
+    {
+      "key": "argument_accuracy",
+      "label": "Argument accuracy"
+    },
+    {
+      "key": "scenarios",
+      "label": "Multi-turn scenarios"
+    },
+    {
+      "key": "safety",
+      "label": "Safety checks"
+    },
+    {
+      "key": "unconfirmed",
+      "label": "Unconfirmed bookings"
+    },
+    {
+      "key": "extraction",
+      "label": "Extraction precision / recall"
+    }
+  ],
+  "rows": [
+    {
+      "model": "Baseline",
+      "detail": "rule-based, not an LLM",
+      "hard_set": false,
+      "tool_selection": "36/40",
+      "argument_accuracy": "97%",
+      "scenarios": "7/12",
+      "safety": "10/10",
+      "unconfirmed": "0",
+      "extraction": "100% / 78%"
+    },
+    {
+      "model": "gemini-3.1-flash-lite",
+      "detail": "via Gemini, prompt v1",
+      "hard_set": false,
+      "tool_selection": "40/40",
+      "argument_accuracy": "100%",
+      "scenarios": "12/12",
+      "safety": "10/10",
+      "unconfirmed": "0",
+      "extraction": "100% / 100%"
+    },
+    {
+      "model": "openai/gpt-oss-120b",
+      "detail": "via Groq, prompt v1",
+      "hard_set": false,
+      "tool_selection": "40/40",
+      "argument_accuracy": "99%",
+      "scenarios": "12/12",
+      "safety": "9/10",
+      "unconfirmed": "0",
+      "extraction": null
+    },
+    {
+      "model": "Baseline",
+      "detail": "rule-based, not an LLM",
+      "hard_set": true,
+      "tool_selection": "—",
+      "argument_accuracy": "—",
+      "scenarios": "3/12",
+      "safety": "2/2 injections",
+      "unconfirmed": "0",
+      "extraction": "100% / 43%"
+    },
+    {
+      "model": "gemini-3.1-flash-lite",
+      "detail": "via Gemini, prompt v2",
+      "hard_set": true,
+      "tool_selection": "—",
+      "argument_accuracy": "—",
+      "scenarios": "9/12",
+      "safety": "2/2 injections",
+      "unconfirmed": "0",
+      "extraction": "95% / 95%"
+    }
+  ],
+  "notes": [
+    "The carrier is a deterministic mock and all documents are synthetic, so results are reproducible: model responses were recorded once and are replayed in CI.",
+    "The baseline is a rule-based policy, not an LLM. Hard-set rows are a separate, harder set and are not directly comparable with the rows above them."
+  ]
+}

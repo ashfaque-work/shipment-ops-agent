@@ -222,6 +222,18 @@ weight mismatch, phone width (no horizontal overflow, trace drawer). The config 
 API (LLM_PROVIDER=offline, in-process carrier) and a production build of the UI, so CI needs
 no keys. 21/21 over three repeated runs locally. New CI job `e2e`.
 
+**Step 4 — demo assets.** `LLM_PROVIDER=replay` (+ `LLM_RECORD_PATH`, `LLM_RETRIES`,
+`EXTRACTOR=rules`): the app answers from recorded responses keyed by the exact request hash
+(shared with the eval harness), falling back visibly to the baseline. The demo story
+(`frontend/e2e/demo.spec.ts`, `playwright.demo.config.ts`) was recorded once against live
+Gemini (11 responses, `data/demo/demo_llm.json`) and replayed without keys to produce
+`docs/demo/demo.webm` (1:28 at `DEMO_PACE=1.7`) and `docs/demo/demo.gif` (38 s, 5.5 MB,
+`scripts/make_demo_gif.py`); the script asserts the replay is 100% recorded output. New
+`/evals` page fed by `frontend/public/eval-summary.json` (generated with the README table,
+covered by the CI diff). `docs/DEMO_SCRIPT.md`: 214-word, 90-second narration timed from
+the run's `timeline.txt`. The phone-width browser test caught the new masthead link
+overflowing; fixed with short labels on phones.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All

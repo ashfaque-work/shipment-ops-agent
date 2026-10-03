@@ -6,6 +6,12 @@ confirmation**, checks shipping documents for problems, and drafts customer emai
 carrier tracking data. Its tools are served over MCP. Runs entirely on free tiers, and
 ships with an evaluation suite that replays recorded model behaviour in CI.
 
+![Demo: customs-hold tracking, a grounded delay email, rate comparison, the confirmation card, a document weight mismatch caught, and the eval table](docs/demo/demo.gif)
+
+<sub>38-second GIF of the [90-second demo video](docs/demo/demo.webm) ([narration
+script](docs/DEMO_SCRIPT.md)). It shows recorded Gemini responses replayed with no API key
+(the header says so). Regenerate it with one command, see the script.</sub>
+
 ## Results at a glance
 
 > **The carrier is mocked, on purpose.** Every tracking status, rate quote and booking
@@ -61,8 +67,6 @@ confirmation card (safe, but an extra step). The hard set also caught a **bug in
 `validate_address` tool**: given an order *and* a new address, it validated the old
 stored one. Fixed and re-recorded; only that case changed.
 
-![Demo](docs/demo.gif)
-<!-- TODO: record a 20-second GIF: track order 4518 -> draft email -> book order 4550 -> stamp -->
 
 ---
 

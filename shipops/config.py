@@ -13,7 +13,12 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
     # LLM
-    llm_provider: Literal["groq", "gemini", "offline"] = "groq"
+    # groq | gemini (live, fallback to the other on 429) | offline (rule-based, no key)
+    # | replay (answers from LLM_REPLAY_PATH, recorded with LLM_RECORD_PATH)
+    llm_provider: Literal["groq", "gemini", "offline", "replay"] = "groq"
+    llm_replay_path: str = ""
+    llm_record_path: str = ""  # with a live provider: record every response here
+    extractor: Literal["auto", "rules"] = "auto"  # rules = deterministic, no LLM calls
     groq_api_key: str = ""
     gemini_api_key: str = ""
     groq_model: str = "openai/gpt-oss-120b"
@@ -23,6 +28,9 @@ class Settings(BaseSettings):
     gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     llm_timeout_s: float = 60.0
     llm_max_rpm: int = Field(default=0, description="Client-side throttle; 0 = unlimited")
+    # Retries when every provider is rate-limited/overloaded (429/5xx). 0 = fail fast
+    # (interactive API); recordings use a few retries to ride out spikes.
+    llm_retries: int = 0
 
     # Carrier
     carrier: Literal["mock", "fedex"] = "mock"
@@ -37,7 +45,6 @@ class Settings(BaseSettings):
     trust_proxy: bool = False  # take client IP from X-Forwarded-For (behind Render etc.)
     max_upload_mb: float = 5.0
     cors_origins: str = "http://localhost:3000"
-    upload_dir: str = "uploads"
 
     @property
     def cors_origin_list(self) -> list[str]:

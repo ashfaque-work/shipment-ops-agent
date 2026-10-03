@@ -10,7 +10,8 @@ def get_extractor(settings: Settings | None = None) -> Extractor:
     """Gemini Flash for extraction (text + vision); Groq as text-only fallback on 429.
     Without keys (or LLM_PROVIDER=offline) the rule-based parser is used."""
     s = settings or get_settings()
-    if s.llm_provider == "offline" or not (s.gemini_api_key or s.groq_api_key):
+    no_live_llm = s.llm_provider in ("offline", "replay")
+    if s.extractor == "rules" or no_live_llm or not (s.gemini_api_key or s.groq_api_key):
         return Extractor("rules")
     from shipops.llm.base import RateLimiter
     from shipops.llm.openai_compat import OpenAICompatLLM, Provider

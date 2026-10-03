@@ -14,7 +14,7 @@ for dir in eval/cassettes/*/; do
   uv run python -m eval.run --llm replay --label "$label" --strict
 done
 
-if ! git diff --exit-code -- eval/results README.md; then
+if ! git diff --exit-code -- eval/results README.md frontend/public/eval-summary.json; then
   echo "Eval results differ from the committed ones. If the change is intended, re-record:"
   echo "  uv run python -m eval.run --llm live --provider <groq|gemini> --model <model>"
   exit 1

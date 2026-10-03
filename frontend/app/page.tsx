@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { Docket, type DocketState } from "@/components/Docket";
 import { DocumentsPanel } from "@/components/DocumentsPanel";
@@ -203,7 +204,9 @@ export default function Home() {
               <span className="status-text">
                 {health.llm_provider === "offline"
                   ? "Rule-based mode (no LLM)"
-                  : `Model: ${health.llm_provider}`}
+                  : health.llm_provider === "replay"
+                    ? "Replay of recorded model responses"
+                    : `Model: ${health.llm_provider}`}
                 {", "}carrier: {health.carrier}
                 {health.demo_mode ? ", demo" : ""}
               </span>
@@ -215,13 +218,19 @@ export default function Home() {
               API offline
             </span>
           )}
+          <Link className="btn quiet nav-link" href="/evals" aria-label="Eval results">
+            <span className="label-long">Eval results</span>
+            <span className="label-short">Evals</span>
+          </Link>
           <button
             type="button"
             className="btn quiet trace-toggle"
             aria-expanded={showTrace}
+            aria-label={showTrace ? "Back to chat" : "Trace & documents"}
             onClick={() => setShowTrace((v) => !v)}
           >
-            {showTrace ? "Back to chat" : "Trace & documents"}
+            <span className="label-long">{showTrace ? "Back to chat" : "Trace & documents"}</span>
+            <span className="label-short">{showTrace ? "Chat" : "Trace"}</span>
           </button>
         </div>
       </header>
