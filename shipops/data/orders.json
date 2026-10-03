@@ -1,0 +1,102 @@
+{
+  "business": {
+    "company": "Bengal Craft Exports Pvt Ltd",
+    "name": "Ritu Sen",
+    "street1": "22 Park Street",
+    "city": "Kolkata",
+    "postal_code": "700016",
+    "country": "IN",
+    "phone": "+91 33 5555 0101",
+    "email": "dispatch@bengalcraft.example"
+  },
+  "orders": [
+    {
+      "order_id": "4512", "status": "shipped", "tracking_number": "MC100004512",
+      "customer": {"name": "Adaeze Okafor", "email": "adaeze.okafor@example.com", "phone": "+234 803 555 0142"},
+      "destination": {"street1": "14 Admiralty Way, Lekki Phase 1", "city": "Lagos", "postal_code": "106104", "country": "NG"},
+      "items": ["Jute table runners x6", "Kantha throw x2"], "value": 310.0, "currency": "USD"
+    },
+    {
+      "order_id": "4513", "status": "shipped", "tracking_number": "MC100004513",
+      "customer": {"name": "Wanjiru Kamau", "email": "wanjiru.kamau@example.com", "phone": "+254 712 555 018"},
+      "destination": {"street1": "7 Riverside Drive, Westlands", "city": "Nairobi", "postal_code": "00100", "country": "KE"},
+      "items": ["Terracotta tea set x1"], "value": 85.0, "currency": "USD"
+    },
+    {
+      "order_id": "4518", "status": "shipped", "tracking_number": "MC100004518",
+      "customer": {"name": "Kwame Mensah", "email": "kwame.mensah@example.com", "phone": "+233 24 555 0190"},
+      "destination": {"street1": "21 Oxford Street, Osu", "city": "Accra", "postal_code": "GA-123-4567", "country": "GH"},
+      "items": ["Brass lamps x4", "Dokra figurines x10"], "value": 640.0, "currency": "USD"
+    },
+    {
+      "order_id": "4521", "status": "shipped", "tracking_number": "MC100004521",
+      "customer": {"name": "Thandiwe Nkosi", "email": "thandiwe.nkosi@example.com", "phone": "+27 82 555 0177"},
+      "destination": {"street1": "33 Jan Smuts Avenue, Rosebank", "city": "Johannesburg", "postal_code": "2196", "country": "ZA"},
+      "items": ["Silk stoles x15"], "value": 525.0, "currency": "USD"
+    },
+    {
+      "order_id": "4527", "status": "shipped", "tracking_number": "MC100004527",
+      "customer": {"name": "Chinedu Eze", "email": "chinedu.eze@example.com", "phone": "+234 806 555 0123"},
+      "destination": {"street1": "Allen Avenue, Ikeja", "city": "Lagos", "postal_code": "100271", "country": "NG"},
+      "items": ["Madhubani wall art x3"], "value": 190.0, "currency": "USD"
+    },
+    {
+      "order_id": "4530", "status": "shipped", "tracking_number": "MC100004530",
+      "customer": {"name": "Otieno Odhiambo", "email": "otieno.odhiambo@example.com", "phone": "+254 722 555 044"},
+      "destination": {"street1": "18 Moi Avenue", "city": "Nairobi", "postal_code": "00100", "country": "KE"},
+      "items": ["Jute rugs x4"], "value": 420.0, "currency": "USD"
+    },
+    {
+      "order_id": "4533", "status": "shipped", "tracking_number": "MC100004533",
+      "customer": {"name": "Akosua Boateng", "email": "akosua.boateng@example.com", "phone": "+233 20 555 0111"},
+      "destination": {"street1": "9 Ring Road East", "city": "Accra", "postal_code": "GA-456-7890", "country": "GH"},
+      "items": ["Handloom saree x2"], "value": 230.0, "currency": "USD"
+    },
+    {
+      "order_id": "4536", "status": "shipped", "tracking_number": "MC100004536",
+      "customer": {"name": "Sipho Dlamini", "email": "sipho.dlamini@example.com", "phone": "+27 83 555 0166"},
+      "destination": {"street1": "5 Oxford Road, Parktown", "city": "Johannesburg", "postal_code": "2193", "country": "ZA"},
+      "items": ["Cane baskets x12"], "value": 150.0, "currency": "USD"
+    },
+    {
+      "order_id": "4540", "status": "shipped", "tracking_number": "MC100000408",
+      "customer": {"name": "Funmilayo Adeyemi", "email": "funmi.adeyemi@example.com", "phone": "+234 809 555 0150"},
+      "destination": {"street1": "3 Awolowo Road, Ikoyi", "city": "Lagos", "postal_code": "106104", "country": "NG"},
+      "items": ["Block-print bedsheets x5"], "value": 275.0, "currency": "USD"
+    },
+    {
+      "order_id": "4541", "status": "shipped", "tracking_number": "MC100000503",
+      "customer": {"name": "Achieng Wafula", "email": "achieng.wafula@example.com", "phone": "+254 733 555 012"},
+      "destination": {"street1": "44 Kenyatta Avenue", "city": "Nairobi", "postal_code": "00100", "country": "KE"},
+      "items": ["Pattachitra scrolls x6"], "value": 360.0, "currency": "USD"
+    },
+    {
+      "order_id": "4550", "status": "ready_to_ship", "tracking_number": null,
+      "customer": {"name": "Njeri Mwangi", "email": "njeri.mwangi@example.com", "phone": "+254 711 555 090"},
+      "destination": {"street1": "12 Ngong Road, Kilimani", "city": "Nairobi", "postal_code": "00100", "country": "KE"},
+      "items": ["Kantha quilts x3"], "value": 360.0, "currency": "USD",
+      "package": {"weight_kg": 4.8, "length_cm": 45, "width_cm": 35, "height_cm": 20, "description": "Cotton kantha quilts"}
+    },
+    {
+      "order_id": "4551", "status": "ready_to_ship", "tracking_number": null,
+      "customer": {"name": "Tunde Bakare", "email": "tunde.bakare@example.com", "phone": "+234 802 555 0177"},
+      "destination": {"street1": "Opebi Road, Ikeja", "city": "Lagos", "postal_code": "100271", "country": "NG"},
+      "items": ["Brass candle stands x8"], "value": 280.0, "currency": "USD",
+      "package": {"weight_kg": 6.5, "length_cm": 40, "width_cm": 30, "height_cm": 30, "description": "Brass candle stands"}
+    },
+    {
+      "order_id": "4552", "status": "ready_to_ship", "tracking_number": null,
+      "customer": {"name": "Lerato Mokoena", "email": "lerato.mokoena@example.com", "phone": "+27 84 555 0133"},
+      "destination": {"street1": "101 Main Road, Bryanston", "city": "Johannesburg", "postal_code": "2191", "country": "ZA"},
+      "items": ["Jute floor rugs x20"], "value": 1450.0, "currency": "USD",
+      "package": {"weight_kg": 85, "length_cm": 120, "width_cm": 80, "height_cm": 60, "description": "Jute floor rugs (palletised)"}
+    },
+    {
+      "order_id": "4553", "status": "ready_to_ship", "tracking_number": null,
+      "customer": {"name": "Yaw Owusu", "email": "yaw.owusu@example.com", "phone": "+233 27 555 0145"},
+      "destination": {"street1": "15 Liberation Road, Airport Residential", "city": "Accra", "postal_code": "GA-145-0021", "country": "GH"},
+      "items": ["Terracotta planters x6"], "value": 195.0, "currency": "USD",
+      "package": {"weight_kg": 7.2, "length_cm": 50, "width_cm": 40, "height_cm": 30, "description": "Terracotta planters"}
+    }
+  ]
+}
