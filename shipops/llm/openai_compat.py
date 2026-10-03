@@ -71,6 +71,7 @@ class OpenAICompatLLM:
         limiter: RateLimiter | None = None,
         temperature: float = 0.0,
         clients: dict[str, Any] | None = None,
+        request_options: dict[str, Any] | None = None,
     ):
         if not providers:
             raise LLMError(
@@ -80,6 +81,7 @@ class OpenAICompatLLM:
         self.providers = providers
         self.limiter = limiter or RateLimiter(0)
         self.temperature = temperature
+        self.request_options = request_options or {}  # e.g. {"response_format": {...}}
         self._clients = clients or {
             p.name: OpenAI(api_key=p.api_key, base_url=p.base_url, timeout=timeout_s, max_retries=0)
             for p in providers
@@ -95,6 +97,7 @@ class OpenAICompatLLM:
                     "model": p.model,
                     "messages": messages,
                     "temperature": self.temperature,
+                    **self.request_options,
                 }
                 if tools:
                     kwargs["tools"] = tools

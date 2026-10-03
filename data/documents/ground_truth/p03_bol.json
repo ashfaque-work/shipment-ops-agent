@@ -1,0 +1,31 @@
+{
+  "document_id": "p03_bol",
+  "doc_type": "bill_of_lading",
+  "packet_id": "p03",
+  "layout": "B",
+  "scanned": false,
+  "fields": {
+    "bol_number": "NSAAPP260339",
+    "issue_date": "2026-08-19",
+    "shipper_name": "Rajputana Textile House",
+    "consignee_name": "Lekki Home Stores Ltd",
+    "consignee_address": "Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria",
+    "consignee_phone": "+234 803 555 0142",
+    "notify_party": "Same as consignee",
+    "vessel_voyage": "MV Tamarind Bay / 497W",
+    "port_of_loading": "Nhava Sheva, India",
+    "port_of_discharge": "Apapa, Lagos, Nigeria",
+    "container_number": "TCNU8811503",
+    "num_packages": 5,
+    "gross_weight_kg": 73.32,
+    "goods_description": "5 PACKAGES STC: JUTE FLOOR RUGS 120X180CM; CANE STORAGE BASKETS; SILK STOLES; HANDLOOM COTTON SAREES",
+    "invoice_reference": "RTH/2026/0121",
+    "freight_terms": "COLLECT"
+  },
+  "issues": [
+    {
+      "code": "weight_mismatch",
+      "field": "gross_weight_kg"
+    }
+  ]
+}

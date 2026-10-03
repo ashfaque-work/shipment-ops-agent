@@ -1,0 +1,26 @@
+{
+  "document_id": "p10_bol",
+  "doc_type": "bill_of_lading",
+  "packet_id": "p10",
+  "layout": "A",
+  "scanned": false,
+  "fields": {
+    "bol_number": "MAATEM261130",
+    "issue_date": "2026-09-14",
+    "shipper_name": "Deccan Leatherworks Pvt Ltd",
+    "consignee_name": "Osu Market Supplies",
+    "consignee_address": "21 Oxford Street, Osu, Accra GA-123-4567, Ghana",
+    "consignee_phone": "+233 24 555 0190",
+    "notify_party": "Same as consignee",
+    "vessel_voyage": "MV Sahel Voyager / 408W",
+    "port_of_loading": "Chennai Port, India",
+    "port_of_discharge": "Tema, Ghana",
+    "container_number": "TGHU8954941",
+    "num_packages": 5,
+    "gross_weight_kg": 64.57,
+    "goods_description": "5 PACKAGES STC: COTTON KANTHA QUILTS; JUTE FLOOR RUGS 120X180CM; TURMERIC POWDER (1 KG PACKS); BRASS TABLE LAMPS",
+    "invoice_reference": "DLW/2026/0170",
+    "freight_terms": "COLLECT"
+  },
+  "issues": []
+}

@@ -1,0 +1,48 @@
+{
+  "document_id": "p07_invoice",
+  "doc_type": "commercial_invoice",
+  "packet_id": "p07",
+  "layout": "A",
+  "scanned": false,
+  "fields": {
+    "invoice_number": "MST/2026/0149",
+    "invoice_date": "2026-09-03",
+    "shipper_name": "Malabar Spice Traders LLP",
+    "shipper_address": "41 Bazaar Road, Mattancherry, Kochi 682002, Kerala, India",
+    "consignee_name": "Osu Market Supplies",
+    "consignee_address": "21 Oxford Street, Osu, Accra GA-123-4567, Ghana",
+    "consignee_phone": null,
+    "incoterm": "EXW",
+    "currency": "USD",
+    "total_value": 1836.2,
+    "gross_weight_kg": 101.94,
+    "net_weight_kg": 93.0,
+    "num_packages": 8,
+    "line_items": [
+      {
+        "description": "Brass table lamps",
+        "hs_code": "9405.21",
+        "quantity": 40.0,
+        "unit_price": 33.2,
+        "amount": 1328.0
+      },
+      {
+        "description": "Leather handbags",
+        "hs_code": "4202.21",
+        "quantity": 10.0,
+        "unit_price": 50.82,
+        "amount": 508.2
+      }
+    ]
+  },
+  "issues": [
+    {
+      "code": "missing_consignee_phone",
+      "field": "consignee_phone"
+    },
+    {
+      "code": "weight_mismatch",
+      "field": "gross_weight_kg"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "document_id": "p09_invoice",
+  "doc_type": "commercial_invoice",
+  "packet_id": "p09",
+  "layout": "C",
+  "scanned": false,
+  "fields": {
+    "invoice_number": "GHT/2026/0163",
+    "invoice_date": "2026-09-10",
+    "shipper_name": "Gulf Horizon General Trading LLC",
+    "shipper_address": "Office 1204, Al Fahidi Tower, Bur Dubai, Dubai, UAE",
+    "consignee_name": "Lekki Home Stores Ltd",
+    "consignee_address": "Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria",
+    "consignee_phone": "+234 803 555 0142",
+    "incoterm": "FOB",
+    "currency": "USD",
+    "total_value": 9687.9,
+    "gross_weight_kg": 1564.26,
+    "net_weight_kg": 1447.0,
+    "num_packages": 121,
+    "line_items": [
+      {
+        "description": "Black pepper, whole (25 kg bags)",
+        "hs_code": "0904.11",
+        "quantity": 50.0,
+        "unit_price": 134.99,
+        "amount": 6749.5
+      },
+      {
+        "description": "Brass table lamps",
+        "hs_code": "9405.21",
+        "quantity": 40.0,
+        "unit_price": 31.98,
+        "amount": 1279.2
+      },
+      {
+        "description": "Handloom cotton sarees",
+        "hs_code": "5208.52",
+        "quantity": 40.0,
+        "unit_price": 25.0,
+        "amount": 1000.0
+      },
+      {
+        "description": "Cotton kantha quilts",
+        "hs_code": "6304.19",
+        "quantity": 40.0,
+        "unit_price": 16.48,
+        "amount": 659.2
+      }
+    ]
+  },
+  "issues": []
+}

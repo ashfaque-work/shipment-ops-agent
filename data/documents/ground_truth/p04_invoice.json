@@ -1,0 +1,46 @@
+{
+  "document_id": "p04_invoice",
+  "doc_type": "commercial_invoice",
+  "packet_id": "p04",
+  "layout": "A",
+  "scanned": false,
+  "fields": {
+    "invoice_number": "GHT/2026/0128",
+    "invoice_date": "2026-08-22",
+    "shipper_name": "Gulf Horizon General Trading LLC",
+    "shipper_address": "Office 1204, Al Fahidi Tower, Bur Dubai, Dubai, UAE",
+    "consignee_name": "Osu Market Supplies",
+    "consignee_address": "21 Oxford Street, Osu, Accra GA-123-4567, Ghana",
+    "consignee_phone": "+233 24 555 0190",
+    "incoterm": "FOB",
+    "currency": "USD",
+    "total_value": 2004.96,
+    "gross_weight_kg": 183.91,
+    "net_weight_kg": 168.9,
+    "num_packages": 14,
+    "line_items": [
+      {
+        "description": "Terracotta planters",
+        "hs_code": "6913.90",
+        "quantity": 6.0,
+        "unit_price": 9.91,
+        "amount": 59.46
+      },
+      {
+        "description": "Brass table lamps",
+        "hs_code": "9405.21",
+        "quantity": 50.0,
+        "unit_price": 35.8,
+        "amount": 1790.0
+      },
+      {
+        "description": "Turmeric powder (1 kg packs)",
+        "hs_code": "0910.30",
+        "quantity": 50.0,
+        "unit_price": 3.11,
+        "amount": 155.5
+      }
+    ]
+  },
+  "issues": []
+}

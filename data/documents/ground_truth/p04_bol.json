@@ -1,0 +1,31 @@
+{
+  "document_id": "p04_bol",
+  "doc_type": "bill_of_lading",
+  "packet_id": "p04",
+  "layout": "A",
+  "scanned": false,
+  "fields": {
+    "bol_number": "JEATEM260452",
+    "issue_date": "2026-08-24",
+    "shipper_name": "Gulf Horizon General Trading LLC",
+    "consignee_name": "Osu Market Supplies",
+    "consignee_address": "21 Oxford Street, Osu, Accra GA-123-4567, Ghana",
+    "consignee_phone": null,
+    "notify_party": "Same as consignee",
+    "vessel_voyage": "MV Sahel Voyager / 160W",
+    "port_of_loading": "Jebel Ali, UAE",
+    "port_of_discharge": "Tema, Ghana",
+    "container_number": "SEGU3767604",
+    "num_packages": 14,
+    "gross_weight_kg": 183.91,
+    "goods_description": "14 PACKAGES STC: TERRACOTTA PLANTERS; BRASS TABLE LAMPS; TURMERIC POWDER (1 KG PACKS)",
+    "invoice_reference": "GHT/2026/0128",
+    "freight_terms": "COLLECT"
+  },
+  "issues": [
+    {
+      "code": "missing_consignee_phone",
+      "field": "consignee_phone"
+    }
+  ]
+}

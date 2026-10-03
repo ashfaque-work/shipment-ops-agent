@@ -1,0 +1,26 @@
+{
+  "document_id": "p01_bol",
+  "doc_type": "bill_of_lading",
+  "packet_id": "p01",
+  "layout": "B",
+  "scanned": false,
+  "fields": {
+    "bol_number": "CCUTEM260113",
+    "issue_date": "2026-08-10",
+    "shipper_name": "Bengal Craft Exports Pvt Ltd",
+    "consignee_name": "Osu Market Supplies",
+    "consignee_address": "21 Oxford Street, Osu, Accra GA-123-4567, Ghana",
+    "consignee_phone": "+233 24 555 0190",
+    "notify_party": "Same as consignee",
+    "vessel_voyage": "MV Indus Star / 314E",
+    "port_of_loading": "Kolkata Port, India",
+    "port_of_discharge": "Tema, Ghana",
+    "container_number": "MSMU5037655",
+    "num_packages": 5,
+    "gross_weight_kg": 60.25,
+    "goods_description": "5 PACKAGES STC: WOODEN TOYS, HAND-PAINTED; COTTON KANTHA QUILTS; JUTE FLOOR RUGS 120X180CM",
+    "invoice_reference": "BCE/2026/0107",
+    "freight_terms": "PREPAID"
+  },
+  "issues": []
+}

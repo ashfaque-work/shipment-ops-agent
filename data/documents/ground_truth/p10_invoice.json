@@ -1,0 +1,58 @@
+{
+  "document_id": "p10_invoice",
+  "doc_type": "commercial_invoice",
+  "packet_id": "p10",
+  "layout": "A",
+  "scanned": false,
+  "fields": {
+    "invoice_number": "DLW/2026/0170",
+    "invoice_date": "2026-09-12",
+    "shipper_name": "Deccan Leatherworks Pvt Ltd",
+    "shipper_address": "17 Anna Salai, Chennai 600002, Tamil Nadu, India",
+    "consignee_name": "Osu Market Supplies",
+    "consignee_address": "21 Oxford Street, Osu, Accra GA-123-4567, Ghana",
+    "consignee_phone": "+233 24 555 0190",
+    "incoterm": null,
+    "currency": "USD",
+    "total_value": 590.14,
+    "gross_weight_kg": 64.57,
+    "net_weight_kg": 58.4,
+    "num_packages": 5,
+    "line_items": [
+      {
+        "description": "Cotton kantha quilts",
+        "hs_code": "6304.19",
+        "quantity": 6.0,
+        "unit_price": 20.47,
+        "amount": 122.82
+      },
+      {
+        "description": "Jute floor rugs 120x180cm",
+        "hs_code": "5702.39",
+        "quantity": 4.0,
+        "unit_price": 22.02,
+        "amount": 88.08
+      },
+      {
+        "description": "Turmeric powder (1 kg packs)",
+        "hs_code": "0910.30",
+        "quantity": 12.0,
+        "unit_price": 3.37,
+        "amount": 40.44
+      },
+      {
+        "description": "Brass table lamps",
+        "hs_code": "9405.21",
+        "quantity": 10.0,
+        "unit_price": 33.88,
+        "amount": 338.8
+      }
+    ]
+  },
+  "issues": [
+    {
+      "code": "missing_incoterm",
+      "field": "incoterm"
+    }
+  ]
+}

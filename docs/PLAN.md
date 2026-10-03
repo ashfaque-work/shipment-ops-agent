@@ -8,8 +8,8 @@ Living document: phases, status, and design decisions (with the reasoning behind
 |---|-------|--------|
 | 1 | Repo scaffold, mock carrier service with scenarios + tests | ✅ done |
 | 2 | Carrier adapter interface + LangGraph agent + confirmation flow + tests | ✅ done |
-| 3 | Synthetic document generator + extraction pipeline | ⏳ next |
-| 4 | Eval suite (offline first, then live) | ⬜ |
+| 3 | Synthetic document generator + extraction pipeline | ✅ done |
+| 4 | Eval suite (offline first, then live) | ⏳ next |
 | 5 | Next.js chat UI with tool-trace panel | ⬜ |
 | 6 | Demo mode, Docker, CI, docs | ⬜ |
 
@@ -57,6 +57,22 @@ Living document: phases, status, and design decisions (with the reasoning behind
   4552 is 85 kg for freight).
 - 93 tests passing, ruff clean. Smoke-tested both services under uvicorn with no API key.
 
+### Phase 3 — synthetic documents + extraction
+- `scripts/generate_documents.py` (seeded, deterministic): 12 invoice+BoL packets + 1
+  standalone invoice = **25 PDFs** in `data/documents/pdf/`, ground truth in
+  `data/documents/ground_truth/*.json`, summary in `manifest.json`. 3 invoice layouts
+  (different labels, ISO / `05 Sep 2026` / `dd/mm/yyyy` dates, side-by-side party block)
+  and 2 BoL layouts. **5 documents are rasterised scans** (skew + speckle, no text layer).
+- Deliberate problems: `missing_hs_code` ×3, `weight_mismatch` ×3 packets,
+  `missing_consignee_phone` ×3, `total_mismatch` ×2, `missing_incoterm` ×1.
+- `shipops/documents/`: pypdf text layer → rule-based parser (`rules.py`, offline
+  baseline) or Gemini Flash (`llm_extract.py`: text layer, or page images for scans,
+  JSON mode, Groq as text-only fallback on 429) → schema coercion → **deterministic
+  validator** (`validate.py`) → `DocumentStore` with content-addressed ids
+  (`doc_<sha256[:10]>`) and invoice↔BoL pairing via the BoL's invoice reference.
+- `POST /api/documents` (PDF only, size limit) and the agent's `analyze_documents` tool.
+- 119 tests passing, ruff clean.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All
@@ -89,6 +105,15 @@ Living document: phases, status, and design decisions (with the reasoning behind
   at user-turn boundaries; per-turn step limit of 8 LLM calls.
 - **RuleBasedLLM baseline** built early (planned for phase 4) so the full stack runs with
   no key; it is clearly labelled as *not an LLM* and is the baseline row in evals.
+- **Problems are detected by rules, not by the model.** The LLM only transcribes
+  (prompted to return null rather than guess); `validate.py` flags issues from the
+  extracted fields. Detection is auditable and a hallucinated HS code shows up in the eval
+  as a missed detection rather than being hidden.
+- **The rule-based parser was written against the generator's own templates**, so its
+  text-document score is an upper bound, not evidence of generalisation; it scores zero on
+  scans. The LLM path is zero-shot. The eval reports both, split by text vs scanned.
+- Scans are sent to Gemini as PNG page renders (pypdfium2) through the OpenAI-compatible
+  endpoint rather than as raw PDFs, so the same client code serves both providers.
 - Python 3.12 locally via `uv` to match CI (system Python is 3.14).
 
 ## Open questions / needs the owner

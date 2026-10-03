@@ -1,0 +1,62 @@
+{
+  "document_id": "p12_invoice",
+  "doc_type": "commercial_invoice",
+  "packet_id": "p12",
+  "layout": "C",
+  "scanned": true,
+  "fields": {
+    "invoice_number": "MST/2026/0184",
+    "invoice_date": "2026-09-22",
+    "shipper_name": "Malabar Spice Traders LLP",
+    "shipper_address": "41 Bazaar Road, Mattancherry, Kochi 682002, Kerala, India",
+    "consignee_name": "Lekki Home Stores Ltd",
+    "consignee_address": "Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria",
+    "consignee_phone": "+234 803 555 0142",
+    "incoterm": "CIF",
+    "currency": "USD",
+    "total_value": 716.6,
+    "gross_weight_kg": 53.88,
+    "net_weight_kg": 48.5,
+    "num_packages": 4,
+    "line_items": [
+      {
+        "description": "Handloom cotton sarees",
+        "hs_code": "5208.52",
+        "quantity": 6.0,
+        "unit_price": 29.0,
+        "amount": 174.0
+      },
+      {
+        "description": "Cotton kantha quilts",
+        "hs_code": "6304.19",
+        "quantity": 20.0,
+        "unit_price": 18.53,
+        "amount": 370.6
+      },
+      {
+        "description": "Turmeric powder (1 kg packs)",
+        "hs_code": null,
+        "quantity": 10.0,
+        "unit_price": 3.16,
+        "amount": 31.6
+      },
+      {
+        "description": "Silk stoles",
+        "hs_code": "6214.10",
+        "quantity": 12.0,
+        "unit_price": 21.7,
+        "amount": 260.4
+      }
+    ]
+  },
+  "issues": [
+    {
+      "code": "missing_hs_code",
+      "field": "line_items[2].hs_code"
+    },
+    {
+      "code": "total_mismatch",
+      "field": "total_value"
+    }
+  ]
+}

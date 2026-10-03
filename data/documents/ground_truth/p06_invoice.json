@@ -1,0 +1,58 @@
+{
+  "document_id": "p06_invoice",
+  "doc_type": "commercial_invoice",
+  "packet_id": "p06",
+  "layout": "C",
+  "scanned": true,
+  "fields": {
+    "invoice_number": "BCE/2026/0142",
+    "invoice_date": "2026-08-27",
+    "shipper_name": "Bengal Craft Exports Pvt Ltd",
+    "shipper_address": "22 Park Street, Kolkata 700016, West Bengal, India",
+    "consignee_name": "Lekki Home Stores Ltd",
+    "consignee_address": "Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria",
+    "consignee_phone": "+234 803 555 0142",
+    "incoterm": "CFR",
+    "currency": "USD",
+    "total_value": 1237.0,
+    "gross_weight_kg": 59.82,
+    "net_weight_kg": 54.0,
+    "num_packages": 4,
+    "line_items": [
+      {
+        "description": "Silk stoles",
+        "hs_code": "6214.10",
+        "quantity": 20.0,
+        "unit_price": 22.66,
+        "amount": 453.2
+      },
+      {
+        "description": "Wooden toys, hand-painted",
+        "hs_code": null,
+        "quantity": 24.0,
+        "unit_price": 5.43,
+        "amount": 130.32
+      },
+      {
+        "description": "Cane storage baskets",
+        "hs_code": "4602.12",
+        "quantity": 50.0,
+        "unit_price": 7.42,
+        "amount": 371.0
+      },
+      {
+        "description": "Leather handbags",
+        "hs_code": "4202.21",
+        "quantity": 6.0,
+        "unit_price": 47.08,
+        "amount": 282.48
+      }
+    ]
+  },
+  "issues": [
+    {
+      "code": "missing_hs_code",
+      "field": "line_items[1].hs_code"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "document_id": "p06_bol",
+  "doc_type": "bill_of_lading",
+  "packet_id": "p06",
+  "layout": "A",
+  "scanned": false,
+  "fields": {
+    "bol_number": "CCUAPP260678",
+    "issue_date": "2026-08-30",
+    "shipper_name": "Bengal Craft Exports Pvt Ltd",
+    "consignee_name": "Lekki Home Stores Ltd",
+    "consignee_address": "Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria",
+    "consignee_phone": "+234 803 555 0142",
+    "notify_party": "Same as consignee",
+    "vessel_voyage": "MV Coral Meridian / 166E",
+    "port_of_loading": "Kolkata Port, India",
+    "port_of_discharge": "Apapa, Lagos, Nigeria",
+    "container_number": "MSMU7675615",
+    "num_packages": 4,
+    "gross_weight_kg": 59.82,
+    "goods_description": "4 PACKAGES STC: SILK STOLES; WOODEN TOYS, HAND-PAINTED; CANE STORAGE BASKETS; LEATHER HANDBAGS",
+    "invoice_reference": "BCE/2026/0142",
+    "freight_terms": "PREPAID"
+  },
+  "issues": []
+}

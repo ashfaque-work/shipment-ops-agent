@@ -1,0 +1,31 @@
+{
+  "document_id": "p07_bol",
+  "doc_type": "bill_of_lading",
+  "packet_id": "p07",
+  "layout": "B",
+  "scanned": false,
+  "fields": {
+    "bol_number": "COKTEM260791",
+    "issue_date": "2026-09-05",
+    "shipper_name": "Malabar Spice Traders LLP",
+    "consignee_name": "Osu Market Supplies",
+    "consignee_address": "21 Oxford Street, Osu, Accra GA-123-4567, Ghana",
+    "consignee_phone": "+233 24 555 0190",
+    "notify_party": "Same as consignee",
+    "vessel_voyage": "MV Indus Star / 461W",
+    "port_of_loading": "Cochin Port, India",
+    "port_of_discharge": "Tema, Ghana",
+    "container_number": "CAIU7019181",
+    "num_packages": 8,
+    "gross_weight_kg": 122.83,
+    "goods_description": "8 PACKAGES STC: BRASS TABLE LAMPS; LEATHER HANDBAGS",
+    "invoice_reference": "MST/2026/0149",
+    "freight_terms": "COLLECT"
+  },
+  "issues": [
+    {
+      "code": "weight_mismatch",
+      "field": "gross_weight_kg"
+    }
+  ]
+}

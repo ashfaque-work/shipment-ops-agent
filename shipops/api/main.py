@@ -9,7 +9,7 @@ import logging
 import uuid
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
@@ -17,6 +17,8 @@ from shipops.agent.service import AgentService, TurnResult
 from shipops.agent.tools import ToolContext
 from shipops.carriers import get_carrier
 from shipops.config import Settings, get_settings
+from shipops.documents import DocumentStore, get_extractor
+from shipops.documents.pdf import PdfError
 from shipops.llm import LLMError, get_llm
 
 log = logging.getLogger(__name__)
@@ -33,8 +35,26 @@ class ConfirmRequest(BaseModel):
 
 
 def build_service(settings: Settings) -> AgentService:
-    ctx = ToolContext(carrier=get_carrier(settings))
+    ctx = ToolContext(
+        carrier=get_carrier(settings), documents=DocumentStore(get_extractor(settings))
+    )
     return AgentService(get_llm(settings), ctx)
+
+
+def public_record(rec: dict) -> dict:
+    return {
+        k: rec[k]
+        for k in (
+            "document_id",
+            "filename",
+            "doc_type",
+            "method",
+            "scanned",
+            "fields",
+            "issues",
+            "warnings",
+        )
+    }
 
 
 def create_app(settings: Settings | None = None, service: AgentService | None = None) -> FastAPI:
@@ -85,6 +105,21 @@ def create_app(settings: Settings | None = None, service: AgentService | None = 
     @app.post("/api/chat/confirm", response_model=TurnResult)
     def confirm(body: ConfirmRequest, request: Request) -> TurnResult:
         return svc(request).confirm(body.session_id, body.approved)
+
+    @app.post("/api/documents")
+    def upload_document(request: Request, file: UploadFile = File(...)) -> dict:
+        store = svc(request).ctx.documents
+        limit = int(settings.max_upload_mb * 1024 * 1024)
+        data = file.file.read(limit + 1)
+        if len(data) > limit:
+            raise HTTPException(413, f"File too large (max {settings.max_upload_mb:g} MB)")
+        if not data.startswith(b"%PDF"):
+            raise HTTPException(415, "Only PDF files are supported")
+        try:
+            rec = store.add(file.filename or "upload.pdf", data)
+        except PdfError as exc:
+            raise HTTPException(422, str(exc)) from exc
+        return public_record(rec)
 
     return app
 

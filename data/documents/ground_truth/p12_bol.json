@@ -1,0 +1,26 @@
+{
+  "document_id": "p12_bol",
+  "doc_type": "bill_of_lading",
+  "packet_id": "p12",
+  "layout": "A",
+  "scanned": false,
+  "fields": {
+    "bol_number": "COKAPP261356",
+    "issue_date": "2026-09-23",
+    "shipper_name": "Malabar Spice Traders LLP",
+    "consignee_name": "Lekki Home Stores Ltd",
+    "consignee_address": "Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria",
+    "consignee_phone": "+234 803 555 0142",
+    "notify_party": "Same as consignee",
+    "vessel_voyage": "MV Coral Meridian / 222W",
+    "port_of_loading": "Cochin Port, India",
+    "port_of_discharge": "Apapa, Lagos, Nigeria",
+    "container_number": "CAIU4804057",
+    "num_packages": 4,
+    "gross_weight_kg": 53.88,
+    "goods_description": "4 PACKAGES STC: HANDLOOM COTTON SAREES; COTTON KANTHA QUILTS; TURMERIC POWDER (1 KG PACKS); SILK STOLES",
+    "invoice_reference": "MST/2026/0184",
+    "freight_terms": "PREPAID"
+  },
+  "issues": []
+}

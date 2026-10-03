@@ -1,0 +1,58 @@
+{
+  "document_id": "p03_invoice",
+  "doc_type": "commercial_invoice",
+  "packet_id": "p03",
+  "layout": "C",
+  "scanned": false,
+  "fields": {
+    "invoice_number": "RTH/2026/0121",
+    "invoice_date": "2026-08-18",
+    "shipper_name": "Rajputana Textile House",
+    "shipper_address": "8 Johari Bazaar, Jaipur 302003, Rajasthan, India",
+    "consignee_name": "Lekki Home Stores Ltd",
+    "consignee_address": "Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria",
+    "consignee_phone": "+234 803 555 0142",
+    "incoterm": "EXW",
+    "currency": "USD",
+    "total_value": 774.56,
+    "gross_weight_kg": 60.68,
+    "net_weight_kg": 54.8,
+    "num_packages": 5,
+    "line_items": [
+      {
+        "description": "Jute floor rugs 120x180cm",
+        "hs_code": "5702.39",
+        "quantity": 10.0,
+        "unit_price": 22.22,
+        "amount": 222.2
+      },
+      {
+        "description": "Cane storage baskets",
+        "hs_code": "4602.12",
+        "quantity": 12.0,
+        "unit_price": 7.45,
+        "amount": 89.4
+      },
+      {
+        "description": "Silk stoles",
+        "hs_code": "6214.10",
+        "quantity": 6.0,
+        "unit_price": 21.86,
+        "amount": 131.16
+      },
+      {
+        "description": "Handloom cotton sarees",
+        "hs_code": "5208.52",
+        "quantity": 12.0,
+        "unit_price": 27.65,
+        "amount": 331.8
+      }
+    ]
+  },
+  "issues": [
+    {
+      "code": "weight_mismatch",
+      "field": "gross_weight_kg"
+    }
+  ]
+}
