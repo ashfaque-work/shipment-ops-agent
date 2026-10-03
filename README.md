@@ -225,6 +225,21 @@ Things to try in the UI: "Why is order 4518 stuck?" (customs hold), "Any news on
 refuse to guess), "Ship order 4551 via standard" (bad address blocks booking), and the
 sample document buttons.
 
+## Security
+
+- Secrets come only from environment variables / `.env` (gitignored, never committed;
+  `.env.example` has empty values).
+- Recorded LLM cassettes store a request hash and the parsed model reply only, never
+  HTTP headers, URLs or request bodies. On top of that, every cassette and result write is
+  passed through `shipops/redact.py`, which removes `Authorization` / API-key headers and
+  fields, `?key=`-style query parameters, Bearer tokens, known key formats (Groq, Google,
+  OpenAI, AWS) and the exact configured key values.
+- CI runs [gitleaks](https://github.com/gitleaks/gitleaks) over the full git history and
+  `python -m shipops.redact --check eval/cassettes eval/results` on every push. A
+  `.pre-commit-config.yaml` runs gitleaks locally before each commit.
+- `create_shipment` cannot run without explicit human approval (see above); demo mode adds
+  per-IP and daily request caps.
+
 ## Deploy (free)
 
 Render (two Docker web services from `render.yaml`) + Vercel for the frontend.

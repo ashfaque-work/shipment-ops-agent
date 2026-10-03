@@ -19,16 +19,17 @@ from pathlib import Path
 from typing import Any
 
 from shipops.llm.base import LLM, LLMError, LLMResult, QuotaExhausted
+from shipops.redact import scrub
 
 CASSETTE_DIR = Path(__file__).parent / "cassettes"
 
 
 def request_hash(messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> str:
-    def scrub(m: dict) -> dict:
-        # Image payloads are large; hash them separately to keep this cheap and stable.
+    def canonical(m: dict) -> dict:
+        # Round-trip through JSON so non-JSON values (e.g. dates) hash consistently.
         return json.loads(json.dumps(m, sort_keys=True, default=str))
 
-    blob = json.dumps({"m": [scrub(m) for m in messages], "t": tools}, sort_keys=True)
+    blob = json.dumps({"m": [canonical(m) for m in messages], "t": tools}, sort_keys=True)
     return hashlib.sha256(blob.encode()).hexdigest()[:16]
 
 
@@ -62,7 +63,10 @@ class Cassette:
             self.data["meta"] |= meta
         self.data["cases"] = dict(sorted(self.data["cases"].items()))
         self.path.parent.mkdir(parents=True, exist_ok=True)
-        self.path.write_text(json.dumps(self.data, indent=1) + "\n", encoding="utf-8", newline="\n")
+        # Cassettes are committed: never write a credential, whatever a provider echoed back.
+        self.path.write_text(
+            json.dumps(scrub(self.data), indent=1) + "\n", encoding="utf-8", newline="\n"
+        )
 
 
 class CaseLLM:

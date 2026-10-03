@@ -156,6 +156,16 @@ Living document: phases, status, and design decisions (with the reasoning behind
 - Docs: README case study (Mermaid diagrams verified to render), `docs/DEPLOY.md`
   (Render blueprint `render.yaml` + Vercel), `.env.example`.
 
+### Pre-push hardening (2026-10-03)
+**Step 1 — secrets.** gitleaks v8.30.1 (Docker) over all 8 commits and over a clean clone of
+the tracked files: no leaks. Positive control: the same scanner flags both keys in the
+local, gitignored `.env`, so the clean result is meaningful. Every blob in the object store
+(201) searched for the exact key values and `gsk_` / `AIza` / `Bearer` prefixes: 0 hits.
+`.env` never appears in history. Nothing to rotate. Added `shipops/redact.py` (scrubs
+cassettes and results on write; `--check` mode), re-scrubbed all 24 committed eval JSON
+files (0 changes needed), a `secrets` CI job (gitleaks over full history + redaction
+check) and a gitleaks pre-commit hook.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All

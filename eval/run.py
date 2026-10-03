@@ -35,6 +35,7 @@ from eval.cassette import CASSETTE_DIR, CaseLLM, Cassette, SuiteAborted  # noqa:
 from eval.suites import DOCS as DOCS_DIR  # noqa: E402
 from eval.suites import load as load_dataset  # noqa: E402
 from eval.suites import run_extraction, run_safety, run_scenarios, run_tool_use  # noqa: E402
+from shipops.redact import scrub  # noqa: E402
 
 RESULTS = Path(__file__).parent / "results"
 AGENT_SUITES = ("tool_use", "scenarios", "safety")
@@ -195,7 +196,7 @@ def _store(label: str, suite: str, res: dict[str, Any], model: str, mode: str) -
     out = RESULTS / label
     out.mkdir(parents=True, exist_ok=True)
     (out / f"{suite}.json").write_text(
-        json.dumps(res, indent=1, default=sorted) + "\n", encoding="utf-8", newline="\n"
+        json.dumps(scrub(res), indent=1, default=sorted) + "\n", encoding="utf-8", newline="\n"
     )
     summary_path = out / "summary.json"
     summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
