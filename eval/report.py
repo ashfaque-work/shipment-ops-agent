@@ -61,11 +61,7 @@ def comparison_table(results_dir: Path) -> str:
         cols = [s for s in summaries if suites_needed in s.get("suites", {})]
         if not cols:
             return ""
-        head = (
-            "| Metric | "
-            + " | ".join(_column_title(s) for s in cols)
-            + " |"
-        )
+        head = "| Metric | " + " | ".join(_column_title(s) for s in cols) + " |"
         sep = "|---|" + "---|" * len(cols)
         lines = [head, sep]
         for name, suite, metric in rows:
