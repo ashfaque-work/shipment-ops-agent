@@ -166,6 +166,19 @@ cassettes and results on write; `--check` mode), re-scrubbed all 24 committed ev
 files (0 changes needed), a `secrets` CI job (gitleaks over full history + redaction
 check) and a gitleaks pre-commit hook.
 
+**Step 2 — MCP.** `shipops/mcp_server.py` exposes `track_shipment`, `get_rates`,
+`create_shipment`, `validate_address`, `extract_shipping_document` (+ `get_order`,
+`draft_customer_email`) with the official MCP Python SDK **v2.3** (`MCPServer`; v1's
+`FastMCP` no longer exists). The agent consumes all tools through `McpGateway`, an
+in-process MCP client on a background event loop. Booking is gated twice: the LangGraph
+interrupt (human approves the preview) and MCP elicitation via a server-side *resolver*
+(v2 has no server-initiated requests on current connections, so `ctx.elicit()` fails;
+resolvers work on every transport). The gateway accepts elicitation only for the code the
+human approved; clients without elicitation cannot book; a forged `confirmation` argument
+is ignored (tested). Agent-facing tool schemas unchanged → all recorded evals replay
+through MCP with zero drift. Verified stdio (subprocess) and Streamable HTTP transports.
+Docs: `docs/MCP.md` (Claude Code / Desktop / Inspector / Python).
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All

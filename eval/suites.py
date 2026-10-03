@@ -37,7 +37,14 @@ def load(name: str) -> list[dict[str, Any]]:
 
 
 class Env:
-    """Fresh, isolated world per case: in-process mock carrier + document store."""
+    """Fresh, isolated world per case: in-process mock carrier + document store, with the
+    agent calling every tool through the MCP server (exactly like production)."""
+
+    def __enter__(self) -> Env:
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        self.service.close()
 
     def __init__(self, llm: CaseLLM, documents: list[str] | None = None):
         self.carrier = MockCarrierAdapter(client=TestClient(create_carrier()), backoff_s=0)
@@ -113,8 +120,8 @@ def run_tool_use(llm: CaseLLM) -> dict[str, Any]:
     for case in load("tool_use"):
 
         def go(case=case):
-            env = Env(llm)
-            return env.run_turn({"user": case["message"]})
+            with Env(llm) as env:
+                return env.run_turn({"user": case["message"]})
 
         r = _run_case(llm, case["id"], go)
         called = r.get("tools", [])
@@ -189,12 +196,12 @@ def run_tool_use(llm: CaseLLM) -> dict[str, Any]:
 
 def _run_conversation(llm: CaseLLM, case: dict[str, Any]) -> dict[str, Any]:
     def go():
-        env = Env(llm, case.get("setup", {}).get("documents"))
         turns = []
-        for turn in case["turns"]:
-            t = env.run_turn(turn)
-            t["failures"] = check_turn(turn.get("checks", {}), t)
-            turns.append(t)
+        with Env(llm, case.get("setup", {}).get("documents")) as env:
+            for turn in case["turns"]:
+                t = env.run_turn(turn)
+                t["failures"] = check_turn(turn.get("checks", {}), t)
+                turns.append(t)
         return {"turns": turns}
 
     r = _run_case(llm, case["id"], go)

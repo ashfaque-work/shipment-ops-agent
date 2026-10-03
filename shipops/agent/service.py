@@ -12,6 +12,7 @@ from langgraph.checkpoint.memory import InMemorySaver
 from langgraph.types import Command
 from pydantic import BaseModel, Field
 
+from shipops.agent.gateway import McpGateway
 from shipops.agent.graph import build_graph
 from shipops.agent.tools import ToolContext
 from shipops.llm.base import LLM
@@ -33,11 +34,32 @@ class TurnResult(BaseModel):
 
 
 class AgentService:
-    def __init__(self, llm: LLM, ctx: ToolContext, *, checkpointer=None, recursion_limit: int = 60):
+    def __init__(
+        self,
+        llm: LLM,
+        ctx: ToolContext,
+        *,
+        gateway: McpGateway | None = None,
+        checkpointer=None,
+        recursion_limit: int = 60,
+    ):
+        from shipops.mcp_server import build_server
+
         self.llm = llm
         self.ctx = ctx
-        self.graph = build_graph(llm, ctx, checkpointer or InMemorySaver())
+        # All tools run through the MCP server; in-process by default (shares ctx).
+        self.gateway = gateway or McpGateway(build_server(ctx))
+        self.graph = build_graph(llm, self.gateway, checkpointer or InMemorySaver())
         self.recursion_limit = recursion_limit
+
+    def close(self) -> None:
+        self.gateway.close()
+
+    def __enter__(self) -> AgentService:
+        return self
+
+    def __exit__(self, *exc: object) -> None:
+        self.close()
 
     def _config(self, session_id: str) -> dict:
         return {"configurable": {"thread_id": session_id}, "recursion_limit": self.recursion_limit}

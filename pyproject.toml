@@ -17,6 +17,7 @@ dependencies = [
 agent = [
     "openai>=1.40",
     "langgraph>=0.2.40",
+    "mcp>=2.3,<3",
 ]
 documents = [
     "reportlab>=4.2",

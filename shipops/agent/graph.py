@@ -4,10 +4,12 @@
                |                        |                                  (interrupt)
                +--(final answer)--> END +--------------------------------> agent
 
-* `tools` executes safe tools and runs a *preflight* for create_shipment (address
-  validation + price quote). It never creates anything.
-* `confirm` calls `interrupt()` with a deterministic summary built from the preflight,
-  NOT from model text. Only an explicit `{"approved": true}` resume creates the shipment.
+* Every tool runs through the MCP server (see gateway.py / shipops/mcp_server.py).
+* `tools` executes safe tools and, for create_shipment, only a *dry-run preview* (address
+  validation + price quote + confirmation code). It never creates anything.
+* `confirm` calls `interrupt()` with the deterministic preview summary, NOT model text.
+  Only an explicit `{"approved": true}` resume commits - and the MCP server additionally
+  elicits confirmation, which the gateway answers only for the approved code.
 """
 
 from __future__ import annotations
@@ -22,8 +24,8 @@ from langgraph.types import interrupt
 
 from shipops import clock
 from shipops.agent import tools as T
+from shipops.agent.gateway import McpGateway
 from shipops.agent.prompts import system_prompt
-from shipops.carriers.models import ShipmentRequest
 from shipops.llm.base import LLM, LLMError
 
 MAX_LLM_STEPS_PER_TURN = 8
@@ -57,7 +59,7 @@ def _tool_msg(call_id: str, payload: dict) -> dict[str, Any]:
     return {"role": "tool", "tool_call_id": call_id, "content": content}
 
 
-def build_graph(llm: LLM, ctx: T.ToolContext, checkpointer=None):
+def build_graph(llm: LLM, gateway: McpGateway, checkpointer=None):
     def agent(state: AgentState) -> dict:
         steps = state.get("steps", 0) + 1
         if steps > MAX_LLM_STEPS_PER_TURN:
@@ -107,7 +109,7 @@ def build_graph(llm: LLM, ctx: T.ToolContext, checkpointer=None):
             args = T.parse_args(tc["function"].get("arguments"))
             t0 = time.perf_counter()
             if name in T.GATED_TOOLS:
-                req = None
+                ready = False
                 if pending is not None:
                     result = T.error_result(
                         "one_at_a_time",
@@ -115,16 +117,18 @@ def build_graph(llm: LLM, ctx: T.ToolContext, checkpointer=None):
                         "Ask the user about the next one afterwards.",
                     )
                 else:
-                    req, result = T.preflight_shipment(args, ctx)
-                    if req is not None:
+                    preview = gateway.preview_shipment(args)
+                    ready = preview.get("status") == "confirmation_required"
+                    result = preview["summary"] if ready else preview
+                    if ready:
                         pending = {
                             "tool_call_id": tc["id"],
                             "args": args,
-                            "request": req.model_dump(mode="json"),
-                            "summary": result,
+                            "code": preview["confirmation_code"],
+                            "summary": preview["summary"],
                         }
                 ms = int((time.perf_counter() - t0) * 1000)
-                status = "awaiting_confirmation" if req is not None else "rejected"
+                status = "awaiting_confirmation" if ready else "rejected"
                 trace.append(
                     {
                         "type": "tool",
@@ -140,7 +144,7 @@ def build_graph(llm: LLM, ctx: T.ToolContext, checkpointer=None):
                 if status == "rejected":
                     out.append(_tool_msg(tc["id"], result))
                 continue
-            result = T.execute(name, args, ctx)
+            result = gateway.call(name, args)
             ms = int((time.perf_counter() - t0) * 1000)
             trace.append(
                 {
@@ -165,7 +169,7 @@ def build_graph(llm: LLM, ctx: T.ToolContext, checkpointer=None):
         approved = isinstance(decision, dict) and decision.get("approved") is True
         t0 = time.perf_counter()
         if approved:
-            result = T.commit_shipment(ShipmentRequest.model_validate(p["request"]), ctx)
+            result = gateway.commit_shipment(p["args"], p["code"])
         else:
             result = {
                 "ok": False,

@@ -70,7 +70,12 @@ def create_app(settings: Settings | None = None, service: AgentService | None = 
             except LLMError as exc:  # start anyway; /api/health reports the problem
                 log.error("Agent not available: %s", exc)
                 app.state.startup_error = str(exc)
+            built_here = True
+        else:
+            built_here = False
         yield
+        if built_here and app.state.service is not None:
+            app.state.service.close()  # stop the in-process MCP client
 
     app = FastAPI(title="Shipment Ops Agent API", version="0.1.0", lifespan=lifespan)
     app.state.service = service

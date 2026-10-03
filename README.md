@@ -51,17 +51,20 @@ flowchart LR
 
     subgraph lg [LangGraph agent]
         direction TB
-        agent[agent node<br/>LLM call] -->|tool calls| tools[tools node<br/>safe tools + preflight]
-        tools -->|create_shipment preflighted| confirm["confirm node<br/>interrupt()"]
+        agent[agent node<br/>LLM call] -->|tool calls| tools[tools node<br/>safe tools + booking preview]
+        tools -->|create_shipment previewed| confirm["confirm node<br/>interrupt()"]
         tools --> agent
         confirm -->|approved / declined| agent
     end
 
     agent -- OpenAI-compatible API --> llm{{"Groq / Gemini<br/>fallback on 429"}}
-    tools --> carrier[CarrierAdapter]
-    carrier --> mock[(Mock carrier service<br/>deterministic scenarios)]
+    tools -- MCP client --> mcp["MCP server<br/>track, get_rates, create_shipment,<br/>validate_address, extract_shipping_document"]
+    confirm -- MCP client --> mcp
+    ext([External MCP clients<br/>Claude Code, Inspector]) -. stdio / HTTP .-> mcp
+    mcp --> carrier[CarrierAdapter]
+    carrier --> mock[(Mock carrier<br/>deterministic scenarios)]
     carrier -.-> fedex[FedEx sandbox adapter<br/>documented stub]
-    tools --> docs[Document store]
+    mcp --> docs[Document store]
     docs --> extract["Extractor<br/>rules or Gemini (text / vision)"]
     docs --> validate[Rule-based validator<br/>+ invoice/BoL cross-check]
 ```
@@ -73,26 +76,37 @@ sequenceDiagram
     participant U as User
     participant A as Agent (LLM)
     participant G as Graph
+    participant M as MCP server
     participant C as Carrier
     U->>A: "Ship order 4550 with Standard"
     A->>G: create_shipment(order_id=4550, service=STANDARD)
-    G->>C: validate address, quote STANDARD (read-only)
-    G-->>U: confirmation docket (summary built from the preflight, not model text)
+    G->>M: create_shipment(dry_run=true)
+    M->>C: validate address, quote STANDARD (read-only)
+    M-->>G: summary + confirmation code
+    G-->>U: confirmation docket (built from the preview, not model text)
     Note over G: interrupt() - graph state saved, nothing booked
     U->>G: Book shipment (approved=true)
-    G->>C: POST /shipments (exact previewed request)
-    C-->>G: tracking number
+    G->>M: create_shipment
+    M-->>G: elicitation: "Book this shipment? code ..."
+    G-->>M: accept (only for the code the user approved)
+    M->>C: POST /shipments (exact previewed request)
+    C-->>M: tracking number
+    M-->>G: created=true
     G->>A: tool result created=true
     A-->>U: "Booked. Tracking MC2..."
 ```
 
 Key decisions (full log in [docs/PLAN.md](docs/PLAN.md)):
 
-- **The safety gate lives in the graph, not the prompt.** `create_shipment` is not in the
-  executable tool registry at all. The model can only *request* it; the graph runs a
-  read-only preflight and calls LangGraph `interrupt()`. Only a resume value of exactly
-  `{"approved": true}` (the button, or an unambiguous typed "yes") reaches the carrier.
-  Any other message cancels the pending booking. Prompt injection can't skip the step.
+- **The safety gate lives in the graph and the protocol, not the prompt.** The model can
+  only *request* `create_shipment`; the graph gets a read-only preview and calls LangGraph
+  `interrupt()`. Only a resume value of exactly `{"approved": true}` (the button, or an
+  unambiguous typed "yes") proceeds, and any other message cancels the pending booking.
+  The MCP server then asks for confirmation via elicitation, which the agent's MCP client
+  answers only for the code the user approved. Prompt injection can't skip either step.
+- **Tools are served over MCP.** The carrier and document tools are an MCP server (official
+  Python SDK). The agent consumes them through an MCP client, and Claude Code, Claude
+  Desktop or the MCP Inspector can connect to the same server: see [docs/MCP.md](docs/MCP.md).
 - **Deterministic world, recorded model.** The mock carrier runs on a fixed reference
   clock and creates shipments idempotently, so every tool output is byte-identical across
   runs. That makes it possible to record real LLM responses once and replay them in CI.
@@ -250,7 +264,8 @@ Step-by-step guide, environment variables and free-tier caveats: [docs/DEPLOY.md
 ```
 mock_carrier/        FastAPI mock carrier: tracking scenarios, rates, shipments, address validation
 shipops/
-  agent/             LangGraph graph, tools, prompts, email templates, AgentService
+  agent/             LangGraph graph, tools, MCP gateway (client), prompts, email templates
+  mcp_server.py      MCP server exposing the tools (stdio / Streamable HTTP)
   carriers/          CarrierAdapter interface, mock adapter, FedEx sandbox stub
   llm/               Groq/Gemini OpenAI-compatible client (fallback, throttling), baseline policy
   documents/         PDF text/scan handling, rule + LLM extractors, validator, document store
@@ -264,7 +279,7 @@ docs/                PLAN.md (phases and decisions), DEPLOY.md
 
 ## Stack
 
-Python 3.12, FastAPI, Pydantic v2, LangGraph, OpenAI-compatible client (Groq, Gemini),
+Python 3.12, FastAPI, Pydantic v2, LangGraph, MCP Python SDK v2, OpenAI-compatible client (Groq, Gemini),
 pypdf / pypdfium2 / reportlab, pytest, ruff · Next.js 16, React 19, TypeScript ·
 Docker, GitHub Actions, Render, Vercel.
 
