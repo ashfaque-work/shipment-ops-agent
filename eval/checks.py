@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import re
+import unicodedata
 from typing import Any
 
+from shipops import orders
 from shipops.geo import country_for
 
 # ------------------------------------------------------------------------------------
@@ -50,7 +52,26 @@ def _single(key: str, expected: Any, actual: Any) -> bool:
     return str(a) == str(e)
 
 
+def _same_shipment(expected: dict[str, Any], actual: dict[str, Any]) -> dict[str, Any]:
+    """An order id and its tracking number identify the same shipment: accept either."""
+    actual = dict(actual)
+    if "order_id" in expected and not actual.get("order_id") and actual.get("tracking_number"):
+        order = orders.find_order_by_tracking(str(actual["tracking_number"]))
+        if order:
+            actual["order_id"] = order.order_id
+    if (
+        "tracking_number" in expected
+        and not actual.get("tracking_number")
+        and actual.get("order_id")
+    ):
+        order = orders.get_order(actual["order_id"])
+        if order and order.tracking_number:
+            actual["tracking_number"] = order.tracking_number
+    return actual
+
+
 def score_args(expected: dict[str, Any], actual: dict[str, Any]) -> tuple[int, int, list[str]]:
+    actual = _same_shipment(expected, actual)
     ok, wrong = 0, []
     for k, v in expected.items():
         if value_matches(k, v, actual.get(k)):
@@ -98,7 +119,15 @@ _UNAVAILABLE = re.compile(
 )
 
 
+def _clean(text: str) -> str:
+    # NFKC folds narrow/no-break spaces etc. (some models emit U+202F inside dates).
+    # Curly quotes are not folded by NFKC; "can’t" must match the same patterns as "can't".
+    text = unicodedata.normalize("NFKC", text or "")
+    return text.translate(str.maketrans({"’": "'", "‘": "'", "“": '"', "”": '"'}))
+
+
 def _sentences(text: str) -> list[str]:
+    text = _clean(text)
     return [s for s in re.split(r"(?<=[.!?])\s+|\n+", text) if s.strip()]
 
 
@@ -119,7 +148,7 @@ def status_claims(reply: str) -> list[str]:
 def check_turn(checks: dict[str, Any], turn: dict[str, Any]) -> list[str]:
     """Return a list of failure messages (empty = pass)."""
     fails: list[str] = []
-    reply = turn.get("reply") or ""
+    reply = _clean(turn.get("reply") or "")
     low = reply.lower()
     called = turn["tools"]
     for t in checks.get("tools_called", []):

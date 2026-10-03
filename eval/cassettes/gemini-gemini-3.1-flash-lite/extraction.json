@@ -1,0 +1,559 @@
+{
+ "meta": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "recorded_at": "2026-10-03"
+ },
+ "cases": {
+  "p01_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "169502cca90d7fc7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"CCUTEM260113\",\n    \"issue_date\": \"2026-08-10\",\n    \"shipper_name\": \"Bengal Craft Exports Pvt Ltd\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": \"+233 24 555 0190\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Indus Star / 314E\",\n    \"port_of_loading\": \"Kolkata Port, India\",\n    \"port_of_discharge\": \"Tema, Ghana\",\n    \"container_number\": \"MSMU5037655\",\n    \"num_packages\": 5,\n    \"gross_weight_kg\": 60.25,\n    \"goods_description\": \"5 PACKAGES STC: WOODEN TOYS, HAND-PAINTED; COTTON KANTHA QUILTS; JUTE FLOOR RUGS 120X180CM\",\n    \"invoice_reference\": \"BCE/2026/0107\",\n    \"freight_terms\": \"PREPAID\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2800,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 778,
+       "completion_tokens": 342
+      }
+     }
+    }
+   ]
+  },
+  "p01_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "d932a50e5e2a1163",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"BCE/2026/0107\",\n    \"invoice_date\": \"2026-08-09\",\n    \"shipper_name\": \"Bengal Craft Exports Pvt Ltd\",\n    \"shipper_address\": \"22 Park Street, Kolkata 700016, West Bengal, India\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": \"+233 24 555 0190\",\n    \"incoterm\": \"DAP 2020\",\n    \"currency\": \"USD\",\n    \"total_value\": 378.70,\n    \"gross_weight_kg\": 60.25,\n    \"net_weight_kg\": 54.40,\n    \"num_packages\": 5,\n    \"line_items\": [\n      {\n        \"description\": \"Wooden toys, hand-painted\",\n        \"hs_code\": \"9503.00\",\n        \"quantity\": 6,\n        \"unit_price\": 5.95,\n        \"amount\": 35.70\n      },\n      {\n        \"description\": \"Cotton kantha quilts\",\n        \"hs_code\": \"6304.19\",\n        \"quantity\": 4,\n        \"unit_price\": 20.29,\n        \"amount\": 81.16\n      },\n      {\n        \"description\": \"Jute floor rugs 120x180cm\",\n        \"hs_code\": \"5702.39\",\n        \"quantity\": 12,\n        \"unit_price\": 21.82,\n        \"amount\": 261.84\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 3514,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 838,
+       "completion_tokens": 482
+      }
+     }
+    }
+   ]
+  },
+  "p02_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "c6eb8c78477db372",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"COKMBA260226\",\n    \"issue_date\": \"2026-08-14\",\n    \"shipper_name\": \"Malabar Spice Traders LLP\",\n    \"consignee_name\": \"Kilimani Decor Co.\",\n    \"consignee_address\": \"12 Ngong Road, Kilimani, Nairobi 00100, Kenya\",\n    \"consignee_phone\": \"+254 711 555 090\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Kalinga Trader / 385E\",\n    \"port_of_loading\": \"Cochin Port, India\",\n    \"port_of_discharge\": \"Mombasa, Kenya\",\n    \"container_number\": \"CAIU5858837\",\n    \"num_packages\": 14,\n    \"gross_weight_kg\": 189.42,\n    \"goods_description\": \"14 PACKAGES STC: COTTON KANTHA QUILTS; CANE STORAGE BASKETS; JUTE FLOOR RUGS 120X180CM\",\n    \"invoice_reference\": \"MST/2026/0114\",\n    \"freight_terms\": \"COLLECT\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1446,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 787,
+       "completion_tokens": 339
+      }
+     }
+    }
+   ]
+  },
+  "p02_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "de32e5a1b7770ec3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"MST/2026/0114\",\n    \"invoice_date\": \"2026-08-11\",\n    \"shipper_name\": \"Malabar Spice Traders LLP\",\n    \"shipper_address\": \"41 Bazaar Road, Mattancherry, Kochi 682002, Kerala, India\",\n    \"consignee_name\": \"Kilimani Decor Co.\",\n    \"consignee_address\": \"12 Ngong Road, Kilimani, Nairobi 00100, Kenya\",\n    \"consignee_phone\": \"+254 711 555 090\",\n    \"incoterm\": \"FOB\",\n    \"currency\": \"USD\",\n    \"total_value\": 1135.8,\n    \"gross_weight_kg\": 189.42,\n    \"net_weight_kg\": 174.0,\n    \"num_packages\": 14,\n    \"line_items\": [\n      {\n        \"description\": \"Cotton kantha quilts\",\n        \"hs_code\": null,\n        \"quantity\": 12,\n        \"unit_price\": 19.04,\n        \"amount\": 228.48\n      },\n      {\n        \"description\": \"Cane storage baskets\",\n        \"hs_code\": \"4602.12\",\n        \"quantity\": 4,\n        \"unit_price\": 7.83,\n        \"amount\": 31.32\n      },\n      {\n        \"description\": \"Jute floor rugs 120x180cm\",\n        \"hs_code\": \"5702.39\",\n        \"quantity\": 40,\n        \"unit_price\": 21.9,\n        \"amount\": 876.0\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2210,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 831,
+       "completion_tokens": 469
+      }
+     }
+    }
+   ]
+  },
+  "p03_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "921b032ef389cc36",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"NSAAPP260339\",\n    \"issue_date\": \"2026-08-19\",\n    \"shipper_name\": \"Rajputana Textile House\",\n    \"consignee_name\": \"Lekki Home Stores Ltd\",\n    \"consignee_address\": \"Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria\",\n    \"consignee_phone\": \"+234 803 555 0142\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Tamarind Bay / 497W\",\n    \"port_of_loading\": \"Nhava Sheva, India\",\n    \"port_of_discharge\": \"Apapa, Lagos, Nigeria\",\n    \"container_number\": \"TCNU8811503\",\n    \"num_packages\": 5,\n    \"gross_weight_kg\": 73.32,\n    \"goods_description\": \"5 PACKAGES STC: JUTE FLOOR RUGS 120X180CM; CANE STORAGE BASKETS; SILK STOLES; HANDLOOM COTTON SAREES\",\n    \"invoice_reference\": \"RTH/2026/0121\",\n    \"freight_terms\": \"COLLECT\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2481,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 793,
+       "completion_tokens": 353
+      }
+     }
+    }
+   ]
+  },
+  "p03_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "5a714287ad5eefcf",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"RTH/2026/0121\",\n    \"invoice_date\": \"2026-08-18\",\n    \"shipper_name\": \"Rajputana Textile House\",\n    \"shipper_address\": \"8 Johari Bazaar, Jaipur 302003, Rajasthan, India\",\n    \"consignee_name\": \"Lekki Home Stores Ltd\",\n    \"consignee_address\": \"Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria\",\n    \"consignee_phone\": \"+234 803 555 0142\",\n    \"incoterm\": \"EXW\",\n    \"currency\": \"USD\",\n    \"total_value\": 774.56,\n    \"gross_weight_kg\": 60.68,\n    \"net_weight_kg\": 54.8,\n    \"num_packages\": 5,\n    \"line_items\": [\n      {\n        \"description\": \"Jute floor rugs 120x180cm\",\n        \"hs_code\": \"5702.39\",\n        \"quantity\": 10,\n        \"unit_price\": 22.22,\n        \"amount\": 222.2\n      },\n      {\n        \"description\": \"Cane storage baskets\",\n        \"hs_code\": \"4602.12\",\n        \"quantity\": 12,\n        \"unit_price\": 7.45,\n        \"amount\": 89.4\n      },\n      {\n        \"description\": \"Silk stoles\",\n        \"hs_code\": \"6214.10\",\n        \"quantity\": 6,\n        \"unit_price\": 21.86,\n        \"amount\": 131.16\n      },\n      {\n        \"description\": \"Handloom cotton sarees\",\n        \"hs_code\": \"5208.52\",\n        \"quantity\": 12,\n        \"unit_price\": 27.65,\n        \"amount\": 331.8\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 3078,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 911,
+       "completion_tokens": 544
+      }
+     }
+    }
+   ]
+  },
+  "p04_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "9a31b713451f0484",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"JEATEM260452\",\n    \"issue_date\": \"2026-08-24\",\n    \"shipper_name\": \"Gulf Horizon General Trading LLC\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": null,\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Sahel Voyager / 160W\",\n    \"port_of_loading\": \"Jebel Ali, UAE\",\n    \"port_of_discharge\": \"Tema, Ghana\",\n    \"container_number\": \"SEGU3767604\",\n    \"num_packages\": 14,\n    \"gross_weight_kg\": 183.91,\n    \"goods_description\": \"14 PACKAGES STC: TERRACOTTA PLANTERS; BRASS TABLE LAMPS; TURMERIC POWDER (1 KG PACKS)\",\n    \"invoice_reference\": \"GHT/2026/0128\",\n    \"freight_terms\": \"COLLECT\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1443,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 765,
+       "completion_tokens": 318
+      }
+     }
+    }
+   ]
+  },
+  "p04_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "de26eaa1bf7f8585",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"GHT/2026/0128\",\n    \"invoice_date\": \"2026-08-22\",\n    \"shipper_name\": \"Gulf Horizon General Trading LLC\",\n    \"shipper_address\": \"Office 1204, Al Fahidi Tower, Bur Dubai, Dubai, UAE\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": \"+233 24 555 0190\",\n    \"incoterm\": \"FOB 2020\",\n    \"currency\": \"USD\",\n    \"total_value\": 2004.96,\n    \"gross_weight_kg\": 183.91,\n    \"net_weight_kg\": 168.9,\n    \"num_packages\": 14,\n    \"line_items\": [\n      {\n        \"description\": \"Terracotta planters\",\n        \"hs_code\": \"6913.90\",\n        \"quantity\": 6,\n        \"unit_price\": 9.91,\n        \"amount\": 59.46\n      },\n      {\n        \"description\": \"Brass table lamps\",\n        \"hs_code\": \"9405.21\",\n        \"quantity\": 50,\n        \"unit_price\": 35.8,\n        \"amount\": 1790.0\n      },\n      {\n        \"description\": \"Turmeric powder (1 kg packs)\",\n        \"hs_code\": \"0910.30\",\n        \"quantity\": 50,\n        \"unit_price\": 3.11,\n        \"amount\": 155.5\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2236,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 836,
+       "completion_tokens": 474
+      }
+     }
+    }
+   ]
+  },
+  "p05_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "6d1edb341e72fa0f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"MAAMBA260565\",\n    \"issue_date\": \"2026-08-26\",\n    \"shipper_name\": \"Deccan Leatherworks Pvt Ltd\",\n    \"consignee_name\": \"Kilimani Decor Co.\",\n    \"consignee_address\": \"12 Ngong Road, Kilimani, Nairobi 00100, Kenya\",\n    \"consignee_phone\": \"+254 711 555 090\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Monsoon Pearl / 238W\",\n    \"port_of_loading\": \"Chennai Port, India\",\n    \"port_of_discharge\": \"Mombasa, Kenya\",\n    \"container_number\": \"TGHU2090518\",\n    \"num_packages\": 40,\n    \"gross_weight_kg\": 517.74,\n    \"goods_description\": \"40 PACKAGES STC: GREEN CARDAMOM (10 KG CARTONS); COTTON KANTHA QUILTS; JUTE FLOOR RUGS 120X180CM\",\n    \"invoice_reference\": \"DLW/2026/0135\",\n    \"freight_terms\": \"COLLECT\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1694,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 781,
+       "completion_tokens": 343
+      }
+     }
+    }
+   ]
+  },
+  "p05_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "968e83a02bbc9138",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"DLW/2026/0135\",\n    \"invoice_date\": \"2026-08-25\",\n    \"shipper_name\": \"Deccan Leatherworks Pvt Ltd\",\n    \"shipper_address\": \"17 Anna Salai, Chennai 600002, Tamil Nadu, India\",\n    \"consignee_name\": \"Kilimani Decor Co.\",\n    \"consignee_address\": \"12 Ngong Road, Kilimani, Nairobi 00100, Kenya\",\n    \"consignee_phone\": \"+254 711 555 090\",\n    \"incoterm\": \"FOB\",\n    \"currency\": \"USD\",\n    \"total_value\": 8882.02,\n    \"gross_weight_kg\": 517.74,\n    \"net_weight_kg\": 478.00,\n    \"num_packages\": 40,\n    \"line_items\": [\n      {\n        \"description\": \"Green cardamom (10 kg cartons)\",\n        \"hs_code\": \"0908.31\",\n        \"quantity\": 24,\n        \"unit_price\": 305.36,\n        \"amount\": 7328.64\n      },\n      {\n        \"description\": \"Cotton kantha quilts\",\n        \"hs_code\": \"6304.19\",\n        \"quantity\": 24,\n        \"unit_price\": 18.87,\n        \"amount\": 452.88\n      },\n      {\n        \"description\": \"Jute floor rugs 120x180cm\",\n        \"hs_code\": \"5702.39\",\n        \"quantity\": 50,\n        \"unit_price\": 22.01,\n        \"amount\": 1100.50\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 7509,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1610,
+       "completion_tokens": 490
+      }
+     }
+    }
+   ]
+  },
+  "p06_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "8ca75c1bbf1ef379",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"CCUAPP260678\",\n    \"issue_date\": \"2026-08-30\",\n    \"shipper_name\": \"Bengal Craft Exports Pvt Ltd\",\n    \"consignee_name\": \"Lekki Home Stores Ltd\",\n    \"consignee_address\": \"Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria\",\n    \"consignee_phone\": \"+234 803 555 0142\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Coral Meridian / 166E\",\n    \"port_of_loading\": \"Kolkata Port, India\",\n    \"port_of_discharge\": \"Apapa, Lagos, Nigeria\",\n    \"container_number\": \"MSMU7675615\",\n    \"num_packages\": 4,\n    \"gross_weight_kg\": 59.82,\n    \"goods_description\": \"4 PACKAGES STC: SILK STOLES; WOODEN TOYS, HAND-PAINTED; CANE STORAGE BASKETS; LEATHER HANDBAGS\",\n    \"invoice_reference\": \"BCE/2026/0142\",\n    \"freight_terms\": \"PREPAID\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2317,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 795,
+       "completion_tokens": 346
+      }
+     }
+    }
+   ]
+  },
+  "p06_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4b7654c27e474cad",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"BCE/2026/0142\",\n    \"invoice_date\": \"2026-08-27\",\n    \"shipper_name\": \"Bengal Craft Exports Pvt Ltd\",\n    \"shipper_address\": \"22 Park Street, Kolkata 700016, West Bengal, India\",\n    \"consignee_name\": \"Lekki Home Stores Ltd\",\n    \"consignee_address\": \"Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria\",\n    \"consignee_phone\": \"+234 803 555 0142\",\n    \"incoterm\": \"CFR\",\n    \"currency\": \"USD\",\n    \"total_value\": 1237.0,\n    \"gross_weight_kg\": 59.82,\n    \"net_weight_kg\": 54.0,\n    \"num_packages\": 4,\n    \"line_items\": [\n      {\n        \"description\": \"Silk stoles\",\n        \"hs_code\": \"6214.10\",\n        \"quantity\": 20,\n        \"unit_price\": 22.66,\n        \"amount\": 453.2\n      },\n      {\n        \"description\": \"Wooden toys, hand-painted\",\n        \"hs_code\": null,\n        \"quantity\": 24,\n        \"unit_price\": 5.43,\n        \"amount\": 130.32\n      },\n      {\n        \"description\": \"Cane storage baskets\",\n        \"hs_code\": \"4602.12\",\n        \"quantity\": 50,\n        \"unit_price\": 7.42,\n        \"amount\": 371.0\n      },\n      {\n        \"description\": \"Leather handbags\",\n        \"hs_code\": \"4202.21\",\n        \"quantity\": 6,\n        \"unit_price\": 47.08,\n        \"amount\": 282.48\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 6298,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1610,
+       "completion_tokens": 530
+      }
+     }
+    }
+   ]
+  },
+  "p07_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "cde751327ebc9bf5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"COKTEM260791\",\n    \"issue_date\": \"2026-09-05\",\n    \"shipper_name\": \"Malabar Spice Traders LLP\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": \"+233 24 555 0190\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Indus Star / 461W\",\n    \"port_of_loading\": \"Cochin Port, India\",\n    \"port_of_discharge\": \"Tema, Ghana\",\n    \"container_number\": \"CAIU7019181\",\n    \"num_packages\": 8,\n    \"gross_weight_kg\": 122.83,\n    \"goods_description\": \"8 PACKAGES STC: BRASS TABLE LAMPS; LEATHER HANDBAGS\",\n    \"invoice_reference\": \"MST/2026/0149\",\n    \"freight_terms\": \"COLLECT\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1625,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 755,
+       "completion_tokens": 319
+      }
+     }
+    }
+   ]
+  },
+  "p07_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "c773243e51d50c57",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"MST/2026/0149\",\n    \"invoice_date\": \"2026-09-03\",\n    \"shipper_name\": \"Malabar Spice Traders LLP\",\n    \"shipper_address\": \"41 Bazaar Road, Mattancherry, Kochi 682002, Kerala, India\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": null,\n    \"incoterm\": \"EXW 2020\",\n    \"currency\": \"USD\",\n    \"total_value\": 1836.20,\n    \"gross_weight_kg\": 101.94,\n    \"net_weight_kg\": 93.00,\n    \"num_packages\": 8,\n    \"line_items\": [\n      {\n        \"description\": \"Brass table lamps\",\n        \"hs_code\": \"9405.21\",\n        \"quantity\": 40,\n        \"unit_price\": 33.20,\n        \"amount\": 1328.00\n      },\n      {\n        \"description\": \"Leather handbags\",\n        \"hs_code\": \"4202.21\",\n        \"quantity\": 10,\n        \"unit_price\": 50.82,\n        \"amount\": 508.20\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2452,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 786,
+       "completion_tokens": 395
+      }
+     }
+    }
+   ]
+  },
+  "p08_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "85266de81b0a5b49",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"NSAMBA260904\",\n    \"issue_date\": \"2026-09-08\",\n    \"shipper_name\": \"Rajputana Textile House\",\n    \"consignee_name\": \"Kilimani Decor Co.\",\n    \"consignee_address\": \"12 Ngong Road, Kilimani, Nairobi 00100, Kenya\",\n    \"consignee_phone\": \"+254 711 555 090\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Kalinga Trader / 102E\",\n    \"port_of_loading\": \"Nhava Sheva, India\",\n    \"port_of_discharge\": \"Mombasa, Kenya\",\n    \"container_number\": \"TCNU8028755\",\n    \"num_packages\": 5,\n    \"gross_weight_kg\": 69.76,\n    \"goods_description\": \"5 PACKAGES STC: JUTE FLOOR RUGS 120X180CM; BRASS TABLE LAMPS\",\n    \"invoice_reference\": \"RTH/2026/0156\",\n    \"freight_terms\": \"PREPAID\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1698,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 780,
+       "completion_tokens": 329
+      }
+     }
+    }
+   ]
+  },
+  "p08_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "0ec751fc5303f702",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"RTH/2026/0156\",\n    \"invoice_date\": \"2026-09-07\",\n    \"shipper_name\": \"Rajputana Textile House\",\n    \"shipper_address\": \"8 Johari Bazaar, Jaipur 302003, Rajasthan, India\",\n    \"consignee_name\": \"Kilimani Decor Co.\",\n    \"consignee_address\": \"12 Ngong Road, Kilimani, Nairobi 00100, Kenya\",\n    \"consignee_phone\": \"+254 711 555 090\",\n    \"incoterm\": \"CFR\",\n    \"currency\": \"USD\",\n    \"total_value\": 491.20,\n    \"gross_weight_kg\": 69.76,\n    \"net_weight_kg\": 63.20,\n    \"num_packages\": 5,\n    \"line_items\": [\n      {\n        \"description\": \"Jute floor rugs 120x180cm\",\n        \"hs_code\": \"5702.39\",\n        \"quantity\": 10,\n        \"unit_price\": 22.99,\n        \"amount\": 229.90\n      },\n      {\n        \"description\": \"Brass table lamps\",\n        \"hs_code\": \"9405.21\",\n        \"quantity\": 12,\n        \"unit_price\": 28.90,\n        \"amount\": 346.80\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2021,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 803,
+       "completion_tokens": 407
+      }
+     }
+    }
+   ]
+  },
+  "p09_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ad83397bb256d07f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"JEAAPP261017\",\n    \"issue_date\": \"2026-09-13\",\n    \"shipper_name\": \"Gulf Horizon General Trading LLC\",\n    \"consignee_name\": \"Lekki Home Stores Ltd\",\n    \"consignee_address\": \"Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria\",\n    \"consignee_phone\": \"+234 803 555 0142\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Tamarind Bay / 206W\",\n    \"port_of_loading\": \"Jebel Ali, UAE\",\n    \"port_of_discharge\": \"Apapa, Lagos, Nigeria\",\n    \"container_number\": \"SEGU3722995\",\n    \"num_packages\": 121,\n    \"gross_weight_kg\": 1564.26,\n    \"goods_description\": \"121 PACKAGES STC: BLACK PEPPER, WHOLE (25 KG BAGS); BRASS TABLE LAMPS; HANDLOOM COTTON SAREES N KANTHA QUILTS\",\n    \"invoice_reference\": \"GHT/2026/0163\",\n    \"freight_terms\": \"COLLECT\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2743,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1610,
+       "completion_tokens": 356
+      }
+     }
+    }
+   ]
+  },
+  "p09_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "b625ec018e2c30a5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"GHT/2026/0163\",\n    \"invoice_date\": \"2026-09-10\",\n    \"shipper_name\": \"Gulf Horizon General Trading LLC\",\n    \"shipper_address\": \"Office 1204, Al Fahidi Tower, Bur Dubai, Dubai, UAE\",\n    \"consignee_name\": \"Lekki Home Stores Ltd\",\n    \"consignee_address\": \"Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria\",\n    \"consignee_phone\": \"+234 803 555 0142\",\n    \"incoterm\": \"FOB\",\n    \"currency\": \"USD\",\n    \"total_value\": 9687.9,\n    \"gross_weight_kg\": 1564.26,\n    \"net_weight_kg\": 1447.0,\n    \"num_packages\": 121,\n    \"line_items\": [\n      {\n        \"description\": \"Black pepper, whole (25 kg bags)\",\n        \"hs_code\": \"0904.11\",\n        \"quantity\": 50,\n        \"unit_price\": 134.99,\n        \"amount\": 6749.5\n      },\n      {\n        \"description\": \"Brass table lamps\",\n        \"hs_code\": \"9405.21\",\n        \"quantity\": 40,\n        \"unit_price\": 31.98,\n        \"amount\": 1279.2\n      },\n      {\n        \"description\": \"Handloom cotton sarees\",\n        \"hs_code\": \"5208.52\",\n        \"quantity\": 40,\n        \"unit_price\": 25.0,\n        \"amount\": 1000.0\n      },\n      {\n        \"description\": \"Cotton kantha quilts\",\n        \"hs_code\": \"6304.19\",\n        \"quantity\": 40,\n        \"unit_price\": 16.48,\n        \"amount\": 659.2\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2226,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 930,
+       "completion_tokens": 552
+      }
+     }
+    }
+   ]
+  },
+  "p10_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ffdc7b1a1ced5c1b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"MAATEM261130\",\n    \"issue_date\": \"2026-09-14\",\n    \"shipper_name\": \"Deccan Leatherworks Pvt Ltd\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": \"+233 24 555 0190\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Sahel Voyager / 408W\",\n    \"port_of_loading\": \"Chennai Port, India\",\n    \"port_of_discharge\": \"Tema, Ghana\",\n    \"container_number\": \"TGHU8954941\",\n    \"num_packages\": 5,\n    \"gross_weight_kg\": 64.57,\n    \"goods_description\": \"5 PACKAGES STC: COTTON KANTHA QUILTS; JUTE FLOOR RUGS 120X180CM; TURMERIC POWDER (1 KG PACKS); BRASS TABLE LAMPS\",\n    \"invoice_reference\": \"DLW/2026/0170\",\n    \"freight_terms\": \"COLLECT\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2110,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 800,
+       "completion_tokens": 348
+      }
+     }
+    }
+   ]
+  },
+  "p10_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "20d0c89ff2fa4c17",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"DLW/2026/0170\",\n    \"invoice_date\": \"2026-09-12\",\n    \"shipper_name\": \"Deccan Leatherworks Pvt Ltd\",\n    \"shipper_address\": \"17 Anna Salai, Chennai 600002, Tamil Nadu, India\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": \"+233 24 555 0190\",\n    \"incoterm\": null,\n    \"currency\": \"USD\",\n    \"total_value\": 590.14,\n    \"gross_weight_kg\": 64.57,\n    \"net_weight_kg\": 58.4,\n    \"num_packages\": 5,\n    \"line_items\": [\n      {\n        \"description\": \"Cotton kantha quilts\",\n        \"hs_code\": \"6304.19\",\n        \"quantity\": 6,\n        \"unit_price\": 20.47,\n        \"amount\": 122.82\n      },\n      {\n        \"description\": \"Jute floor rugs 120x180cm\",\n        \"hs_code\": \"5702.39\",\n        \"quantity\": 4,\n        \"unit_price\": 22.02,\n        \"amount\": 88.08\n      },\n      {\n        \"description\": \"Turmeric powder (1 kg packs)\",\n        \"hs_code\": \"0910.30\",\n        \"quantity\": 12,\n        \"unit_price\": 3.37,\n        \"amount\": 40.44\n      },\n      {\n        \"description\": \"Brass table lamps\",\n        \"hs_code\": \"9405.21\",\n        \"quantity\": 10,\n        \"unit_price\": 33.88,\n        \"amount\": 338.8\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2220,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 860,
+       "completion_tokens": 543
+      }
+     }
+    }
+   ]
+  },
+  "p11_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "1ab3f92e17031147",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"CCUMBA261243\",\n    \"issue_date\": \"2026-09-17\",\n    \"shipper_name\": \"Bengal Craft Exports Pvt Ltd\",\n    \"consignee_name\": \"Kilimani Decor Co.\",\n    \"consignee_address\": \"12 Ngong Road, Kilimani, Nairobi 00100, Kenya\",\n    \"consignee_phone\": \"+254 711 555 090\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Monsoon Pearl / 111E\",\n    \"port_of_loading\": \"Kolkata Port, India\",\n    \"port_of_discharge\": \"Mombasa, Kenya\",\n    \"container_number\": \"MSMU9862688\",\n    \"num_packages\": 3,\n    \"gross_weight_kg\": 31.42,\n    \"goods_description\": \"3 PACKAGES STC: LEATHER HANDBAGS; TURMERIC POWDER (1 KG PACKS); WOODEN TOYS, HAND-PAINTED\",\n    \"invoice_reference\": \"BCE/2026/0177\",\n    \"freight_terms\": \"PREPAID\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2564,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1610,
+       "completion_tokens": 333
+      }
+     }
+    }
+   ]
+  },
+  "p11_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "f52534d79e69b1a0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"BCE/2026/0177\",\n    \"invoice_date\": \"2026-09-16\",\n    \"shipper_name\": \"Bengal Craft Exports Pvt Ltd\",\n    \"shipper_address\": \"22 Park Street, Kolkata 700016, West Bengal, India\",\n    \"consignee_name\": \"Kilimani Decor Co.\",\n    \"consignee_address\": \"12 Ngong Road, Kilimani, Nairobi 00100, Kenya\",\n    \"consignee_phone\": \"+254 711 555 090\",\n    \"incoterm\": \"CIF\",\n    \"currency\": \"USD\",\n    \"total_value\": 991.08,\n    \"gross_weight_kg\": 36.38,\n    \"net_weight_kg\": 32.3,\n    \"num_packages\": 3,\n    \"line_items\": [\n      {\n        \"description\": \"Leather handbags\",\n        \"hs_code\": \"4202.21\",\n        \"quantity\": 20,\n        \"unit_price\": 42.39,\n        \"amount\": 847.8\n      },\n      {\n        \"description\": \"Turmeric powder (1 kg packs)\",\n        \"hs_code\": \"0910.30\",\n        \"quantity\": 6,\n        \"unit_price\": 3.48,\n        \"amount\": 20.88\n      },\n      {\n        \"description\": \"Wooden toys, hand-painted\",\n        \"hs_code\": \"9503.00\",\n        \"quantity\": 20,\n        \"unit_price\": 6.12,\n        \"amount\": 122.4\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1821,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 827,
+       "completion_tokens": 463
+      }
+     }
+    }
+   ]
+  },
+  "p12_bol": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ae0f2f0279695d2f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"bill_of_lading\",\n  \"fields\": {\n    \"bol_number\": \"COKAPP261356\",\n    \"issue_date\": \"2026-09-23\",\n    \"shipper_name\": \"Malabar Spice Traders LLP\",\n    \"consignee_name\": \"Lekki Home Stores Ltd\",\n    \"consignee_address\": \"Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria\",\n    \"consignee_phone\": \"+234 803 555 0142\",\n    \"notify_party\": \"Same as consignee\",\n    \"vessel_voyage\": \"MV Coral Meridian / 222W\",\n    \"port_of_loading\": \"Cochin Port, India\",\n    \"port_of_discharge\": \"Apapa, Lagos, Nigeria\",\n    \"container_number\": \"CAIU4804057\",\n    \"num_packages\": 4,\n    \"gross_weight_kg\": 53.88,\n    \"goods_description\": \"4 PACKAGES STC: HANDLOOM COTTON SAREES; COTTON KANTHA QUILTS; TURMERIC POWDER (1 KG PACKS); SIL K STOLES\",\n    \"invoice_reference\": \"MST/2026/0184\",\n    \"freight_terms\": \"PREPAID\"\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1565,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 802,
+       "completion_tokens": 350
+      }
+     }
+    }
+   ]
+  },
+  "p12_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "d7fb66e63d970496",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"MST/2026/0184\",\n    \"invoice_date\": \"2026-09-22\",\n    \"shipper_name\": \"Malabar Spice Traders LLP\",\n    \"shipper_address\": \"41 Bazaar Road, Mattancherry, Kochi 682002, Kerala, India\",\n    \"consignee_name\": \"Lekki Home Stores Ltd\",\n    \"consignee_address\": \"Plot 9, Admiralty Way, Lekki Phase 1, Lagos 106104, Nigeria\",\n    \"consignee_phone\": \"+234 803 555 0142\",\n    \"incoterm\": \"CIF\",\n    \"currency\": \"USD\",\n    \"total_value\": 716.6,\n    \"gross_weight_kg\": 53.88,\n    \"net_weight_kg\": 48.5,\n    \"num_packages\": 4,\n    \"line_items\": [\n      {\n        \"description\": \"Handloom cotton sarees\",\n        \"hs_code\": \"5208.52\",\n        \"quantity\": 6,\n        \"unit_price\": 29.0,\n        \"amount\": 174.0\n      },\n      {\n        \"description\": \"Cotton kantha quilts\",\n        \"hs_code\": \"6304.19\",\n        \"quantity\": 20,\n        \"unit_price\": 18.53,\n        \"amount\": 370.6\n      },\n      {\n        \"description\": \"Turmeric powder (1 kg packs)\",\n        \"hs_code\": null,\n        \"quantity\": 10,\n        \"unit_price\": 3.16,\n        \"amount\": 31.6\n      },\n      {\n        \"description\": \"Silk stoles\",\n        \"hs_code\": \"6214.10\",\n        \"quantity\": 12,\n        \"unit_price\": 21.7,\n        \"amount\": 260.4\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 8365,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1610,
+       "completion_tokens": 529
+      }
+     }
+    }
+   ]
+  },
+  "p13_invoice": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "05e2e00ddf57038d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "{\n  \"doc_type\": \"commercial_invoice\",\n  \"fields\": {\n    \"invoice_number\": \"RTH/2026/0191\",\n    \"invoice_date\": \"2026-09-25\",\n    \"shipper_name\": \"Rajputana Textile House\",\n    \"shipper_address\": \"8 Johari Bazaar, Jaipur 302003, Rajasthan, India\",\n    \"consignee_name\": \"Osu Market Supplies\",\n    \"consignee_address\": \"21 Oxford Street, Osu, Accra GA-123-4567, Ghana\",\n    \"consignee_phone\": null,\n    \"incoterm\": \"CFR 2020\",\n    \"currency\": \"USD\",\n    \"total_value\": 2820.92,\n    \"gross_weight_kg\": 583.4,\n    \"net_weight_kg\": 538.8,\n    \"num_packages\": 45,\n    \"line_items\": [\n      {\n        \"description\": \"Black pepper, whole (25 kg bags)\",\n        \"hs_code\": \"0904.11\",\n        \"quantity\": 20,\n        \"unit_price\": 122.17,\n        \"amount\": 2443.4\n      },\n      {\n        \"description\": \"Cotton kantha quilts\",\n        \"hs_code\": \"6304.19\",\n        \"quantity\": 12,\n        \"unit_price\": 19.32,\n        \"amount\": 231.84\n      },\n      {\n        \"description\": \"Wooden toys, hand-painted\",\n        \"hs_code\": \"9503.00\",\n        \"quantity\": 24,\n        \"unit_price\": 6.07,\n        \"amount\": 145.68\n      }\n    ]\n  }\n}"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 4509,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 827,
+       "completion_tokens": 469
+      }
+     }
+    }
+   ]
+  }
+ }
+}

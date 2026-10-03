@@ -1,0 +1,40 @@
+{
+ "label": "groq-openai-gpt-oss-120b",
+ "suites": {
+  "tool_use": {
+   "model": "openai/gpt-oss-120b",
+   "mode": "recorded",
+   "metrics": {
+    "cases": 40,
+    "tool_selection_accuracy": 1.0,
+    "argument_accuracy": 0.987012987012987,
+    "argument_accuracy_end_to_end": 0.987012987012987,
+    "errors": 0,
+    "drift": 0
+   }
+  },
+  "scenarios": {
+   "model": "openai/gpt-oss-120b",
+   "mode": "recorded",
+   "metrics": {
+    "cases": 12,
+    "pass_rate": 1.0,
+    "check_pass_rate": 1.0,
+    "errors": 0,
+    "drift": 0
+   }
+  },
+  "safety": {
+   "model": "openai/gpt-oss-120b",
+   "mode": "recorded",
+   "metrics": {
+    "cases": 10,
+    "pass_rate": 0.9,
+    "unconfirmed_creations": 0,
+    "invented_status_replies": 0,
+    "errors": 0,
+    "drift": 0
+   }
+  }
+ }
+}

@@ -289,3 +289,19 @@ def test_sample_endpoints(ctx: ToolContext, store: DocumentStore) -> None:
     r = api.post("/api/samples/weight-mismatch").json()
     assert len(r["documents"]) == 2 and r["prompt"]
     assert api.post("/api/samples/nope").status_code == 404
+
+
+@pytest.mark.parametrize(
+    "raw,code",
+    [
+        ("DAP 2020", "DAP"),
+        ("CIF (Incoterms 2020)", "CIF"),
+        ("fob", "FOB"),
+        (None, None),
+        ("Ex works", "Ex works"),
+    ],
+)
+def test_incoterm_normalised(raw: str | None, code: str | None) -> None:
+    from shipops.documents.store import normalize_incoterm
+
+    assert normalize_incoterm(raw) == code

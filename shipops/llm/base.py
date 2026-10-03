@@ -13,6 +13,14 @@ class LLMError(Exception):
     """All providers failed or returned something unusable."""
 
 
+class QuotaExhausted(LLMError):
+    """Every provider is out of quota for longer than is worth waiting (e.g. a daily cap)."""
+
+    def __init__(self, message: str, retry_after_s: float | None = None):
+        super().__init__(message)
+        self.retry_after_s = retry_after_s
+
+
 @dataclass
 class LLMResult:
     message: dict[str, Any]  # {"role": "assistant", "content": str|None, "tool_calls": [...]}

@@ -1,0 +1,998 @@
+{
+ "meta": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "recorded_at": "2026-10-03"
+ },
+ "cases": {
+  "book-then-decline": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "b4a0b4373951104c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1205421",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4553\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TdbCWf2C1AeN2fWi5xbXDE3NiONHC8Ys0EgMZyKXhUXf3PCY+RNVoNW17Fnfo6T9eG3cUaaVhxm8CElGGZwt2wiZJbK1GoIwJH5nLLI+h7O+ZwWWmSV877OTsN8k7XiLDfErJ5rAhsBRNvdhp"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1175,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1589,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "ee319d29217280b6",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1333029",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4553\",\"service_code\":\"EXPRESS\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TdPgxiz/kYJyNkCEe1woTxm2I+GT/uEIOAw7lKpYHEBMRqJRQDiEdWIwcUo0joPUwTdCbXCX2rYBTbrfc+duePahg7usBSf+T7SR5CHWJ/TF2wQIkrWQJt9kp/DsefQQ31BijbvcsZmGLsDot"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1392,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1819,
+       "completion_tokens": 31
+      }
+     }
+    },
+    {
+     "request_hash": "0234eae7e8bfe433",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I understand you would like to ship order 4553 via express. However, the shipment was not created as it requires your confirmation. Please let me know if you would like to proceed with this booking."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1093,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1924,
+       "completion_tokens": 43
+      }
+     }
+    }
+   ]
+  },
+  "carrier-timeout-no-guessing": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "3b6644b781eca4df",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1308151",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4540\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TlNYCPHJJOcUAI4Jgx8pKXaXaCgA/LkObOwQrQJmipQsGjYNNsyO9qe1+Gr9/dXdD6NkbDth37ICsMQ+mnwUnLg2LEvIQ9Np/s6Z2le5M2qnuY5XU9mYo26raPfDThPl7LiTad14YiDQTuB3Z"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 5813,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1588,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "03976e3c56dce06a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Tracking for order 4540 is temporarily unavailable due to a carrier system timeout. Please try checking again in a little while."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1404,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1697,
+       "completion_tokens": 27
+      }
+     }
+    }
+   ]
+  },
+  "customs-hold-explain-and-email": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "61a4a677816da9b7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1307136",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4518\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TnM4mgVrbycVcnpqmMKHzKWv1OrySy7kh7GHLkHZ9O9H7Txokzww6AsctmQfc+i6s97e32BhRxM45TQMl08sOq+sz57fLXaLznOKOR3DLoamu/ndj/M3wRyXR1may9JkLJJwMLsruddrq5dgx"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1084,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1588,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "34c5a02164de2688",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4518 (tracking number MC100004518) is currently held by customs at Kotoka International Airport in Accra, Ghana.\n\n**Status:** Customs hold\n**Reason:** The commercial invoice is missing the HS code for line 2, and the importer's TIN is not provided.\n\n**Action Required:** You must upload a corrected commercial invoice (including the HS code) and provide the consignee's TIN within 5 days to avoid the shipment being returned.\n\nWould you like me to draft an email to the customer regarding this delay?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1980,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2061,
+       "completion_tokens": 121
+      }
+     }
+    },
+    {
+     "request_hash": "0b4f91b9289f9ce9",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1353276",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"order_id\":\"4518\",\"email_type\":\"customs_hold\",\"tracking_number\":\"MC100004518\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TEETtuHGdC3kYTJeUpglMVSEwmju3ZvbX/oUMbnxVJwAe60QLMhs1a5isWhIPhvLdfHI/O2noSo59u/5f7eFTVJMi2BxD9g0gk5S925+sK7OC+mV7ggm+DyLaqrlC6mHUBSczfBaYCHuHn0Y5"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1437,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2197,
+       "completion_tokens": 51
+      }
+     }
+    },
+    {
+     "request_hash": "056c5d4c09cface0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here is the draft email for your customer:\n\n**Subject:** Your order #4518 is being held at customs\n\n**Body:**\nHi Kwame,\n\nYour order #4518 has reached Accra, GH but is currently held by customs. Commercial invoice is missing the HS code for line 2 and the importer's TIN is not provided.\n\nWe are preparing the required documents with the carrier now and will update you as soon as it is released. If customs asks you directly for an importer ID/TIN, please reply to this email and we'll help.\n\nTracking number: MC100004518\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1859,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2489,
+       "completion_tokens": 157
+      }
+     }
+    }
+   ]
+  },
+  "document-missing-hs-code": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "0fc19fa59e070501",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1031071",
+         "type": "function",
+         "function": {
+          "name": "analyze_documents",
+          "arguments": "{\"document_ids\":[\"doc_2294cd7637\"]}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TujWOuQ5h85Xq4pxh2oW17isHnxZ1oq3vjRFi68EntzTqxEjedT1FnJ9vHOENyUeLUAM+C8nPJBle4StBozWD9ELKfZfCaWkVXzL4pr+KObbUJ5tjfH9zP4swRe3MIZm+ZjrnYIRuZJ/DTHvb"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1363,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1594,
+       "completion_tokens": 28
+      }
+     }
+    },
+    {
+     "request_hash": "5651e14f1e2f1a23",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I have reviewed the commercial invoice (doc_2294cd7637). Here are the key details:\n\n*   **Invoice Number:** MST/2026/0114\n*   **Date:** August 11, 2026\n*   **Shipper:** Malabar Spice Traders LLP, Kochi\n*   **Consignee:** Kilimani Decor Co., Nairobi\n*   **Total Value:** 1,135.80 USD\n*   **Weight:** 189.42 kg (Gross) / 174.00 kg (Net)\n*   **Packages:** 14\n\n**Issue Found:**\n*   **Missing HS Code:** The \"Cotton kantha quilts\" (Line 1) are missing an HS code. Customs will hold the shipment if this is not corrected."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1601,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2138,
+       "completion_tokens": 184
+      }
+     }
+    }
+   ]
+  },
+  "document-packet-weight-mismatch": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4d3456044f0ce5aa",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_874970",
+         "type": "function",
+         "function": {
+          "name": "analyze_documents",
+          "arguments": "{\"document_ids\":[\"doc_7f77aa7a23\",\"doc_5cfb9f84dc\"]}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TFtpAxXQERqod3+YJ5SM32YOmyn/u9ZwbbygF2ZCHn/9kbm5txELMsLO5Gr7tftLGKa9S6OAQKqrvcy6zFixcn3DoR+YxdUCPrQFVMRTjDnaZTVIerKCLzk4YNISipbZKnCzx4Ub3r+7oDUag"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1104,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1624,
+       "completion_tokens": 41
+      }
+     }
+    },
+    {
+     "request_hash": "a385a954c6d525b1",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I have analyzed the commercial invoice and the bill of lading. While the individual documents appear to be in order, there is a significant discrepancy between them that needs to be addressed before sending them to the forwarder:\n\n### **Cross-Document Issue**\n*   **Weight Mismatch:** The gross weight on the invoice is **60.68 kg**, while the bill of lading states **73.32 kg**. This is a 21% difference, which is likely to cause customs to hold or re-weigh the cargo.\n\n### **Document Summary**\n**Commercial Invoice (RTH/2026/0121)**\n*   **Shipper:** Rajputana Textile House\n*   **Consignee:** Lekki Home Stores Ltd\n*   **Total Value:** 774.56 USD\n*   **Packages:** 5\n\n**Bill of Lading (NSAAPP260339)**\n*   **Vessel/Voyage:** MV Tamarind Bay / 497W\n*   **Port of Loading:** Nhava Sheva, India\n*   **Port of Discharge:** Apapa, Lagos, Nigeria\n*   **Container Number:** TCNU8811503\n\nPlease verify the correct gross weight and update one of the documents so they match before proceeding."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2271,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2639,
+       "completion_tokens": 283
+      }
+     }
+    }
+   ]
+  },
+  "failed-delivery-address-followup": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "bee2032889a71476",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1076813",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4527\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TGDujry06/AVZYQLeyvcO+2NBM5v7FhxV/cBYzS8u3sXBt+UBUZ4rPGB6e7paNwAHr3/RUBEVv9sGPKU9zrq+uevPC4PlCXcgPtYXhxhxbyQpLHiUm/lXRZQ96fsO9tDohYwr+3NrFg2QCHR3"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 861,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1592,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "d91a6731e6a691d8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4527 has not been delivered because the delivery attempt failed yesterday, September 30th. The courier reported that the address is incomplete (missing a building number) and they were unable to reach the recipient by phone.\n\nThe parcel is currently at the Lagos Ikeja Delivery Station. We need to provide a corrected address (including a building number or landmark) and a reachable phone number within 3 days, or the parcel will be returned to us.\n\nWould you like me to draft an email to the customer to request these details?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1677,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2049,
+       "completion_tokens": 112
+      }
+     }
+    },
+    {
+     "request_hash": "37728f0df18267e0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1338907",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"note\":\"Please provide a corrected address including a building number or landmark, and a reachable phone number, so we can re-attempt delivery.\",\"tracking_number\":\"MC100004527\",\"order_id\":\"4527\",\"email_type\":\"delivery_failed\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TSMMu2Z/LEikHJ8fcZePBhTQFR+Ku6y0WAaEAlZvNkvcsbw459pp/MhoUDt0SAHHu+I5dQLIsBU/aZmFEgOKRvRV9Uah6+mGJ88xqyL3ExtaPfgFfqcQerndeFR44pJuRGwr6/2WALnKBznn2"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1588,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2174,
+       "completion_tokens": 81
+      }
+     }
+    },
+    {
+     "request_hash": "fa76e1d098500704",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here is the draft email for the customer:\n\n**Subject:** Action needed: delivery attempt for your order #4527\n\n**Body:**\nHi Chinedu,\n\nThe courier tried to deliver your order #4527 but couldn't complete the delivery. Courier could not locate the premises: no building number and the recipient phone was unreachable.\n\nCould you reply with your full delivery address (including building number or a nearby landmark) and a phone number the courier can reach? Provide a corrected address (building number / landmark) and a reachable phone number within 3 days, or the parcel is returned.\n\nTracking number: MC100004527\n\nPlease provide a corrected address including a building number or landmark, and a reachable phone number, so we can re-attempt delivery.\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1443,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2528,
+       "completion_tokens": 191
+      }
+     }
+    }
+   ]
+  },
+  "flaky-carrier-recovers": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e27d57d525a09107",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1016246",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100000503\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T7gXmYB1GwFGn5rgPxV7tF2yJ/XqmuGkeyd7wCfDMo23iVAYcMTbLERRONcZlWJlWYrYQA9bt1WiGnHVe1JBYoimnHWGPA2SuAusiLAZruuM/JuhmXktHavfJKj0snwXNrUSoTTs64zt+zk+n"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 5835,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1592,
+       "completion_tokens": 28
+      }
+     }
+    },
+    {
+     "request_hash": "05283a073954f088",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Shipment MC100000503 is currently in transit to the destination hub. It arrived at the Dubai Hub on September 30 and is expected to be delivered in Nairobi, KE, by October 4, 2026."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1290,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1891,
+       "completion_tokens": 54
+      }
+     }
+    }
+   ]
+  },
+  "heavy-order-freight": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "b12ed218fe9c7bc8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1339347",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4552\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0Tg5+3+na74AUIMLLi+IRsHkdwZ/LMz0QqfsGOYWGpxyAk9R4MbZAl9eN1cE+q0oEizztluhzrLLDz9vX6SjiUBuonhN9msIPCKl3yy1/gdNHqlTvD4OTSM0tS/BOHeS0B7ukuP6Q2TfiZnHX9"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1556,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1605,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "dcefd12a77db37af",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_966854",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"priority\":\"cheapest\",\"origin_country\":\"IN\",\"width_cm\":80,\"origin_city\":\"Kolkata\",\"destination_city\":\"Johannesburg\",\"destination_country\":\"ZA\",\"height_cm\":60,\"weight_kg\":85,\"length_cm\":120}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TmACXOn8OG61y+nID6KUWuvakvo8V1tHgwlXy1Eogn0B/vb1kQJABaU0Qi00A2RHTO0O9Ffdgb5mAB3dLfUSI8lHtyfTdHPzMPejqoCg3TMfpKPJU5aIbeRmgtZfr2HYx6BfCUQNyq75yfEc0"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 995,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1843,
+       "completion_tokens": 81
+      }
+     }
+    },
+    {
+     "request_hash": "cdab422bae1552c6",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "For order 4552 (85 kg of rugs to Johannesburg), the cheapest shipping option is **Mock Air Freight (consolidated)**.\n\nHere are the available rates:\n\n*   **Mock Air Freight (consolidated): USD 838.83** (7-11 days, est. delivery Oct 12)\n*   **Mock Economy Select: USD 1,600.52** (10-15 days, est. delivery Oct 16)\n*   **Mock Standard International: USD 2,571.47** (6-9 days, est. delivery Oct 10)\n*   **Mock Express Worldwide: USD 4,231.82** (3-5 days, est. delivery Oct 6)\n\n**Recommendation:** I recommend the **Mock Air Freight (consolidated)** service as it is the most cost-effective option at USD 838.83.\n\nWould you like me to proceed with booking this shipment for you?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1872,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2319,
+       "completion_tokens": 221
+      }
+     }
+    }
+   ]
+  },
+  "invalid-address-blocks-booking": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "8b6c1119dbc0120a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1378977",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4551\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T1SfodTMot43qsj6VNo3RuFkwcVjp4efr39nYRm8LM2xnQNwRjjo1o29uFCuRLavPnpihyUtVhogLAQXV0Plgsp64BwEUPJt8PEyP+fNCuS+LFsVtMDIPZkavMkpUqA5ewBPVG1nqdySsT11G"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 857,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1589,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "953bc727f40ea860",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1348907",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4551\",\"service_code\":\"STANDARD\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TlAzwRZ3FBjwH1Nr+jeVAShkaGQIswNe/Adz5n/A/Y/xvbAUtT7O7nzb4B6OU+owx8oyDAkbdeoCmIodaxZgmOaucSRRniUZRy6N1y+csqhgtLcB+s3pkhDdsaw5tA6tytMWv2jFOiVCsb5xB"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1089,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1818,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "7e7f8bce0c823f16",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I'm sorry, but I couldn't book the shipment for order 4551 because the recipient's address is incomplete. The carrier reported that no building or house number was found in the street address (\"Opebi Road, Ikeja\").\n\nCould you please provide the correct street address including the building or house number? Once you have that, I can proceed with the booking."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1383,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1929,
+       "completion_tokens": 81
+      }
+     }
+    }
+   ]
+  },
+  "rates-then-book-with-confirmation": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "d5fe1684c9a5d215",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1393564",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TPBVd7clNkfuezaqkyqSKY06CEgDT67kTbRwW1RbkwDnw6JoXu1o8Qm3mQnkibBjZIZ9IwjpegRaeIQAMOl5YtM56Zql/8hWBMZHFeeFulHUrsyspycoXqTDR4OdKj9ZFPf3dRn8Ts0b3ZMJS"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1106,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1592,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "982c0df707136c21",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_940921",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"height_cm\":20,\"destination_country\":\"KE\",\"width_cm\":35,\"origin_city\":\"Kolkata\",\"origin_country\":\"IN\",\"length_cm\":45,\"weight_kg\":4.8,\"destination_city\":\"Nairobi\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TRaLUy7w5fLSdUdfgeJwegIyuxTk6+HvlkCnayxuGJltGtJ+1IwNBaJ8t9ZGop7GYjDN51NtbJCIhGlT3ZgbiGJSsCqcfkOltWgzjeZvWgtF8cwHK276/gBilwPw/rEMNwP0AVdoWfVPBFc/l"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1365,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1821,
+       "completion_tokens": 74
+      }
+     }
+    },
+    {
+     "request_hash": "7e43861bf929d014",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "For order 4550 (Kantha quilts to Nairobi, KE), here are the available shipping options:\n\n*   **Mock Express Worldwide:** $240.96, 3-5 days (est. delivery Oct 6)\n*   **Mock Standard International:** $147.39, 6-9 days (est. delivery Oct 10)\n*   **Mock Economy Select:** $92.86, 10-15 days (est. delivery Oct 16)\n\n**Recommendation:** I recommend **Mock Standard International**. It offers the best balance of price and speed, arriving by October 10th for $147.39.\n\nWould you like me to proceed with booking one of these services for you?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1368,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2239,
+       "completion_tokens": 166
+      }
+     }
+    },
+    {
+     "request_hash": "9f397b876eeb0834",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_987392",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4550\",\"service_code\":\"STANDARD\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T1g3ig/n9JBsn5KnB09ChjOz0ft3woxx4UHEDsY1n9Q3pmujogKwaMxVTrxNxRe8dQITAWJDFKuhwNAZCAIQJogrc98EbPfexjuYskWjQl/tq30WniPbPrVju7+w8mhDosSF4gAGXYpVDHGcK"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1260,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2414,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "c46cbc8a1aa6317b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipment for order 4550 has been successfully booked using **Mock Standard International**.\n\n*   **Tracking Number:** MC202636735\n*   **Estimated Delivery:** October 10, 2026\n*   **Cost:** $147.39 USD\n\nYou can access the shipping label here: [Download Label](https://mock-carrier.example/labels/MC202636735.pdf)"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1442,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2602,
+       "completion_tokens": 103
+      }
+     }
+    }
+   ]
+  },
+  "unknown-tracking-number": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e753f676f6da5b2c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_886912",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC199999999\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T36X/V3QsHgxkSJ2y07ZAD5OU5u5Bl1RHoLvg+giAW0DoWZcQQxOrj8z69jbgT0m8qygrqp6b5icd9B4OUBHXeXXNDaS8cuRM1cUo4fJbdS3oGw0JU8cqWGUb1dVGcuzK6LHd/Nm53CobdIMh"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 4772,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1592,
+       "completion_tokens": 28
+      }
+     }
+    },
+    {
+     "request_hash": "0ddf3478acad36f1",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I'm sorry, but I couldn't find any shipment with the tracking number MC199999999. Could you please double-check the number and try again?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 5330,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1707,
+       "completion_tokens": 40
+      }
+     }
+    }
+   ]
+  },
+  "weather-delay-revised-eta-and-email": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a8cc15ae6d0f8806",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1370317",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4521\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T+9JWW3zjod/XCVpQy08VzufdYT8T6fWH1rk7qWUhcBMRAJxvnqzIkmQ8oGYVkX+dCD1wriXG6C1S0GW5b0rK2zcfq2HUeYs3j4p+jRSZV3KWwuq3RK+hDKJZt2UctzpF/iywyeihZI7HWIIH"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 892,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1589,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "1e00cdf181e3490a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4521 (tracking number MC100004521) is currently delayed due to severe weather (a sandstorm) at the Dubai Hub.\n\n*   **Current Status:** Delayed\n*   **New Estimated Delivery:** October 5, 2026, by 09:00 UTC\n*   **Details:** Flights out of Dubai were suspended, but no action is required on your part. The shipment will move on the next available flight.\n\nWould you like me to draft a delay notification email for the customer, Thandiwe Nkosi?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1401,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1992,
+       "completion_tokens": 124
+      }
+     }
+    },
+    {
+     "request_hash": "47a713de4c43bb71",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipment is now expected to be delivered on **October 5, 2026, by 09:00 UTC**."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1063,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2124,
+       "completion_tokens": 29
+      }
+     }
+    },
+    {
+     "request_hash": "c45bc1a1de84b523",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1121499",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"order_id\":\"4521\",\"email_type\":\"delay\",\"tracking_number\":\"MC100004521\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TcL0/70dHfWGPPL2C0MM8sFWRWw9sJ37UQBj+o9xD7oYmlOv5e0p1odG/qwQhvbLZGoLdb5HTV/YeDsrELq/mbOH2RqsKkDl8BvqCIoVRdvG41rZSLGwKSer7m9U6BiI5syi3DXTlH/7jXm3W"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1432,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2163,
+       "completion_tokens": 48
+      }
+     }
+    },
+    {
+     "request_hash": "0157fd33c3783e94",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here is the draft for the delay notification email:\n\n**To:** thandiwe.nkosi@example.com\n**Subject:** Update on your order #4521: new delivery date\n\n**Body:**\nHi Thandiwe,\n\nWe wanted to let you know that your order #4521 has been delayed. Reason given by the carrier: Flights out of Dubai suspended due to a severe sandstorm.\n\nOriginal estimated delivery: Friday, 2 October 2026\nRevised estimated delivery: Monday, 5 October 2026\nTracking number: MC100004521\n\nWe're sorry for the wait and are keeping a close eye on it. No action is needed from you.\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2182,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2456,
+       "completion_tokens": 179
+      }
+     }
+    }
+   ]
+  }
+ }
+}

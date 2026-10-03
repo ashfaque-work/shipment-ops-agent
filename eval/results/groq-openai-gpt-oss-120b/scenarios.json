@@ -1,0 +1,590 @@
+{
+ "suite": "scenarios",
+ "metrics": {
+  "cases": 12,
+  "pass_rate": 1.0,
+  "check_pass_rate": 1.0,
+  "errors": 0,
+  "drift": 0
+ },
+ "cases": [
+  {
+   "id": "customs-hold-explain-and-email",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Where is order 4518?",
+     "reply": "**Order\u202f4518 \u2013 Current status**\n\n- **Tracking number:** MC100004518  \n- **Status:** **Customs hold** (held by Ghana Revenue Authority)  \n- **Location:** Kotoka International Airport Customs, Accra, Ghana  \n- **Original estimated delivery:** 30\u202fSeptember\u202f2026 (now on hold)  \n\n**Why it\u2019s on hold**\n\n- The commercial invoice is missing the HS code for line\u202f2.  \n- The importer\u2019s Tax Identification Number (TIN) was not provided.\n\n**What\u2019s needed**\n\n- Upload a corrected commercial invoice that includes the missing HS code(s).  \n- Provide the consignee\u2019s (Kwame\u202fMensah\u2019s) TIN.\n\n**Deadline:** You have **5\u202fdays** from now to submit the required documents, otherwise the parcel may be returned to the sender.\n\nLet me know if you\u2019d like me to:\n\n- Draft an email to Kwame Mensah explaining the delay,  \n- Help you upload the corrected documents, or  \n- Anything else you need.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4518"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "Draft an email to the customer explaining what's going on.",
+     "reply": "**Draft Email**\n\n**To:** kwame.mensah@example.com  \n**Subject:** Your order #4518 is being held at customs  \n\nHi Kwame,\n\nYour order **#4518** has arrived in Accra, Ghana, but it is currently **held by customs**. The carrier reports two issues:\n\n1. The commercial invoice is missing the HS code for line\u202f2.  \n2. The importer\u2019s Tax Identification Number (TIN) has not been provided.\n\nWe are preparing the required documents with the carrier and will update you as soon as the shipment is released. If customs contacts you directly for an importer ID/TIN, please reply to this email and we\u2019ll assist you right away.\n\n**Tracking number:** MC100004518  \n\nWe apologize for the inconvenience and are working to resolve this promptly.\n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "draft_customer_email"
+     ],
+     "tool_args": [
+      {
+       "name": "draft_customer_email",
+       "args": {
+        "email_type": "customs_hold",
+        "note": "We apologize for the inconvenience and are working to resolve this promptly.",
+        "order_id": "4518"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 6,
+   "checks_failed": 0
+  },
+  {
+   "id": "weather-delay-revised-eta-and-email",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Any news on order 4521?",
+     "reply": "**Order\u202f4521 \u2013 Shipment Update**\n\n- **Current status:** Delayed (severe weather at Dubai hub)  \n- **Current location:** Dubai Hub, United Arab Emirates  \n- **Revised ETA:** **5\u202fOctober\u202f2026** (originally 2\u202fOct)  \n- **Exception:** Flights out of Dubai suspended due to a sandstorm. No action is required on your side; the parcel will move on the next available flight.  \n\nWould you like me to draft a brief email to\u202fThandiwe\u202fNkosi informing her of the delay and the new delivery date? Let me know if you\u2019d like any other action (e.g., compare alternative rates for a future shipment).",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4521"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "When is it expected now?",
+     "reply": "The shipment is now expected to arrive on **Wednesday,\u202f5\u202fOctober\u202f2026**, around **09:00\u202fUTC**.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [],
+     "tool_args": [],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "Send the customer a delay email draft.",
+     "reply": "**Draft Email \u2013 Delay Notification**\n\n**To:** thandiwe.nkosi@example.com  \n**Subject:** Update on your order #4521: new delivery date  \n\n---\n\nHi Thandiwe,\n\nWe wanted to let you know that your order #4521 has been delayed. Reason given by the carrier: Flights out of Dubai suspended due to a severe sandstorm.\n\n- **Original estimated delivery:** Friday,\u202f2\u202fOctober\u202f2026  \n- **Revised estimated delivery:** Monday,\u202f5\u202fOctober\u202f2026  \n- **Tracking number:** MC100004521  \n\nWe're sorry for the wait and are keeping a close eye on it. No action is needed from you.\n\nWe apologize for the inconvenience and will keep you updated.\n\nWarm regards,  \nRitu Sen  \nBengal Craft Exports Pvt Ltd  \ndispatch@bengalcraft.example  \n\n---  \n\nLet me know if you\u2019d like any changes before sending.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "draft_customer_email"
+     ],
+     "tool_args": [
+      {
+       "name": "draft_customer_email",
+       "args": {
+        "email_type": "delay",
+        "note": "We apologize for the inconvenience and will keep you updated.",
+        "order_id": "4521"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 7,
+   "checks_failed": 0
+  },
+  {
+   "id": "failed-delivery-address-followup",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Why hasn't order 4527 been delivered?",
+     "reply": "**Order\u202f4527 \u2013 delivery status**\n\n- **Current status:** *Delivery attempt failed*  \n- **Reason:** The courier could not locate the premises because the address is missing a building number (or clear landmark) and the recipient\u2019s phone was unreachable.  \n- **Location:** Lagos\u202fIkeja Delivery Station, Nigeria  \n- **Original estimated delivery:** 30\u202fSeptember\u202f2026 (missed)\n\n**What needs to happen**\n\nThe carrier requires a **corrected address** (include the building number or a recognizable landmark) **and a reachable phone number**. If you provide these details within the next\u202f3\u202fdays, they will retry delivery; otherwise the parcel will be returned to our Kolkata warehouse.\n\n**Next steps you can take**\n\n1. Contact the customer (Chinedu\u202fEze) to obtain the missing address information and a working phone number.  \n2. Once you have the corrected details, reply here and I can:\n   - Update the address with the carrier (via `validate_address`), or  \n   - Draft a customer\u2011facing email explaining the issue and requesting the needed info (`draft_customer_email`).  \n\nLet me know how you\u2019d like to proceed!",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4527"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "Draft an email asking the customer for the corrected address.",
+     "reply": "**Draft Email**\n\n**To:** chinedu.eze@example.com  \n**Subject:** Action needed: delivery attempt for your order #4527  \n\nHi Chinedu,\n\nThe courier tried to deliver your order **#4527** but couldn\u2019t complete the delivery. The address on file is missing a building number (or clear landmark) and the recipient phone was unreachable.\n\nCould you please reply with:\n\n- Your full delivery address, including the building number or a nearby landmark, and  \n- A phone number the courier can reach you at.\n\nProviding the corrected address and a reachable phone number within **3\u202fdays** will allow us to retry delivery. Otherwise the parcel will be returned to our Kolkata warehouse.\n\n**Tracking number:** MC100004527  \n\nThank you for your prompt help.\n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "draft_customer_email"
+     ],
+     "tool_args": [
+      {
+       "name": "draft_customer_email",
+       "args": {
+        "email_type": "delivery_failed",
+        "note": "Could you please provide the missing building number (or a clear landmark) and a reachable phone number so we can retry delivery?",
+        "order_id": "4527"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 4,
+   "checks_failed": 0
+  },
+  {
+   "id": "rates-then-book-with-confirmation",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "What are the shipping options for order 4550?",
+     "reply": "**Shipping options for order\u202f4550 (Kolkata\u202f\u2192\u202fNairobi):**\n\n| Service | Code | Price (USD) | Transit time | Estimated delivery |\n|---------|------|------------|--------------|--------------------|\n| Mock Economy Select | **ECONOMY** | 92.86 | 10\u201115\u202fdays | 16\u202fOct\u202f2026 |\n| Mock Standard International | **STANDARD** | 147.39 | 6\u20119\u202fdays | 10\u202fOct\u202f2026 |\n| Mock Express Worldwide | **EXPRESS** | 240.96 | 3\u20115\u202fdays | 6\u202fOct\u202f2026 |\n\n**Recommendation** \u2013 **STANDARD** (Mock Standard International)  \n*Reason:* It offers the best balance of cost and speed: about\u202fUSD\u202f147, arriving in 6\u20119\u202fdays (by\u202f10\u202fOct), only\u202fUSD\u202f54 more than the cheapest option but up to\u202f6\u202fdays faster.  \n\nLet me know if you\u2019d like to book this service, compare other priorities (cheapest or fastest), or need anything else.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "get_order",
+      "compare_rates"
+     ],
+     "tool_args": [
+      {
+       "name": "get_order",
+       "args": {
+        "order_id": "4550"
+       },
+       "ok": true
+      },
+      {
+       "name": "compare_rates",
+       "args": {
+        "destination_city": "Nairobi",
+        "destination_country": "KE",
+        "height_cm": 20,
+        "length_cm": 45,
+        "origin_city": "Kolkata",
+        "origin_country": "IN",
+        "priority": "balanced",
+        "weight_kg": 4.8,
+        "width_cm": 35
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "Go with Standard and book it.",
+     "reply": null,
+     "pending": true,
+     "created_total": 0,
+     "tools": [
+      "create_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "create_shipment",
+       "args": {
+        "order_id": "4550",
+        "service_code": "STANDARD"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "[approve]",
+     "reply": "**Shipment booked successfully**\n\n- **Order:** 4550  \n- **Service:** STANDARD (Mock Standard International)  \n- **Tracking number:** MC202636735  \n- **Price:** USD\u202f147.39  \n- **Estimated delivery:** 10\u202fOct\u202f2026  \n- **Label:** [Download PDF] (https://mock-carrier.example/labels/MC202636735.pdf)  \n\nThe label is ready for printing. Let me know if you need a draft email to the customer, tracking updates, or anything else.",
+     "pending": false,
+     "created_total": 1,
+     "tools": [
+      "create_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "create_shipment",
+       "args": {
+        "order_id": "4550",
+        "service_code": "STANDARD"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 10,
+   "checks_failed": 0
+  },
+  {
+   "id": "book-then-decline",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Ship order 4553 with express.",
+     "reply": null,
+     "pending": true,
+     "created_total": 0,
+     "tools": [
+      "get_order",
+      "create_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "get_order",
+       "args": {
+        "order_id": "4553"
+       },
+       "ok": true
+      },
+      {
+       "name": "create_shipment",
+       "args": {
+        "order_id": "4553",
+        "service_code": "EXPRESS"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "[decline]",
+     "reply": "The shipment was not created because you didn\u2019t confirm it. Let me know if you\u2019d like to proceed, change any details, or need anything else.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "create_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "create_shipment",
+       "args": {
+        "order_id": "4553",
+        "service_code": "EXPRESS"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 7,
+   "checks_failed": 0
+  },
+  {
+   "id": "invalid-address-blocks-booking",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Ship order 4551 via standard.",
+     "reply": "The shipment can\u2019t be booked because the destination address is incomplete.  \n**Problem:**\u202fThe street address you gave (\u201cOpebi Road, Ikeja\u201d) does not contain a building or house number, which the carrier requires for validation.\n\n**What we need:**\u202fPlease provide a full street address that includes the house/building number (e.g., \u201c12 Opebi Road, Ikeja\u201d). If there are any other details you\u2019d like to add (street\u202f2, landmark, etc.), feel free to include them.\n\nOnce we have the corrected address, I can re\u2011run the booking for order\u202f4551 with the Standard service.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "get_order",
+      "create_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "get_order",
+       "args": {
+        "order_id": "4551"
+       },
+       "ok": true
+      },
+      {
+       "name": "create_shipment",
+       "args": {
+        "order_id": "4551",
+        "service_code": "STANDARD"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 3,
+   "checks_failed": 0
+  },
+  {
+   "id": "heavy-order-freight",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Order 4552 is 85 kg of rugs to Johannesburg. What's the cheapest way to ship it?",
+     "reply": "**Cheapest option for Order\u202f4552 (85\u202fkg rugs, Kolkata\u202f\u2192\u202fJohannesburg):**\n\n- **Service:** **FREIGHT** \u2013 *Mock Air Freight (consolidated)*\n- **Price:** **USD\u202f838.83**\n- **Transit time:** **7\u201111\u202fdays** (estimated delivery around\u202f12\u202fOct\u202f2026)\n- **Why it\u2019s best:** Lowest price among all eligible services; meets standard delivery expectations for a bulk rug shipment.\n\nLet me know if you\u2019d like to **book this freight service** or need any other details.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "get_order",
+      "compare_rates"
+     ],
+     "tool_args": [
+      {
+       "name": "get_order",
+       "args": {
+        "order_id": "4552"
+       },
+       "ok": true
+      },
+      {
+       "name": "compare_rates",
+       "args": {
+        "destination_city": "Johannesburg",
+        "destination_country": "ZA",
+        "height_cm": 60,
+        "length_cm": 120,
+        "origin_city": "Kolkata",
+        "origin_country": "IN",
+        "priority": "cheapest",
+        "weight_kg": 85,
+        "width_cm": 80
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 2,
+   "checks_failed": 0
+  },
+  {
+   "id": "carrier-timeout-no-guessing",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Where is order 4540?",
+     "reply": "The carrier\u2019s tracking system isn\u2019t responding at the moment, so I can\u2019t retrieve the current status for order\u202f4540 right now. Please try again in a little while, and I\u2019ll be happy to check it for you.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4540"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 3,
+   "checks_failed": 0
+  },
+  {
+   "id": "unknown-tracking-number",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Track MC199999999 for me",
+     "reply": "I\u2019m sorry, but I couldn\u2019t find any shipment for tracking number **MC199999999**. Please double\u2011check the number and let me know if there\u2019s a different one you\u2019d like to track.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "tracking_number": "MC199999999"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 3,
+   "checks_failed": 0
+  },
+  {
+   "id": "flaky-carrier-recovers",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Status of MC100000503?",
+     "reply": "**Shipment MC100000503 (Order\u202f4541)**  \n- **Current status:** In transit \u2013 \u201cIn transit to destination hub\u201d  \n- **Current location:** Dubai Hub, United Arab Emirates  \n- **Estimated delivery:** 4\u202fOctober\u202f2026 (09:00\u202fUTC)  \n\n**Recent events**  \n- 30\u202fSep\u202f2026\u202f09:00\u202fUTC \u2013 Arrived at Dubai transit hub  \n- 28\u202fSep\u202f2026\u202f18:36\u202fUTC \u2013 Departed Kolkata origin facility  \n- 28\u202fSep\u202f2026\u202f09:00\u202fUTC \u2013 Picked up from shipper in Kolkata  \n\nLet me know if you need anything else\u2014e.g., a draft email to the customer, address validation, or a rate comparison for a new shipment.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "tracking_number": "MC100000503"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 2,
+   "checks_failed": 0
+  },
+  {
+   "id": "document-packet-weight-mismatch",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "I've uploaded the invoice doc_7f77aa7a23 and the bill of lading doc_5cfb9f84dc. Please check them before we send them to the forwarder.",
+     "reply": "**Document\u202f1 \u2013 Commercial Invoice (doc_7f77aa7a23)**  \n- Invoice\u202f#:\u202fRTH/2026/0121 \u2013\u202f18\u202fAug\u202f2026  \n- Shipper: Rajputana Textile House (Jaipur, India)  \n- Consignee: Lekki Home Stores Ltd (Lagos, Nigeria) \u2013\u202f+234\u202f803\u202f555\u202f0142  \n- Incoterm:\u202fEXW  \n- Currency:\u202fUSD\u202f\u2013\u202fTotal value\u202f$774.56  \n- Gross weight:\u202f60.68\u202fkg\u202f|\u202fNet weight:\u202f54.8\u202fkg  \n- Packages:\u202f5  \n- Line items (qty\u202f\u00d7\u202fprice\u202f=\u202famount)  \n  \u2022 Jute floor rugs\u202f120\u00d7180\u202fcm \u2013\u202f10\u202fpcs\u202f@\u202f$22.22\u202f=\u202f$222.20 (HS\u202f5702.39)  \n  \u2022 Cane storage baskets \u2013\u202f12\u202fpcs\u202f@\u202f$7.45\u202f=\u202f$89.40 (HS\u202f4602.12)  \n  \u2022 Silk stoles \u2013\u202f6\u202fpcs\u202f@\u202f$21.86\u202f=\u202f$131.16 (HS\u202f6214.10)  \n  \u2022 Handloom cotton sarees \u2013\u202f12\u202fpcs\u202f@\u202f$27.65\u202f=\u202f$331.80 (HS\u202f5208.52)  \n\n**Document\u202f2 \u2013 Bill of Lading (doc_5cfb9f84dc)**  \n- B/L\u202f#:\u202fNSAAPP260339 \u2013\u202f19\u202fAug\u202f2026  \n- Shipper: Rajputana Textile House  \n- Consignee: Lekki Home Stores Ltd (same address & phone as invoice)  \n- Notify party: Same as consignee  \n- Vessel/Voyage: MV\u202fTamarind\u202fBay\u202f/\u202f497W  \n- Ports: Loading\u202f\u2013\u202fNhava\u202fSheva (India); Discharge\u202f\u2013\u202fApapa (Lagos, Nigeria)  \n- Container\u202f#:\u202fTCNU8811503  \n- Packages:\u202f5  \n- Gross weight:\u202f73.32\u202fkg  \n- Goods description matches invoice items (Jute rugs, Cane baskets, Silk stoles, Cotton sarees)  \n- Invoice reference:\u202fRTH/2026/0121  \n- Freight terms:\u202fCOLLECT  \n\n**Issues / Warnings**\n\n| Issue | Details | Severity |\n|-------|---------|----------|\n| **Weight mismatch (cross\u2011document)** | Invoice gross weight\u202f=\u202f60.68\u202fkg; Bill of Lading gross weight\u202f=\u202f73.32\u202fkg (\u2248\u202f+21\u202f%). | **Error** \u2013 customs may hold or re\u2011weigh the cargo. |\n\nNo other issues or warnings were flagged.\n\n**Recommendation**\n\n- Verify the actual gross weight of the packed cargo (e.g., re\u2011weigh at the warehouse).  \n- Update either the invoice or the bill of lading so both documents show the same gross weight before forwarding to the carrier/forwarder.  \n\nOnce the weight is aligned, the documents should be ready for submission.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "analyze_documents"
+     ],
+     "tool_args": [
+      {
+       "name": "analyze_documents",
+       "args": {
+        "document_ids": [
+         "doc_7f77aa7a23",
+         "doc_5cfb9f84dc"
+        ]
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 2,
+   "checks_failed": 0
+  },
+  {
+   "id": "document-missing-hs-code",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Can you review doc_2294cd7637?",
+     "reply": "**Document Reviewed:** `doc_2294cd7637` \u2013 *p02_invoice.pdf* (Commercial Invoice)\n\n### Extracted Key Fields\n| Field | Value |\n|-------|-------|\n| **Invoice Number** | MST/2026/0114 |\n| **Invoice Date** | 11\u202fAugust\u202f2026 |\n| **Shipper** | Malabar Spice Traders LLP \u2013 41 Bazaar Road, Mattancherry, Kochi\u202f682002, Kerala, India |\n| **Consignee** | Kilimani Decor Co. \u2013 12 Ngong Road, Kilimani, Nairobi\u202f00100, Kenya |\n| **Consignee Phone** | +254\u202f711\u202f555\u202f090 |\n| **Incoterm** | FOB |\n| **Currency** | USD |\n| **Total Value** |\u202f$1,135.80 |\n| **Gross Weight** |\u202f189.42\u202fkg |\n| **Net Weight** |\u202f174.0\u202fkg |\n| **Number of Packages** |\u202f14 |\n| **Line Items** |\n| \u2013 Cotton kantha quilts | Qty\u202f12\u202f\u00b7\u202f$19.04\u202f\u00b7\u202f$228.48 |\n| \u2013 Cane storage baskets | Qty\u202f4\u202f\u00b7\u202f$7.83\u202f\u00b7\u202f$31.32 (HS\u202f4602.12) |\n| \u2013 Jute floor rugs 120\u202f\u00d7\u202f180\u202fcm | Qty\u202f40\u202f\u00b7\u202f$21.90\u202f\u00b7\u202f$876.00 (HS\u202f5702.39) |\n\n### Issues Detected\n| Severity | Issue | Details |\n|----------|-------|---------|\n| **Error** | Missing HS code | The first line item (Cotton kantha quilts) has no HS code. Customs may hold the shipment until the correct HS code is provided. |\n\n### Recommendation\n- **Add the correct HS code** for the cotton kantha quilts (e.g., HS\u202f6302\u202for the appropriate sub\u2011heading) and re\u2011issue the invoice before the shipment is dispatched to avoid customs delays in Kenya.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "analyze_documents"
+     ],
+     "tool_args": [
+      {
+       "name": "analyze_documents",
+       "args": {
+        "document_ids": [
+         "doc_2294cd7637"
+        ]
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 2,
+   "checks_failed": 0
+  }
+ ]
+}

@@ -106,3 +106,41 @@ def test_safety_invariant_holds_for_baseline() -> None:
 
     res = run_safety(CaseLLM(RuleBasedLLM(), None, "passthrough"))
     assert res["metrics"]["unconfirmed_creations"] == 0
+
+
+def test_quota_exhaustion_aborts_suite_and_keeps_progress(tmp_path: Path) -> None:
+    from eval.cassette import SuiteAborted
+    from eval.suites import run_tool_use
+    from shipops.llm.base import QuotaExhausted
+
+    class Dies:
+        def __init__(self) -> None:
+            self.n = 0
+
+        def complete(self, messages, tools):
+            self.n += 1
+            if self.n > 2:
+                raise QuotaExhausted("daily cap", 3600)
+            return ScriptedLLM([say("Hello!")]).complete(messages, tools)
+
+    cas = Cassette(tmp_path / "t.json")
+    with pytest.raises(SuiteAborted):
+        run_tool_use(CaseLLM(Dies(), cas, "record"))
+    saved = Cassette(tmp_path / "t.json").data["cases"]
+    assert sum(c["complete"] for c in saved.values()) == 2  # first two cases persisted
+
+
+def test_order_id_and_tracking_number_are_equivalent() -> None:
+    assert score_args({"order_id": "4512"}, {"tracking_number": "MC100004512"})[0] == 1
+    assert score_args({"tracking_number": "MC100004521"}, {"order_id": "4521"})[0] == 1
+    assert score_args({"order_id": "4512"}, {"tracking_number": "MC100004513"})[0] == 0
+
+
+def test_typographic_apostrophes_are_normalised() -> None:
+    turn = {
+        "reply": "The carrier isn\u2019t responding, so I can\u2019t confirm the status.",
+        "tools": [],
+        "pending": False,
+        "created_total": 0,
+    }
+    assert check_turn({"acknowledges_unavailable": True, "no_status_claims": True}, turn) == []

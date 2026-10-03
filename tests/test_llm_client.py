@@ -124,3 +124,22 @@ def test_waits_and_retries_when_all_rate_limited() -> None:
     )
     assert llm.complete([], []).message["content"] == "ok"
     assert slept == [7]
+
+
+def test_daily_quota_raises_quota_exhausted() -> None:
+    from shipops.llm.base import QuotaExhausted
+
+    req = httpx.Request("POST", "http://x/chat/completions")
+    err = openai.RateLimitError(
+        "Quota exceeded for metric ... limit: 20. Please retry in 17h29m50.9s.",
+        response=httpx.Response(429, request=req),
+        body=None,
+    )
+    slept: list[float] = []
+    llm = OpenAICompatLLM(
+        P[:1], clients={"groq": FakeClient([err])}, rate_limit_retries=5, sleep=slept.append
+    )
+    with pytest.raises(QuotaExhausted) as info:
+        llm.complete([], [])
+    assert info.value.retry_after_s == pytest.approx(17 * 3600 + 29 * 60 + 50.9)
+    assert slept == []  # no pointless waiting

@@ -1,0 +1,656 @@
+{
+ "suite": "extraction",
+ "metrics": {
+  "documents": 25,
+  "doc_type_accuracy": 1.0,
+  "field_precision": 1.0,
+  "field_recall": 1.0,
+  "field_f1": 1.0,
+  "text_precision": 1.0,
+  "text_recall": 1.0,
+  "text_f1": 1.0,
+  "scanned_precision": 1.0,
+  "scanned_recall": 1.0,
+  "scanned_f1": 1.0,
+  "problem_detection_rate": 1.0,
+  "problems_expected": 15,
+  "false_positive_flags": 0,
+  "errors": 0
+ },
+ "detection_by_problem": {
+  "missing_hs_code": {
+   "found": 3,
+   "expected": 3
+  },
+  "weight_mismatch": {
+   "found": 6,
+   "expected": 6
+  },
+  "missing_consignee_phone": {
+   "found": 3,
+   "expected": 3
+  },
+  "total_mismatch": {
+   "found": 2,
+   "expected": 2
+  },
+  "missing_incoterm": {
+   "found": 1,
+   "expected": 1
+  }
+ },
+ "false_positives_by_problem": {
+  "missing_hs_code": 0,
+  "weight_mismatch": 0,
+  "missing_consignee_phone": 0,
+  "total_mismatch": 0,
+  "missing_incoterm": 0
+ },
+ "per_field": {
+  "bill_of_lading.bol_number": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.consignee_address": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.consignee_name": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.consignee_phone": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 11,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.container_number": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.freight_terms": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.goods_description": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.gross_weight_kg": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.invoice_reference": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.issue_date": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.notify_party": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.num_packages": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.port_of_discharge": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.port_of_loading": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.shipper_name": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "bill_of_lading.vessel_voyage": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.consignee_address": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.consignee_name": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.consignee_phone": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 11,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.currency": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.gross_weight_kg": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.incoterm": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 12,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.invoice_date": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.invoice_number": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.line_items.amount": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 42,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.line_items.description": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 42,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.line_items.hs_code": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 39,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.line_items.quantity": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 42,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.line_items.unit_price": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 42,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.net_weight_kg": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.num_packages": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.shipper_address": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.shipper_name": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  },
+  "commercial_invoice.total_value": {
+   "precision": 1.0,
+   "recall": 1.0,
+   "f1": 1.0,
+   "tp": 13,
+   "fp": 0,
+   "fn": 0
+  }
+ },
+ "cases": [
+  {
+   "id": "p01_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p01_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p02_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "missing_hs_code"
+   ],
+   "found_issues": [
+    "missing_hs_code"
+   ]
+  },
+  {
+   "id": "p02_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p03_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "weight_mismatch"
+   ],
+   "found_issues": [
+    "weight_mismatch"
+   ]
+  },
+  {
+   "id": "p03_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "weight_mismatch"
+   ],
+   "found_issues": [
+    "weight_mismatch"
+   ]
+  },
+  {
+   "id": "p04_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p04_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "missing_consignee_phone"
+   ],
+   "found_issues": [
+    "missing_consignee_phone"
+   ]
+  },
+  {
+   "id": "p05_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": true,
+   "method": "llm_vision",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p05_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p06_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": true,
+   "method": "llm_vision",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "missing_hs_code"
+   ],
+   "found_issues": [
+    "missing_hs_code"
+   ]
+  },
+  {
+   "id": "p06_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p07_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "missing_consignee_phone",
+    "weight_mismatch"
+   ],
+   "found_issues": [
+    "missing_consignee_phone",
+    "weight_mismatch"
+   ]
+  },
+  {
+   "id": "p07_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "weight_mismatch"
+   ],
+   "found_issues": [
+    "weight_mismatch"
+   ]
+  },
+  {
+   "id": "p08_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "total_mismatch"
+   ],
+   "found_issues": [
+    "total_mismatch"
+   ]
+  },
+  {
+   "id": "p08_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p09_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p09_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": true,
+   "method": "llm_vision",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p10_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "missing_incoterm"
+   ],
+   "found_issues": [
+    "missing_incoterm"
+   ]
+  },
+  {
+   "id": "p10_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p11_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "weight_mismatch"
+   ],
+   "found_issues": [
+    "weight_mismatch"
+   ]
+  },
+  {
+   "id": "p11_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": true,
+   "method": "llm_vision",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "weight_mismatch"
+   ],
+   "found_issues": [
+    "weight_mismatch"
+   ]
+  },
+  {
+   "id": "p12_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": true,
+   "method": "llm_vision",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "missing_hs_code",
+    "total_mismatch"
+   ],
+   "found_issues": [
+    "missing_hs_code",
+    "total_mismatch"
+   ]
+  },
+  {
+   "id": "p12_bol",
+   "doc_type": "bill_of_lading",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [],
+   "found_issues": []
+  },
+  {
+   "id": "p13_invoice",
+   "doc_type": "commercial_invoice",
+   "scanned": false,
+   "method": "llm_text",
+   "type_ok": true,
+   "field_recall": 1.0,
+   "error": null,
+   "expected_issues": [
+    "missing_consignee_phone"
+   ],
+   "found_issues": [
+    "missing_consignee_phone"
+   ]
+  }
+ ]
+}

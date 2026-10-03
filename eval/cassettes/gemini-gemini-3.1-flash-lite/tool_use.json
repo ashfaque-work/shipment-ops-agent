@@ -1,0 +1,2325 @@
+{
+ "meta": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "recorded_at": "2026-10-03"
+ },
+ "cases": {
+  "address-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "c36389631cdfa721",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_987394",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"order_id\":\"4551\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TRR+JfQRvRbcUKvR1TmJR6/cz/I+ULQj/Ua6uy4yDWlq3/xXZyPAiLD2lpi4d6I3F88D1yquW7HslaA3dtV45oRMny2lmE53ZAliTzhs4yla+2FoN0N7asPU/E/LfvA7NO4E4WCmzth5farLV"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1018,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1592,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "a97c5cf4b4598f9c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The delivery address for order 4551 is currently invalid. The carrier reported that no building or house number was found in the street address (\"Opebi Road, Ikeja\"). \n\nPlease provide the correct building or house number so I can update the order details for you."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1585,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1741,
+       "completion_tokens": 58
+      }
+     }
+    }
+   ]
+  },
+  "address-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "38dfd9a94156ec93",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_679361",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"country\":\"NG\",\"street1\":\"14 Admiralty Way, Lekki\",\"postal_code\":\"106104\",\"city\":\"Lagos\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TERTr94HWQCWwBkUQBDKj09LmY+tGzPrFQwYObzZGOuRNNq41D81vcoBPDJvASOHdM9Dr45ZPcICfGyUEwUbqpV+1dHDgT65MuRVl9h6ROfLYP5msGWugSZ7eFVbjIg4xHNbV57jmDcAkkQY8"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1122,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1602,
+       "completion_tokens": 49
+      }
+     }
+    },
+    {
+     "request_hash": "b15d244b884af53b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The address \"14 Admiralty Way, Lekki, Lagos 106104, Nigeria\" is valid."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1349,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1767,
+       "completion_tokens": 25
+      }
+     }
+    }
+   ]
+  },
+  "address-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "8400149804f93fc7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1241044",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"country\":\"KE\",\"street1\":\"5 Riverside Drive\",\"city\":\"Nairobi\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TpaL7oH+cRU7gRoTIsli6fJppF638w4MfaXqojd6/QJZqq7vATxMCnjs1MTGE9d8dStSGpOOJr7hCB40JDBEVPuZreLvuGWP6qmbXs8o4eBsO8wttsnmup1u9TZKC9/EBXZFFhWR96VGEV/X2"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1239,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 32
+      }
+     }
+    },
+    {
+     "request_hash": "3f50dc647ec28dd3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The address \"5 Riverside Drive, Nairobi, Kenya\" is currently invalid because a postal code is required for deliveries in Kenya (e.g., 00100). Please provide the postal code so I can validate it for you."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1174,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1699,
+       "completion_tokens": 49
+      }
+     }
+    }
+   ]
+  },
+  "address-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a959b0e7f54d5443",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1057510",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"order_id\":\"4550\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0Tgexpyjjsph+0qzH3OYRhtZkrByq+/CYa+3m0AXHfnQAit3xps+1qubDz+BHJmwzp3epcqkP4ZwtIH63kK/6oX+umEKJBaEwV/iZkPcbYY9TH+L9pUFjPfYcr98Micf6HHuVBHKdriSdoDWyB"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1779,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1596,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "837d0dab1e2c3596",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipping address for order 4550 is valid. Here are the details:\n\n*   **Name:** Njeri Mwangi\n*   **Address:** 12 Ngong Road, Kilimani, Nairobi, 00100, KE\n*   **Phone:** +254 711 555 090\n\nEverything looks correct and ready for shipping."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1108,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1805,
+       "completion_tokens": 85
+      }
+     }
+    }
+   ]
+  },
+  "create-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "d301a6dbf80e769d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1006997",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0Tz/EB3XX5X21/lJAVrRq3NFFsROQ4fQN46YUyLE0reqytw5FyTVbyhxGd7c1xZE04/RM/9KaxgXVnpMhprOSO2N6p18wrepGzFXia52gewVwo/kxAhaiILFZOYvdqe0S4YIIMQ+qXLKOmNILd"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1085,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1588,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "cb4874f65da5bcbd",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1025363",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4550\",\"service_code\":\"STANDARD\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T+k7WWVKC47oWLgKUORtrFz7Pmin7NPtaFfdAGiYg6ChWeAluqFmf4RHJGmkr/dMhIbA9IFMNUeYfSYim4S4JMbmOSn6BSmj4SnRlMHPet8ympAKiq+xCx8CezzF5dvZ638A2iUF3LvQE49hl"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2425,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1817,
+       "completion_tokens": 30
+      }
+     }
+    }
+   ]
+  },
+  "create-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "524e91a764cbe77f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1223252",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4553\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0Tg84d8t2AxFl/bVNbx9xbflFGAXBsSb6ZVVm8BMJaThOtVuTa5sKqtZUqTsm+6HaOZVsgwWjs1citF2pNretxMIX4/FW5zHzSLISkqZcIG4dv8XfSIbcos49NS05J+ajWV3w9C6j6cIxpKlRB"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1385,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1590,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "a338246f61e13726",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1339445",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"service_code\":\"EXPRESS\",\"order_id\":\"4553\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0Tg2+oHaMc8uyXpEbJGeljDXZFR09Oe1XfJJLXVFdnMjwj0mCEA5G/G+KrI8NPx2JAXsbwX8fDCG/TzrNYiwOTqC7pK/dBJuZuV83rrnZOcyheaErC5np6QbhrW5lP7O/VwP5WKXsQTlaokxqc"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 4426,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1820,
+       "completion_tokens": 31
+      }
+     }
+    }
+   ]
+  },
+  "create-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "28207a4572f818d0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_348008",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4552\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TaxLfYw2X2kW++iChIrfXpMKVhMz2lcejK2XwYk+Odj9lhn+/opCLSzlGDxfZD2O0M0dy2Cv/jAvoRWV3t9yFuclV5r2WSfnyzCmhuveqUl5H6jjDyEkrhjSNbVsEva7U7RNIzXoap8d3VDw2"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1074,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "016c213d6f768e38",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_348100",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"service_code\":\"FREIGHT\",\"order_id\":\"4552\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T+pAZJTju1z2gHfajS0XxnPxjbxqQNfjRLrb0h4uRA1bYOQsnC+xqo6DSqrGhTYYg3UjJBG+xDrR/1XUz7E8dn1mXdjmU3Kuu3V7akYj1d/Rysa6MymNi5SyjX6ck60m2y7h8XmDBy4P0Zd+K"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2128,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1829,
+       "completion_tokens": 31
+      }
+     }
+    }
+   ]
+  },
+  "create-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ae04602e70905886",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1002946",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T6ffgC8y9sMPHRM2NAJxHWuYDZdprzwf2pe+hSViPXNUCSJxBOubY5wpwpPIm8glQSXSfGa7BsEnbmASqspUM3ftaj/egyp1jmSRY/4wB910X/ues0kyVAshbbrHisaQfC0cHnrm7AdLVmhAa"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1309,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1590,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "3251826cb466e39b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1454057",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4550\",\"service_code\":\"ECONOMY\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TDNLmmP5o7USaLHKjmDMLyF8lINgxLvho2bnu7yOff5uqt5aV83zmVy/C9bJcmUE2Ewqdop0RW7PoKVWUKhExJwt9gs6Fs8q38jd2KKTYwGVCeJPc6I+S5EERB0yC95+zsmKHLtA6pAIdMDZ3"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1202,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1819,
+       "completion_tokens": 32
+      }
+     }
+    }
+   ]
+  },
+  "create-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e2cfe554275f363b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1286585",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4553\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TRRwaoDvaXseEwj//byevLAcSN/+JCFjNmTIz7yXgBp3no31eSp9oQXf82jpcd3b/y/vLjq6wAsjGxP4xMKciyLvcey+sNZL9hm1SiqFSrHPHF/1QnNc01MmbGW8hS5ZVOnHGjQEv4K+tDz91"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 933,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1586,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "8a0b99ba773a5b79",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1279320",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Accra\",\"height_cm\":30,\"width_cm\":40,\"weight_kg\":7.2,\"length_cm\":50,\"destination_country\":\"GH\",\"origin_country\":\"IN\",\"origin_city\":\"Kolkata\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T9vWNnrCWKEmrCvETj32MSnf8+miTul2D554jaJs6awtQE2jsw3GR4WmmwFx0syt0QTym4e/BzQIXd+19tg5ydMIM4H1o0w8Idl5QcfUSV4VVo0j0QweewhwzoZFxy5pPFqXim/I7Wz483Ajc"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1125,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1816,
+       "completion_tokens": 74
+      }
+     }
+    },
+    {
+     "request_hash": "f379e94c1451e081",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4553 (Terracotta planters) is ready to ship to Accra, Ghana. Here are the available shipping options:\n\n*   **Mock Economy Select:** $195.49 (10-15 days, arrives ~Oct 16)\n*   **Mock Standard International:** $312.40 (6-9 days, arrives ~Oct 10)\n*   **Mock Express Worldwide:** $512.62 (3-5 days, arrives ~Oct 6)\n\nI recommend **Mock Standard International** as it offers the best balance of price and speed.\n\nPlease let me know which service you would like to proceed with, and I will book the shipment for you."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1881,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2237,
+       "completion_tokens": 154
+      }
+     }
+    }
+   ]
+  },
+  "create-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a2bd5babf8311fde",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1330341",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4551\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0Teu5eGW/4ezta11nHvfpUPOCVTFrhAEfVy16jT+hfm3RkUdEhNQ9Pwx5WxUl4hbc4DZga6FTt1p8XmLch1EZdrlg8olTNYo+1h0Xf6XcUdpc/O47pepba6rN+OPjkas4dtN6SNdQMoKUDKHmn"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 932,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1595,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "5e188d511938bd6a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1346549",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"service_code\":\"STANDARD\",\"order_id\":\"4551\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0ThQkRm0iaCoZWVGz4cKd5JEHZAZCDT20niFDKNuzAM+ub68EFQ6IaMRYYDtFqknxdVZfaumMAv8P0+pJRuALHhGCk08IkFTsftQ5S2Sg2oSVm5ligQjbSavhJ/JATagy/QdmqHbYoWi9R9Uxh"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1500,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1824,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "a475ca0e3b1d362c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipment for order 4551 could not be created because the delivery address is incomplete. The carrier's validation system flagged that the street address (\"Opebi Road, Ikeja\") is missing a building or house number.\n\nCould you please provide the correct, full street address for Tunde Bakare? Once you have that, I can proceed with booking the standard shipment."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1426,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1935,
+       "completion_tokens": 79
+      }
+     }
+    }
+   ]
+  },
+  "docs-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "788c09e7af6cf5e8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_959913",
+         "type": "function",
+         "function": {
+          "name": "analyze_documents",
+          "arguments": "{\"document_ids\":[\"doc_1a2b3c4d5e\"]}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T3p7NLJFTq1qQCDOHwMZl2Eb7dj7QcaPUylFaL59JhhhBZ6bVN8RyAPksNQmQ3GpVjA9kJIdRPizl1OPHltAJermlUpWYfhhaKxOdbd/lJSSKGOnOK8rp16PJijP3ytC113kjdLZWvN6or5g5"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1119,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1595,
+       "completion_tokens": 29
+      }
+     }
+    },
+    {
+     "request_hash": "a38deb0bdc882d1e",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I'm sorry, but I couldn't find a document with the ID `doc_1a2b3c4d5e`. Please make sure the document has been uploaded, and then let me know the correct ID so I can check it for you."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1771,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1690,
+       "completion_tokens": 55
+      }
+     }
+    }
+   ]
+  },
+  "docs-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "da0a9e60c8c4c08a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_815259",
+         "type": "function",
+         "function": {
+          "name": "analyze_documents",
+          "arguments": "{\"document_ids\":[\"doc_aaaa111122\",\"doc_bbbb333344\"]}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TBk1MV0zvZu+chrh5c5Pm7of0u++ugCWGKRLnj16cp/ltFBxOba0qDrEpRkQ8H4mKb55Me+u+5Lx45kyHyeCQrqc22ppN+9U9ijdZeax1ihW8GJT7D840PVrvNuP6RzQkygWY144aKASEbFKw"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1036,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1614,
+       "completion_tokens": 39
+      }
+     }
+    },
+    {
+     "request_hash": "d12ff66b3299c711",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I'm sorry, but I couldn't find the documents you mentioned (doc_aaaa111122 and doc_bbbb333344). Please make sure they have been uploaded correctly, and then let me know so I can analyze them for you."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1187,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1727,
+       "completion_tokens": 59
+      }
+     }
+    }
+   ]
+  },
+  "email-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "7731806f42799f81",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1002182",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4521\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TUJZ4XpAjyQpfUQGjwdYcX7pkfHAghV4LToE/49rWdJZ834//NZJwfjLL/L+AxmEMnj6l9E5ve8SJKHWyRZvQjI18xgHLiJYChk8MHp2meqp4UHojV/F3KoUZ59JOVndpbqfCN36Ajv47WfHf"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 985,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "cba2b4403a7f0a1f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_888190",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"order_id\":\"4521\",\"email_type\":\"delay\",\"tracking_number\":\"MC100004521\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0Ta72dHMPRJpNYcbxohr+XLqLxG1oNPmSbhvxoW73aO76+oCqwx/3+wBwinJeW92azVBdj3YZMFicmu8nDW03/k5sZei7YCwFIHtTFvcVhUXurnLVMmjPPk0cWI7EGtvoGlUw6dbVrd+wp3aIC"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1063,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1994,
+       "completion_tokens": 48
+      }
+     }
+    },
+    {
+     "request_hash": "26e722dc36f1bc1c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here is the draft for the delay notification email for order #4521:\n\n**Subject:** Update on your order #4521: new delivery date\n\n**Body:**\nHi Thandiwe,\n\nWe wanted to let you know that your order #4521 has been delayed. Reason given by the carrier: Flights out of Dubai suspended due to a severe sandstorm.\n\nOriginal estimated delivery: Friday, 2 October 2026\nRevised estimated delivery: Monday, 5 October 2026\nTracking number: MC100004521\n\nWe're sorry for the wait and are keeping a close eye on it. No action is needed from you.\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1425,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2287,
+       "completion_tokens": 172
+      }
+     }
+    }
+   ]
+  },
+  "email-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "07420bcbbcbed7fa",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1344575",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"order_id\":\"4518\",\"email_type\":\"customs_hold\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TY0vuZdI+WKgkZug0pJ/uXYfDzbfcEKQRPmAn5vO895eyaWTialnuti7reayYsbaGZXE8MqBiHueujxYFddHA/PZf3BGUC3txAOufByrkyMaZRIsALX+MqhG27ozt0aWyje+yTA0WdYFJBAY/"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2060,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1594,
+       "completion_tokens": 34
+      }
+     }
+    },
+    {
+     "request_hash": "ca6794c7d0c5babb",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here is the draft email for the customer of order 4518:\n\n**Subject:** Your order #4518 is being held at customs\n\n**Body:**\nHi Kwame,\n\nYour order #4518 has reached Accra, GH but is currently held by customs. Commercial invoice is missing the HS code for line 2 and the importer's TIN is not provided.\n\nWe are preparing the required documents with the carrier now and will update you as soon as it is released. If customs asks you directly for an importer ID/TIN, please reply to this email and we'll help.\n\nTracking number: MC100004518\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1509,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1869,
+       "completion_tokens": 164
+      }
+     }
+    }
+   ]
+  },
+  "email-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ced8372fe93881e6",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1298945",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4527\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T/wI9lpk8m58Gz0Crz/yxMzINgqZsgt9m3XBAjzIYH9DwjvGMe745WfnniCi87T+ZHpqZuopV7JITG4q8mg/Xb5HXurOolGs4LT5mINXMQPMbKiQoryjzUhy2IYTbQp3O4ZteOyswtMMfsL2s"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1055,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1593,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "ebde97cd6030750c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1577879",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"tracking_number\":\"MC100004527\",\"email_type\":\"delivery_failed\",\"order_id\":\"4527\",\"note\":\"We have encountered an issue with the delivery address provided for your order. Could you please provide a corrected address?\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TczjVlN9Us4lenRInTnfst3O7w2tnCo6p0aWR3JH/lepBKVo84Hg6SYZ0MyyNfBP8Xx9KoVujyNRcPWr0RScETg02Wvr022QiYp6mb7zm4V0tWrZYGKCTZzobdjKI9ElFCnhjbK+VH7Tzn+r1"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1093,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1782,
+       "completion_tokens": 77
+      }
+     }
+    },
+    {
+     "request_hash": "d0b95f478f311a6a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I have drafted an email to Chinedu Eze regarding order #4527.\n\n**Subject:** Action needed: delivery attempt for your order #4527\n\n**Body:**\nHi Chinedu,\n\nThe courier tried to deliver your order #4527 but couldn't complete the delivery. Courier could not locate the premises: no building number and the recipient phone was unreachable.\n\nCould you reply with your full delivery address (including building number or a nearby landmark) and a phone number the courier can reach? Provide a corrected address (building number / landmark) and a reachable phone number within 3 days, or the parcel is returned.\n\nTracking number: MC100004527\n\nWe have encountered an issue with the delivery address provided for your order. Could you please provide a corrected address?\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1546,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2129,
+       "completion_tokens": 196
+      }
+     }
+    }
+   ]
+  },
+  "email-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "13f42b10fa8bc878",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1329255",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"order_id\":\"4513\",\"email_type\":\"delivered\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T5ZTa7J3oBpiggyEdenkqGaf4vxpUGWAqEo8qkYAREpC7GoBouVcOYi0oGtqK4D9RnjwSepBemKYck37lLA2pI7ugVKvW9s0V4I4U9nLf6rOUqwqff5oGMGNzGp2Gr0otWBeJ7H5hasKAlJcf"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 950,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 31
+      }
+     }
+    },
+    {
+     "request_hash": "f403fb5b442c8c59",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here is the draft email for the customer:\n\n**Subject:** Your order #4513 has been delivered\n\n**Body:**\nHi Wanjiru,\n\nGood news - the carrier reports your order #4513 was delivered on Tuesday, 29 September 2026. (Delivered - signed for by W. KAMAU)\n\nIf anything is missing or damaged, just reply to this email.\n\nTracking number: MC100004513\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2702,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1826,
+       "completion_tokens": 125
+      }
+     }
+    }
+   ]
+  },
+  "email-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "3271583789d61866",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1409406",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"auto\",\"tracking_number\":\"MC100004512\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TUIwLW+o5Nb9p1BAVzJ0siB5ZPicWFGdSRfA97Ep44IO/zV81U3/rLltQZhkAYqooJFInm10LwpX5EKHkh0a6P0SN4zPe4QeQA2jpoOzOYthV+fbrDQsUU0UcnTzDEKP0YWUcpuRS2RHYBmTA"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1304,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1594,
+       "completion_tokens": 37
+      }
+     }
+    },
+    {
+     "request_hash": "01a76e93cb66b42c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here is the draft update email for your shipment:\n\n**Subject:** Your order #4512 is on its way\n\n**Body:**\nHi Adaeze,\n\nYour order #4512 is in transit. Latest update: Arrived at destination hub; customs cleared (Lagos Hub, NG).\n\nEstimated delivery: Saturday, 3 October 2026\nTracking number: MC100004512\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2632,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1826,
+       "completion_tokens": 115
+      }
+     }
+    }
+   ]
+  },
+  "email-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "354d07f7f46d0ffc",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1229907",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"delay\",\"tracking_number\":\"MC100004521\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T94TBurdnT5LYmOZCgoEudjcfhJuu9O/1xUvJ6XzayF66UEULsoY+WFif8oMUNaqXgMfEp+XTMg4yuETzM7AteV6olvSR1yQFD2RBO51xLCBq01p3/JT/k2/PucAXFyclVZW2/oh3xdODbdx4"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1631,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1597,
+       "completion_tokens": 37
+      }
+     }
+    },
+    {
+     "request_hash": "05fb55e69e222977",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here is the draft email for your customer regarding the delay:\n\n**Subject:** Update on your order #4521: new delivery date\n\n**Body:**\nHi Thandiwe,\n\nWe wanted to let you know that your order #4521 has been delayed. Reason given by the carrier: Flights out of Dubai suspended due to a severe sandstorm.\n\nOriginal estimated delivery: Friday, 2 October 2026\nRevised estimated delivery: Monday, 5 October 2026\nTracking number: MC100004521\n\nWe're sorry for the wait and are keeping a close eye on it. No action is needed from you.\n\nWarm regards,\nRitu Sen\nBengal Craft Exports Pvt Ltd\ndispatch@bengalcraft.example"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2063,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1879,
+       "completion_tokens": 167
+      }
+     }
+    }
+   ]
+  },
+  "none-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "188cb548b9616379",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Hello! I am your Shipment Ops Agent for Bengal Craft Exports. I can assist you with the following tasks:\n\n*   **Tracking:** Check the status, location, and history of your shipments.\n*   **Shipping Rates:** Compare quotes for your orders to find the best service.\n*   **Creating Shipments:** Book shipments and generate labels once you are ready.\n*   **Document Review:** Analyze shipping documents (like invoices or bills of lading) for accuracy and missing information.\n*   **Customer Communication:** Draft professional emails for your customers regarding their order status.\n\nHow can I help you with your operations today?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1292,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1588,
+       "completion_tokens": 129
+      }
+     }
+    }
+   ]
+  },
+  "none-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ef35591690ef373a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I am sorry, but I can only assist with shipping-related tasks for Bengal Craft Exports, such as tracking shipments, comparing rates, or managing shipping documents. I do not have information on general knowledge topics like world capitals."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1167,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1587,
+       "completion_tokens": 45
+      }
+     }
+    }
+   ]
+  },
+  "order-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a8feb7eba47728b9",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1325001",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T1B/g6kE9JxOKphoThfqNPjgx+zLBqnl7oNGXtHkAMDEiq3HITEZ1EhiSaWPTr2g7vG/4+5f/rCL2ndv0AD7TtmBXh9cm0zNbg3+J7RZPsOopsHdQXGgFjh2fUnSR2nsW4UwDBcUzZtexnrDW"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 864,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1595,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "d5d8c1d927472bd2",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4550 is for Njeri Mwangi in Nairobi, Kenya. It contains 3 Kantha quilts (valued at 360 USD)."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1830,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1824,
+       "completion_tokens": 33
+      }
+     }
+    }
+   ]
+  },
+  "rates-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "517dd562b51e48e3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_920250",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"origin_city\":\"Kolkata\",\"destination_city\":\"Nairobi\",\"weight_kg\":5}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TqO0toI68Z2e6HOP/0IqoSRvrdyOQ3Hb3CdmbxKAmZyT/T92/xgZp4a1x5MdtsA7SNk7Mhs31+DOWwLIat+HvAU5GC2qVNYLqvByjyvoUijrM0RWRFcKTuLGlAUOKAHDA8BBBTFSdCwyymc+w"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 942,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 35
+      }
+     }
+    },
+    {
+     "request_hash": "65cf9000bf17fb50",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "For a 5 kg shipment from Kolkata to Nairobi, here are the available shipping options:\n\n*   **Mock Economy Select:** $75.55 (10\u201315 days, estimated delivery Oct 16)\n*   **Mock Standard International:** $119.55 (6\u20139 days, estimated delivery Oct 10)\n*   **Mock Express Worldwide:** $195.13 (3\u20135 days, estimated delivery Oct 6)\n\n**Recommendation:** I recommend **Mock Standard International**. It offers the best balance of price and speed, arriving by October 10th for $119.55. It is $44.00 more than the economy option but saves you up to 6 days in transit.\n\nWould you like to proceed with booking one of these services?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1824,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1967,
+       "completion_tokens": 176
+      }
+     }
+    }
+   ]
+  },
+  "rates-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "689b598efc82f9dd",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1413088",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"width_cm\":40,\"origin_country\":\"IN\",\"destination_country\":\"NG\",\"destination_city\":\"Lagos\",\"height_cm\":30,\"length_cm\":50,\"origin_city\":\"Mumbai\",\"priority\":\"cheapest\",\"weight_kg\":12}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TOGPx7fWDPWDAnaqESq460DUwrKpxylANSdk1aPP9U8ExW+nGVEEc9OI19COB2xweEaEGdmcQQs4jRvxlBd7SGJmTbU1dPzZuwYLx0xryJZksxVc+NBTmhcqDCVvwmssO1tp8Be4PjQ5W+xQf"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1541,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1605,
+       "completion_tokens": 78
+      }
+     }
+    },
+    {
+     "request_hash": "f01c57c281b95265",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The cheapest way to send your 12 kg box from Mumbai to Lagos is using the **Economy** service.\n\nHere are the available options:\n\n*   **Economy (Recommended):** $172.74 USD (10\u201315 days, estimated delivery Oct 16)\n*   **Standard:** $275.82 USD (6\u20139 days, estimated delivery Oct 10)\n*   **Express:** $452.41 USD (3\u20135 days, estimated delivery Oct 6)\n\nThe Economy service is recommended as it is the most cost-effective option for your shipment. Would you like to proceed with booking this shipment?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2282,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2005,
+       "completion_tokens": 144
+      }
+     }
+    }
+   ]
+  },
+  "rates-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "2c031ccdccbcc3c5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1299013",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"priority\":\"fastest\",\"origin_country\":\"IN\",\"destination_country\":\"GH\",\"deadline_days\":5,\"weight_kg\":3,\"origin_city\":\"Delhi\",\"destination_city\":\"Accra\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0ThsPXdXdBTn7CHK859xZ2S0LXkjUiuuYwUH6MXkcOo8YLTngJTBvbx7B5es/snp3yayebbbl0gZC85lh1bV7CIMAdP00I2wLq6CtzpeO7c7K9RcaAnCX12XU+8wHatbaYGGT+1bLIx8/9Sk2A"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1081,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1599,
+       "completion_tokens": 62
+      }
+     }
+    },
+    {
+     "request_hash": "56a4410ca494db33",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "For your 3 kg shipment from Delhi to Accra, here are your options:\n\n*   **Mock Express Worldwide:** $151.28, 3\u20135 days (Estimated delivery: Oct 6)\n*   **Mock Standard International:** $92.91, 6\u20139 days (Estimated delivery: Oct 10)\n*   **Mock Economy Select:** $58.98, 10\u201315 days (Estimated delivery: Oct 16)\n\n**Recommendation:** I recommend **Mock Express Worldwide**. It is the only option that meets your 5-day deadline and is the most cost-effective choice among the eligible services.\n\nWould you like to proceed with booking this shipment? If so, please provide the recipient's details (name, address, and phone number)."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1859,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1996,
+       "completion_tokens": 172
+      }
+     }
+    }
+   ]
+  },
+  "rates-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "027c033500d1b0bd",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_850654",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"origin_city\":\"Dubai\",\"destination_country\":\"ZA\",\"destination_city\":\"Johannesburg\",\"weight_kg\":20,\"origin_country\":\"AE\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TOR886GTYJ3tdV7eBz5cNrWGHdQaHfo3CEgTEEMdZ3Ehdgxn0Vgj6N7WRFVrWhjklplDqv0wFy8VWeBhT/hZ0qj6BOdMQhN1lEde+Xd4DiD2TueoaS6Qvf7Cjuyagq0/pgnlVFXYqlsZesTaB"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1181,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 50
+      }
+     }
+    },
+    {
+     "request_hash": "53488e360ad34460",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "For a 20kg shipment from Dubai to Johannesburg, here are your options:\n\n*   **Express (Mock Express Worldwide):** $665.54, 3\u20135 days (est. delivery Oct 6).\n*   **Economy (Mock Economy Select):** $253.26, 10\u201315 days (est. delivery Oct 16).\n\n**Recommendation:**\nI recommend **Mock Standard International** ($405.28, 6\u20139 days, est. delivery Oct 10). It offers the best balance of price and speed, arriving up to 6 days sooner than Economy for an additional $152.02."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1772,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1983,
+       "completion_tokens": 148
+      }
+     }
+    }
+   ]
+  },
+  "rates-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4910c624d758a199",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1302119",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Mombasa\",\"origin_city\":\"Kolkata\",\"priority\":\"fastest\",\"origin_country\":\"IN\",\"destination_country\":\"KE\",\"weight_kg\":2}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TdPibJiXqEqm71UO+bjgLJjL1d5bJ2MHT2EAVrEyAYO1rMYSkO8nTQAh7pqo2nbc98rN9Wh4EBPaSj76YlM25OhDS66XeZNgQm051UU9106+g49RuCrpwl3KfVgpSZmjuZ9IAr9nQTJiQui4m"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1111,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1589,
+       "completion_tokens": 58
+      }
+     }
+    },
+    {
+     "request_hash": "6b1771a2adb6f97f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The fastest option for shipping 2 kg from Kolkata to Mombasa is **Mock Express Worldwide**.\n\n*   **Transit time:** 3\u20135 days\n*   **Estimated delivery:** October 6, 2026\n*   **Price:** 102.87 USD\n\nThis is recommended as it is the fastest available service, arriving up to 10 days sooner than the economy option."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1309,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1982,
+       "completion_tokens": 85
+      }
+     }
+    }
+   ]
+  },
+  "rates-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "002600f80bcc6702",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1220797",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"weight_kg\":120,\"origin_city\":\"Kolkata\",\"destination_city\":\"Durban\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TI4wP4la3DlYeo6CAk8ARiiGdunlO9O+81gVhvy6SfV9mY1riothHa7ELAPlmdpAexnUXBNhl0mG9EAABYmlr32Kwhh7NeZiRPVlK+JtC0gzfXGCG21QF84+IDC3ykH+/BrfOyygWSzOFa05u"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1071,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1596,
+       "completion_tokens": 37
+      }
+     }
+    },
+    {
+     "request_hash": "ec2ec51c899bf438",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I have retrieved the shipping quotes for 120 kg of jute rugs from Kolkata to Durban:\n\n*   **Mock Air Freight (consolidated):** $865.34 (7-11 days, est. delivery Oct 12)\n*   **Mock Economy Select:** $1,661.99 (10-15 days, est. delivery Oct 16)\n*   **Mock Standard International:** $2,670.30 (6-9 days, est. delivery Oct 10)\n*   **Mock Express Worldwide:** $4,394.54 (3-5 days, est. delivery Oct 6)\n\n**Recommendation:** I recommend the **Mock Air Freight (consolidated)** service. It is the most cost-effective option at $865.34 and offers a reasonable transit time of 7-11 days.\n\nWould you like to proceed with booking one of these services?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2493,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2034,
+       "completion_tokens": 208
+      }
+     }
+    }
+   ]
+  },
+  "rates-07": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "75cbc83c213d8145",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1494881",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"origin_country\":\"IN\",\"destination_city\":\"Abuja\",\"weight_kg\":0.75,\"destination_country\":\"NG\",\"origin_city\":\"Chennai\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TcU4BoAQuG0C7z2w6goWcsbLnGwCDW+jBwGaes3xB+4AmBEuUy6C4M+R8C0KsYW6283cxvPbGM5NCGOH4Gdb+0FCM/io4jtq7NAfC3AGKI1s/48TVDS1DcgfmCRh0Uw2jypPnKZLT6KN4V3HN"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1420,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1595,
+       "completion_tokens": 52
+      }
+     }
+    },
+    {
+     "request_hash": "bdbe3d44f74f4c63",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "To send a 750 g package from Chennai to Abuja, here are the available shipping options:\n\n*   **Mock Economy Select:** $31.05 (10\u201315 days, estimated delivery Oct 16)\n*   **Mock Standard International:** $48.00 (6\u20139 days, estimated delivery Oct 10)\n*   **Mock Express Worldwide:** $77.34 (3\u20135 days, estimated delivery Oct 6)\n\n**Recommendation:**\nI recommend **Mock Standard International** as it offers the best balance of price and speed. It costs $48.00 and arrives in 6\u20139 days, which is up to 6 days faster than the economy option for a moderate price increase."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1567,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1982,
+       "completion_tokens": 161
+      }
+     }
+    }
+   ]
+  },
+  "rates-08": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "37f24046e250c7c3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1169199",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"height_cm\":20,\"weight_kg\":8,\"destination_city\":\"Nairobi\",\"length_cm\":40,\"width_cm\":30,\"origin_city\":\"Mumbai\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0Tbj4im3hq2lUQcL/7lgzQUelCeVVh8xbvic4T1AbNSWIbx9/pwLGCE7CZ+V+C59boyKZRLZ6aEuX680rNeYXFL9B2jEDT6O/9hnUmdPe3wNSou2stTErVeOR7vdElWZ9OTRiPtnxRdk6I307E"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 988,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1599,
+       "completion_tokens": 54
+      }
+     }
+    },
+    {
+     "request_hash": "c105dc40dbb65627",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here are the shipping rates for an 8 kg package (40x30x20 cm) from Mumbai to Nairobi:\n\n*   **Mock Express Worldwide:** $253.94 (2-4 days, est. delivery Oct 5)\n*   **Mock Standard International:** $155.27 (5-8 days, est. delivery Oct 9)\n*   **Mock Economy Select:** $97.77 (9-14 days, est. delivery Oct 15)\n\n**Recommendation:** I recommend **Mock Standard International**. It offers the best balance of price and speed, arriving by October 9th for $155.27. It is significantly faster than the Economy option for a reasonable price increase."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1440,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1994,
+       "completion_tokens": 162
+      }
+     }
+    }
+   ]
+  },
+  "rates-09": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4994970104d473b0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1096989",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Cape Town\",\"weight_kg\":15,\"destination_country\":\"ZA\",\"origin_country\":\"IN\",\"origin_city\":\"Bengaluru\",\"priority\":\"balanced\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TB+aVc1d/Fb19V71FWdqG+oSrCVXaFOdU6w69OZa5YuxmBbaL1qTx7Z0afd5wvb9nlKhsASAAcwdbSXz4IhTNK+Ojwz/GaTRe6oxqaX4bK0NxduIafFx3kwdMWnGY9GKHHUzy1MrrPIwAONDf"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1268,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1601,
+       "completion_tokens": 57
+      }
+     }
+    },
+    {
+     "request_hash": "b03ad93554231e2b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "For a 15kg shipment from Bengaluru to Cape Town, here are your options:\n\n*   **Mock Economy Select:** $218.84 (10\u201315 days)\n*   **Mock Standard International:** $349.94 (6\u20139 days)\n*   **Mock Express Worldwide:** $574.43 (3\u20135 days)\n\n**Recommendation:** I recommend **Mock Standard International**. It offers the best balance of cost and speed, arriving by October 10th. It is $131.10 more than the economy option but saves you up to 6 days in transit."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1527,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2002,
+       "completion_tokens": 137
+      }
+     }
+    }
+   ]
+  },
+  "track-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "848f11ea437331a8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1272115",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4512\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TKlDdJgjuCSmXHykpZah2Azim1pQ2DhzZ7VqYiX+cVf9C4KCdr5uml9/3yYowZgBcMQK64rn02woybBeBIkvjCt6Fv7NbWUyh4e3B/d6dg2UjGjfNMvn+rsTAwcmICyptT66YaQ73EkMksuOn"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1457,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 21
+      }
+     }
+    },
+    {
+     "request_hash": "20e4da4dfff7a51d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1330207",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100004512\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TB2CtRbSCCG1M81BrFggKU8LsrJxFfHZt8gKNbWUGHcDNZVc6JqnP4oScF8MReQP0rfakCDQW5lH+6glAT2c2TOJQyROZCYN00H+e8r/MzkPxYi3NymIW79AmEgRAYarycEeBrgMF8L0r19bs"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 812,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1791,
+       "completion_tokens": 28
+      }
+     }
+    },
+    {
+     "request_hash": "412ae7c0d26d1d4d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4512 (tracking number MC100004512) is currently in Lagos, Nigeria. It has cleared customs and is at the destination hub. It is estimated to be delivered by October 3, 2026."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1131,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2168,
+       "completion_tokens": 55
+      }
+     }
+    }
+   ]
+  },
+  "track-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "849334a835e5945b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1404333",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100004521\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TmR1ErAcy8PAo4YNUkESUbHUmSqvr+P77S2pmJXlDyXyZwwr7Lgbd/g/OvfPu2tcuisw5jjuXp2XqjOu3x0RgEvW89q1ZxzqHMgxpHfrS9U6AH+z+5VpLBn4PUSCtrmjtnNrW19ZVO73EpUCh"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1423,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1596,
+       "completion_tokens": 28
+      }
+     }
+    },
+    {
+     "request_hash": "9f1ce1d4ecd2e475",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Shipment MC100004521 is currently **delayed** due to severe weather (a sandstorm) at the Dubai Hub.\n\n*   **Current Location:** Dubai Hub, AE\n*   **Revised ETA:** October 5, 2026, by 09:00 UTC\n*   **Status Detail:** Flights out of Dubai were suspended. No action is required on your part; the shipment will move on the next available flight.\n\nWould you like me to draft a delay notification email for the customer, Thandiwe Nkosi?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1786,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2005,
+       "completion_tokens": 120
+      }
+     }
+    }
+   ]
+  },
+  "track-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4dd4e88467a02bc7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1291329",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4513\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TDDVmxiENCJv6u31iwJK1n2YxI8cStPPofpIJMEkfSMhfNGjE6cwswVfM73X66rG3priLmHkNhCagVbmpm+qcwYBLXcK2BEAjUZd041shllSOynxXGG25ZxVaA+U0Uypj6okvfMrg0csY9DrQ"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1051,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1590,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "76377103fb437fae",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Yes, order 4513 was delivered on September 29, 2026, at 09:00 UTC. It was signed for by W. Kamau in Nairobi, Kenya."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1369,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1977,
+       "completion_tokens": 45
+      }
+     }
+    }
+   ]
+  },
+  "track-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "3ee8b35a930d5eb1",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1350296",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4518\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TKyWkg/YR6vg4W/+JYGZk+pdO+X6Q6U5rn4yEokuibuyNDTvfVPw8X63OBXVJcwLGwbRMYolKLCq1+HHh8KtjRqHDpwXDVCdnKzG/BkD9/ZqGdqoax4jme6oCbZxMVXt6X46LJ0ZMRo1CZofM"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1881,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1589,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "8d5e6a6a7d366f55",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Shipment #4518 (tracking number MC100004518) is currently on **customs hold** at Kotoka International Airport in Accra, Ghana.\n\n**Status Details:**\n*   **Reason:** The commercial invoice is missing the HS code for line 2, and the importer's Tax Identification Number (TIN) was not provided.\n*   **Action Required:** You must provide a corrected commercial invoice (including the HS code) and the consignee's TIN within 5 days to avoid the shipment being returned.\n\nWould you like me to draft an email to the customer regarding this delay?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1578,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2062,
+       "completion_tokens": 133
+      }
+     }
+    }
+   ]
+  },
+  "track-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e854545f7aef84c5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1431381",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100004527\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TVlotNG5UVJ+kREs96e+ea2z6KCiB74CM2BXYsKBUZ+XDdd35xGd630TTweDew0NmfYnBOjUBaLyJfZb7Meu9GB0xU0F6CHfNZzcQwvwN4gtq5A/TCubLzkfr7pWTOAgUf1ZyIm3Zq8awwM0Y"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1778,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 28
+      }
+     }
+    },
+    {
+     "request_hash": "eae0bfdb7b076c19",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipment **MC100004527** (Order 4527) is currently at the Lagos Ikeja Delivery Station. Unfortunately, the delivery attempt on September 30th failed because the address is incomplete (missing building number) and the recipient could not be reached by phone.\n\n**Action Required:**\nThe courier needs a corrected address (including a building number or landmark) and a reachable phone number within 3 days to avoid the parcel being returned.\n\nWould you like me to draft an email to the customer (Chinedu Eze) to request these details?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1746,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2054,
+       "completion_tokens": 123
+      }
+     }
+    }
+   ]
+  },
+  "track-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "8a19328031dd7329",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1692110",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4530\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TJWPSGbzaRhIJmm7S5vnPvK/l+Me+5YVofagecv2DX3GvsROIy5a/pJsJExJaZjm5iGIysN5iXOSkm2pIEGZ+nGfx6SINSOyT2GLhohKlWWlfgtvhcQBODdTP0RrIxbZI7HmrtLHD7Aynlk+B"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 868,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "f6ccaa1019538783",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4530 is currently in transit and is estimated to arrive in Nairobi on October 10, 2026."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1119,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1845,
+       "completion_tokens": 29
+      }
+     }
+    }
+   ]
+  },
+  "track-07": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "885a179484ba1725",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1350118",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4533\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0T7+o+EUuglqaC6s2JFirGD/FVdyqIjxrUhrS+IMf59u/EGl2UoslHpRPRkpfxVoaiuQX25l0vdfrQwwKxB0RIta0blXryS1aVWDAp37toDB3rMytk2Jdw2vv5pR7wBl9E+O4Fu06yU+ufpXXu"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 2047,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1594,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "080878c67da8b5de",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Yes, the parcel for order 4533 is currently out for delivery in Accra. It is expected to arrive by 5:00 PM UTC today, October 1st."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1501,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1964,
+       "completion_tokens": 39
+      }
+     }
+    }
+   ]
+  },
+  "track-08": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "16fbecdd28b57f73",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1349721",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4536\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TzUwIwL3JyrimRZICWy4alTE0ttp7Gvk1W6CdUnjAarmJNbWcjL1qH89bbXszUPAc7h6mqDIiFBX0UR+vOLnpYC8dILjvpTpGsRPnIE4dEJuk9vflc0ery/X3BLWgGknm7W6OBrqGKBLsB+vr"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 958,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1589,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "e192d37b3265f161",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4536 (tracking number MC100004536) is currently at the **label created** stage. The shipment information has been received, and it is awaiting pickup in Dubai.\n\nIt is estimated to be delivered to Johannesburg by October 8, 2026."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1415,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1795,
+       "completion_tokens": 65
+      }
+     }
+    }
+   ]
+  },
+  "track-09": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "37dbf3e68e946c1b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1574664",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100000503\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TK4m8Ez8aziRn2+WVJiFqLeLhH4e3ctmI99o7A6c6rYVgtWzd15pwwBXh0NUR+axGdJ1IW06ubyjo53RmT+66k0+XucEhFRjgrjcKmvQmchEzKQ6G/fEKX0Yoz9NGB6s2jX11TM9hIetQgY4w"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1271,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1595,
+       "completion_tokens": 28
+      }
+     }
+    },
+    {
+     "request_hash": "5bde60dbbb1d8c4a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Shipment MC100000503 is currently in transit to the destination hub. It arrived at the Dubai Hub on September 30 and is expected to be delivered in Nairobi, Kenya, by October 4, 2026."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1014,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1894,
+       "completion_tokens": 54
+      }
+     }
+    }
+   ]
+  },
+  "track-10": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e0b7d5b682c58874",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1574785",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4521\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TV+0JK9DCUKscgKhRkb8uRglYKiUvP11a0AeSVtIiro8eNUmoO0Bfwd7q4Kl9+LfCgte99iu4nSQk/ZX4/Sh/77FRUhnhtRe5Wb5JLs23KWnPVzwlqYAxJyNR/0eIbKh2s91zMPX0vvytEXs9"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1404,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1596,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "329fb1851e515ed5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipment for order 4521 is currently delayed due to severe weather (a sandstorm) at the Dubai transit hub.\n\n*   **Status:** Delayed\n*   **Current Location:** Dubai Hub, AE\n*   **New Estimated Delivery:** October 5, 2026, by 09:00 UTC\n\nNo action is required on our end; the shipment is scheduled to move on the next available flight. Would you like me to draft an email to the customer, Thandiwe Nkosi, to inform them of this delay?"
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 1465,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1999,
+       "completion_tokens": 117
+      }
+     }
+    }
+   ]
+  }
+ }
+}

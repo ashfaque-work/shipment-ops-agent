@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import logging
+import re
 import threading
 from dataclasses import dataclass, field
 from typing import Any
@@ -36,12 +37,24 @@ def _coerce(kind: str, value: Any) -> Any:
     return str(value).strip() or None
 
 
+INCOTERMS_2020 = re.compile(r"\b(EXW|FCA|FAS|FOB|CFR|CIF|CPT|CIP|DAP|DPU|DDP)\b")
+
+
+def normalize_incoterm(value: str | None) -> str | None:
+    """'DAP 2020', 'CIF (Incoterms 2020)', 'fob' -> the bare 3-letter code."""
+    if not value:
+        return None
+    m = INCOTERMS_2020.search(value.upper())
+    return m.group(1) if m else value.strip()
+
+
 def clean_fields(doc_type: str | None, raw: dict[str, Any]) -> dict[str, Any]:
     """Coerce extractor output onto the schema (types, nulls, known keys only)."""
     if doc_type not in FIELDS:
         return {}
     out = {k: _coerce(kind, raw.get(k)) for k, kind in FIELDS[doc_type].items()}
     if doc_type == INVOICE:
+        out["incoterm"] = normalize_incoterm(out.get("incoterm"))
         out["line_items"] = [
             {k: _coerce(kind, (it or {}).get(k)) for k, kind in LINE_ITEM_FIELDS.items()}
             for it in raw.get("line_items") or []

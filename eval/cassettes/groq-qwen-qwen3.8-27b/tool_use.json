@@ -1,0 +1,1381 @@
+{
+ "meta": {
+  "provider": "groq",
+  "model": "qwen/qwen3.8-27b",
+  "recorded_at": "2026-10-03"
+ },
+ "cases": {
+  "address-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "c36389631cdfa721",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "j7dsrqf79",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"order_id\":\"4551\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 928,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1873,
+       "completion_tokens": 31
+      }
+     }
+    },
+    {
+     "request_hash": "8ad400da664f1610",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The address on order 4551 is **not valid** as it stands.\n\n**Address on file**\n- Tunde Bakare\n- Opebi Road, Ikeja\n- Lagos 100271, Nigeria\n- +234 802 555 0177\n\n**Issue found**\n- No building/house number in the street address \u2014 \"Opebi Road, Ikeja\" needs a specific house or building number for the carrier to deliver.\n\n**Suggested fix**\n- Ask the customer for the house/building number (e.g. \"14 Opebi Road\") and update the order before booking the shipment.\n\nWant me to draft a short email to the customer asking for the missing number?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 674,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2034,
+       "completion_tokens": 165
+      }
+     }
+    }
+   ]
+  },
+  "address-02": {
+   "complete": false,
+   "calls": []
+  },
+  "create-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "d301a6dbf80e769d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "cq89bzbf8",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 421,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1869,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "c4f36bb5c19d4192",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "jfqhbhbp7",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4550\",\"service_code\":\"STANDARD\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 524,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2109,
+       "completion_tokens": 45
+      }
+     }
+    }
+   ]
+  },
+  "create-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "524e91a764cbe77f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "n4j4zbnqr",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4553\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 350,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1871,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "eda6abaacc3b79a6",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "w4wb6h6xq",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4553\",\"service_code\":\"EXPRESS\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 418,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2109,
+       "completion_tokens": 45
+      }
+     }
+    }
+   ]
+  },
+  "create-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "28207a4572f818d0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "tn26k4y2v",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4552\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 666,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1872,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "7c4bc419dc46f1ac",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "3kmzs3pb6",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4552\",\"service_code\":\"FREIGHT\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 704,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2117,
+       "completion_tokens": 45
+      }
+     }
+    }
+   ]
+  },
+  "create-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ae04602e70905886",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "f9x3gjft1",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 367,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1871,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "4c2a275f7ce7bd05",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "6y80mja85",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4550\",\"service_code\":\"ECONOMY\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 470,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2111,
+       "completion_tokens": 47
+      }
+     }
+    }
+   ]
+  },
+  "create-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e2cfe554275f363b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "vj86fqfa8",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4553\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 338,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1867,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "cb7508d7c5fd6ebf",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4553 is ready to ship. Let me get shipping options for this route.\n\n",
+       "tool_calls": [
+        {
+         "id": "d4dzh6e52",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Accra\",\"destination_country\":\"GH\",\"height_cm\":30,\"length_cm\":50,\"origin_city\":\"Kolkata\",\"origin_country\":\"IN\",\"weight_kg\":7.2,\"width_cm\":40}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 664,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2105,
+       "completion_tokens": 147
+      }
+     }
+    },
+    {
+     "request_hash": "b2dfb7b1f9699bf4",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here's the order and shipping options:\n\n**Order 4553** \u2014 Yaw Owusu, Accra, Ghana\n- Terracotta planters x6, 7.2 kg, 50\u00d740\u00d730 cm, value USD 195\n\n**Shipping options (Kolkata \u2192 Accra):**\n- **Economy** \u2014 USD 195.49, 10\u201315 days (est. 16 Oct)\n- **Standard** \u2014 USD 312.40, 6\u20139 days (est. 10 Oct)\n- **Express** \u2014 USD 512.62, 3\u20135 days (est. 6 Oct)\n\n**Recommended: Standard** \u2014 best balance of price and speed; costs USD 116.91 more than Economy but arrives up to 6 days sooner.\n\nWhich service would you like to book?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 802,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2604,
+       "completion_tokens": 202
+      }
+     }
+    }
+   ]
+  },
+  "create-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a2bd5babf8311fde",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "kh79msc4z",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4551\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 732,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1876,
+       "completion_tokens": 30
+      }
+     }
+    },
+    {
+     "request_hash": "2d0678b8cd9d02ed",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "qdrek459z",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4551\",\"service_code\":\"STANDARD\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 447,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2111,
+       "completion_tokens": 45
+      }
+     }
+    },
+    {
+     "request_hash": "434b88c0f7dc5dfe",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I couldn't book the shipment yet \u2014 the delivery address failed validation.\n\n**Problem:** The street address \"Opebi Road, Ikeja\" has no building/house number, so the carrier can't deliver to it.\n\nCould you send me the full address with the house/building number (and any apartment or floor details)? Once I have it, I'll re-book order 4551 with standard shipping to Tunde Bakare in Lagos."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 646,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2240,
+       "completion_tokens": 95
+      }
+     }
+    }
+   ]
+  },
+  "rates-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "517dd562b51e48e3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "nww0a8syt",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Nairobi\",\"origin_city\":\"Kolkata\",\"weight_kg\":5}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 415,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1872,
+       "completion_tokens": 57
+      }
+     }
+    },
+    {
+     "request_hash": "8d8cf87dfdf96097",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here are the options for a 5 kg parcel from Kolkata to Nairobi:\n\n- **Economy** \u2013 USD 75.55, 10\u201315 days (est. delivery 16 Oct 2026)\n- **Standard** \u2013 USD 119.55, 6\u20139 days (est. delivery 10 Oct 2026)\n- **Express** \u2013 USD 195.13, 3\u20135 days (est. delivery 6 Oct 2026)\n\n**Recommended: Standard** \u2013 best balance of price and speed. It costs USD 44 more than Economy but arrives up to 6 days sooner.\n\nLet me know if you'd like to book one of these."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 730,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2270,
+       "completion_tokens": 165
+      }
+     }
+    }
+   ]
+  },
+  "rates-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "689b598efc82f9dd",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "q3a93447q",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Lagos\",\"height_cm\":30,\"length_cm\":50,\"origin_city\":\"Mumbai\",\"priority\":\"cheapest\",\"weight_kg\":12,\"width_cm\":40}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 531,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1886,
+       "completion_tokens": 112
+      }
+     }
+    },
+    {
+     "request_hash": "3cb9ebdcb114d92e",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Cheapest option for your 12 kg box (50\u00d740\u00d730 cm) from Mumbai to Lagos:\n\n- **Economy Select \u2014 USD 172.74**, 10\u201315 days (est. delivery 16 Oct 2026) \u2190 recommended\n- Standard International \u2014 USD 275.82, 6\u20139 days (est. 10 Oct)\n- Express Worldwide \u2014 USD 452.41, 3\u20135 days (est. 6 Oct)\n\nEconomy is the lowest-priced eligible service, so it's the pick if cost is your priority. Want me to book it?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 1056,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2328,
+       "completion_tokens": 146
+      }
+     }
+    }
+   ]
+  },
+  "rates-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "2c031ccdccbcc3c5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "tnhkbf1rs",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"deadline_days\":5,\"destination_city\":\"Accra\",\"origin_city\":\"Delhi\",\"weight_kg\":3}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 596,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1881,
+       "completion_tokens": 70
+      }
+     }
+    },
+    {
+     "request_hash": "b2a227a9c92ef175",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here are your options for 3 kg from Delhi to Accra:\n\n- **Economy** \u2013 USD 58.98, 10\u201315 days (est. delivery 16 Oct)\n- **Standard** \u2013 USD 92.91, 6\u20139 days (est. delivery 10 Oct)\n- **Express** \u2013 USD 151.28, 3\u20135 days (est. delivery 6 Oct)\n\n**Recommendation: Express (USD 151.28)** \u2013 it's the only service that meets your 5-day deadline, and it's the cheapest of the eligible options.\n\nWant me to book the Express shipment?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 780,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2290,
+       "completion_tokens": 151
+      }
+     }
+    }
+   ]
+  },
+  "rates-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "027c033500d1b0bd",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "sfdqys77r",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Johannesburg\",\"origin_city\":\"Dubai\",\"weight_kg\":20}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 551,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1872,
+       "completion_tokens": 60
+      }
+     }
+    },
+    {
+     "request_hash": "fee93faef84e71ca",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here's the comparison for 20 kg, Dubai \u2192 Johannesburg:\n\n- **Economy** \u2013 USD 253.26, 10\u201315 days (est. delivery 16 Oct 2026)\n- **Express** \u2013 USD 665.54, 3\u20135 days (est. delivery 6 Oct 2026)\n\nExpress costs about USD 412 more and arrives up to 10 days sooner.\n\nThere's also a **Standard** option at USD 405.28, 6\u20139 days (est. 10 Oct 2026) \u2014 the system recommends it as the best balance of price and speed, arriving up to 6 days sooner than Economy for USD 152 more.\n\nLet me know if you'd like to book any of these."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 2133,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2276,
+       "completion_tokens": 187
+      }
+     }
+    }
+   ]
+  },
+  "rates-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4910c624d758a199",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "m3e89wak6",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Mombasa\",\"origin_city\":\"Kolkata\",\"priority\":\"fastest\",\"weight_kg\":2}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 595,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1872,
+       "completion_tokens": 71
+      }
+     }
+    },
+    {
+     "request_hash": "f3e6dd2ff2738da5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Fastest option for 2 kg Kolkata \u2192 Mombasa:\n\n- **Express Worldwide \u2014 USD 102.87, 3\u20135 days** (est. delivery 6 Oct 2026) \u2190 recommended\n- Standard International \u2014 USD 63.51, 6\u20139 days (est. 10 Oct)\n- Economy Select \u2014 USD 40.70, 10\u201315 days (est. 16 Oct)\n\nExpress is the fastest eligible option; it costs about USD 62 more than Economy but arrives up to 10 days sooner. Want me to book it?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 737,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2279,
+       "completion_tokens": 138
+      }
+     }
+    }
+   ]
+  },
+  "rates-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "002600f80bcc6702",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "2m74vbnyd",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Durban\",\"origin_city\":\"Kolkata\",\"weight_kg\":120}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 916,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1879,
+       "completion_tokens": 59
+      }
+     }
+    },
+    {
+     "request_hash": "d730070968b87128",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here are the quotes for 120 kg Kolkata \u2192 Durban:\n\n- **Freight (consolidated)** \u2013 USD 865.34, 7\u201311 days (est. delivery 12 Oct 2026)\n- **Economy Select** \u2013 USD 1,661.99, 10\u201315 days (est. 16 Oct 2026)\n- **Standard International** \u2013 USD 2,670.30, 6\u20139 days (est. 10 Oct 2026)\n- **Express Worldwide** \u2013 USD 4,394.54, 3\u20135 days (est. 6 Oct 2026)\n\n**Recommended: Freight (consolidated)** \u2013 it's the cheapest option and still delivers in 7\u201311 days, giving the best balance of price and speed.\n\nWant me to book this, or would you like to compare a different service?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 889,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2339,
+       "completion_tokens": 219
+      }
+     }
+    }
+   ]
+  },
+  "rates-07": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "75cbc83c213d8145",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "sapyfqv7k",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Abuja\",\"origin_city\":\"Chennai\",\"weight_kg\":0.75}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 611,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1877,
+       "completion_tokens": 60
+      }
+     }
+    },
+    {
+     "request_hash": "9d73012d605b6255",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here are the options for a 750 g parcel from Chennai to Abuja (chargeable weight 1.0 kg):\n\n- **Economy** \u2013 USD 31.05, 10\u201315 days (est. delivery 16 Oct 2026)\n- **Standard** \u2013 USD 48.00, 6\u20139 days (est. delivery 10 Oct 2026)\n- **Express** \u2013 USD 77.34, 3\u20135 days (est. delivery 6 Oct 2026)\n\n**Recommended: Standard** \u2013 best balance of price and speed. It costs USD 16.95 more than Economy but arrives up to 6 days sooner.\n\nLet me know if you'd like to book one of these."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 688,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2273,
+       "completion_tokens": 178
+      }
+     }
+    }
+   ]
+  },
+  "rates-08": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "37f24046e250c7c3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "g5e5002em",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Nairobi\",\"height_cm\":20,\"length_cm\":40,\"origin_city\":\"Mumbai\",\"weight_kg\":8,\"width_cm\":30}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 489,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1880,
+       "completion_tokens": 98
+      }
+     }
+    },
+    {
+     "request_hash": "95a4bb5582249019",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Here are the rates for Mumbai \u2192 Nairobi (8 kg, 40\u00d730\u00d720 cm):\n\n- **Economy** \u2013 USD 97.77, 9\u201314 days (est. delivery 15 Oct 2026)\n- **Standard** \u2013 USD 155.27, 5\u20138 days (est. delivery 9 Oct 2026)\n- **Express** \u2013 USD 253.94, 2\u20134 days (est. delivery 5 Oct 2026)\n\n**Recommended: Standard** \u2013 best balance of price and speed. It costs USD 57.50 more than Economy but arrives up to 6 days sooner.\n\nWant me to book a shipment on one of these?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 628,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2327,
+       "completion_tokens": 172
+      }
+     }
+    }
+   ]
+  },
+  "rates-09": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4994970104d473b0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "24thye70z",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Cape Town\",\"origin_city\":\"Bengaluru\",\"priority\":\"balanced\",\"weight_kg\":15}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 523,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1882,
+       "completion_tokens": 73
+      }
+     }
+    },
+    {
+     "request_hash": "46f4aa0df5415145",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "For 15 kg Bengaluru \u2192 Cape Town, here are the options:\n\n- **Economy** \u2013 USD 218.84, 10\u201315 days (est. delivery 16 Oct)\n- **Standard** \u2013 USD 349.94, 6\u20139 days (est. delivery 10 Oct)\n- **Express** \u2013 USD 574.43, 3\u20135 days (est. delivery 6 Oct)\n\n**Recommended: Standard International (USD 349.94, 6\u20139 days).** It's the best balance of cost and speed \u2014 only about USD 131 more than Economy, but it arrives up to 6 days sooner. Express costs another ~USD 224 over Standard for just a few extra days of speed.\n\nWant me to book the Standard service, or would you like to compare with a specific deadline in mind?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 676,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2302,
+       "completion_tokens": 201
+      }
+     }
+    }
+   ]
+  },
+  "track-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "848f11ea437331a8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "txzt4n5nh",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4512\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 655,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1872,
+       "completion_tokens": 32
+      }
+     }
+    },
+    {
+     "request_hash": "ce66685f33fee107",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4512 (tracking MC100004512) is in transit to Lagos, Nigeria.\n\n- **Current location:** Lagos Hub, NG\n- **Status:** Arrived at destination hub; customs cleared (cleared 30 September)\n- **Estimated delivery:** 3 October 2026\n- **Route so far:** Mumbai (25 Sep) \u2192 Dubai (27\u201327 Sep) \u2192 Lagos (29 Sep)\n\nIt's cleared customs and just waiting for final delivery in Lagos."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 497,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2258,
+       "completion_tokens": 117
+      }
+     }
+    }
+   ]
+  },
+  "track-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "849334a835e5945b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "gh0kwyswa",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100004521\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 382,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1877,
+       "completion_tokens": 38
+      }
+     }
+    },
+    {
+     "request_hash": "d04681769f3dd28d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**MC100004521** \u2014 Delayed\n\n- **Route:** Dubai, AE \u2192 Johannesburg, ZA (EXPRESS)\n- **Current location:** Dubai Hub, AE\n- **Status:** Delayed \u2014 flights out of Dubai suspended due to a severe sandstorm\n- **Revised ETA:** 5 October 2026 (originally 2 October 2026)\n- **Action needed:** None \u2014 it will move on the next available flight\n\n**Recent events:**\n- 1 Oct, 04:12 UTC \u2014 Delivery date revised (Dubai Hub)\n- 30 Sep, 09:00 UTC \u2014 Flight cancelled, severe weather (Dubai Hub)\n- 29 Sep, 13:48 UTC \u2014 Arrived at origin facility (Dubai Hub)\n- 29 Sep, 09:00 UTC \u2014 Picked up from shipper (Dubai)\n\nThis is order 4521 for Thandiwe Nkosi. Want me to draft a delay notification email for the customer?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 1221,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2306,
+       "completion_tokens": 235
+      }
+     }
+    }
+   ]
+  },
+  "track-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4dd4e88467a02bc7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "09jt7httf",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4513\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 415,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1871,
+       "completion_tokens": 32
+      }
+     }
+    },
+    {
+     "request_hash": "1e6ddc05749f84f0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Yes \u2014 order 4513 (Wanjiru Kamau, Nairobi) was delivered on 29 September 2026, signed for by W. KAMAU.\n\nKey timeline:\n- 26 Sep: departed Kolkata\n- 27 Sep: arrived at Nairobi hub\n- 28 Sep: cleared customs\n- 29 Sep: out for delivery, then delivered\n\nTracking number: MC100004513."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 809,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2267,
+       "completion_tokens": 101
+      }
+     }
+    }
+   ]
+  },
+  "track-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "3ee8b35a930d5eb1",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "yhz5kvtnk",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4518\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 587,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1869,
+       "completion_tokens": 32
+      }
+     }
+    },
+    {
+     "request_hash": "f3cc41f408f1a322",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order #4518 (Kwame Mensah, Accra) is **on customs hold** in Ghana.\n\n- **Tracking:** MC100004518, STANDARD service, Delhi \u2192 Accra\n- **Location:** Kotoka Intl Airport Customs, Accra\n- **Problem:** Ghana customs is holding it because the commercial invoice is missing the HS code for line 2 and the importer's TIN.\n- **Deadline:** A corrected commercial invoice (with HS codes) and the consignee's TIN must be uploaded **within 5 days** (by about 2 October) or the parcel risks being returned.\n- **Original delivery estimate:** 30 September \u2014 now unknown until customs clears it.\n\nRecent history:\n- 30 Sep \u2013 Awaiting documents from shipper\n- 27 Sep \u2013 Held by customs (incomplete commercial invoice)\n- 27 Sep \u2013 Arrived at Accra hub\n- 24 Sep \u2013 Departed Delhi\n\nWant me to draft a customer email to Kwame explaining the hold and requesting his TIN?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 973,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2359,
+       "completion_tokens": 228
+      }
+     }
+    }
+   ]
+  },
+  "track-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e854545f7aef84c5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "19w0v5mqd",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100004527\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 399,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1872,
+       "completion_tokens": 38
+      }
+     }
+    },
+    {
+     "request_hash": "5b9b709d7bbf06d7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**MC100004527** \u2014 Order 4527 (Chinedu Eze), Mumbai \u2192 Lagos, STANDARD\n\n**Status: Delivery failed** \u2014 courier could not locate the premises (no building number) and the recipient's phone was unreachable.\n\n- **Current location:** Lagos Ikeja Delivery Station, NG\n- **Original ETA:** 30 September 2026 (missed)\n- **Action needed:** Provide a corrected address (building number or landmark) and a reachable phone number **within 3 days**, or the parcel will be returned.\n\nRecent events:\n- 30 Sep \u2014 Delivery attempt failed (address incomplete, recipient unreachable)\n- 30 Sep \u2014 Out for delivery\n- 28 Sep \u2014 Cleared customs at Lagos Hub\n- 27 Sep \u2014 Arrived at destination hub\n- 23 Sep \u2014 Departed Mumbai Gateway\n\nWant me to draft a customer email to Chinedu asking for the corrected address and phone number?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 1016,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2344,
+       "completion_tokens": 213
+      }
+     }
+    }
+   ]
+  },
+  "track-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "8a19328031dd7329",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "2h4sqcs41",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4530\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 346,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1872,
+       "completion_tokens": 32
+      }
+     }
+    },
+    {
+     "request_hash": "6f8350e26d8ddeac",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4530 (tracking MC100004530) is in transit to Nairobi, Kenya.\n\n- **Estimated delivery:** Friday 10 October 2026\n- **Current status:** Departed origin facility (Kolkata Gateway, India) on 30 September\n- **Service:** Economy\n\nSo it should arrive in Nairobi around 10 October, assuming no delays."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 733,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2133,
+       "completion_tokens": 89
+      }
+     }
+    }
+   ]
+  },
+  "track-07": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "885a179484ba1725",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "qrcb0xddn",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4533\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 936,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1876,
+       "completion_tokens": 32
+      }
+     }
+    },
+    {
+     "request_hash": "793b66fee0887d26",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Yes \u2014 order 4533 (tracking MC100004533) is **out for delivery** in Accra.\n\n- **Status:** Out for delivery since 7:00 UTC today\n- **Current location:** Accra Delivery Station\n- **Estimated delivery:** today by 5:00 PM UTC\n- **Customer:** Akosua Boateng\n- **Service:** EXPRESS\n\nIt cleared customs on 30 September and has been moving through the Accra hub since 29 September."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 592,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2257,
+       "completion_tokens": 113
+      }
+     }
+    }
+   ]
+  },
+  "track-08": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "16fbecdd28b57f73",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "0w3afyad0",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4536\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 368,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1870,
+       "completion_tokens": 32
+      }
+     }
+    },
+    {
+     "request_hash": "eef2cee65496efb3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4536 (Sipho Dlamini) \u2014 tracking MC100004536:\n\n- **Status:** Label created \u2014 shipment information received, awaiting pickup\n- **Service:** Standard\n- **Route:** Dubai, AE \u2192 Johannesburg, ZA\n- **Current location:** Dubai, AE\n- **Estimated delivery:** 8 October 2026\n- **Latest event:** Shipping label created, 1 October 2026, 06:00 UTC\n\nThe parcel hasn't been picked up yet, so no movement has started."
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 664,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2088,
+       "completion_tokens": 125
+      }
+     }
+    }
+   ]
+  },
+  "track-09": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "37dbf3e68e946c1b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "sbwabktrw",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100000503\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 392,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1875,
+       "completion_tokens": 38
+      }
+     }
+    },
+    {
+     "request_hash": "701e31b533a893c6",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Your shipment **MC100000503** (order 4541, Achieng Wafula) is **in transit** \u2014 currently at the **Dubai Hub, UAE**, on its way to the destination hub in Nairobi, Kenya.\n\n- **Service:** Standard\n- **Route:** Kolkata, IN \u2192 Nairobi, KE\n- **Estimated delivery:** 4 October 2026, 09:00 UTC\n\nRecent events:\n- 30 Sep 2026, 09:00 UTC \u2014 Arrived at Dubai transit hub\n- 28 Sep 2026, 18:36 UTC \u2014 Departed Kolkata gateway\n- 28 Sep 2026, 09:00 UTC \u2014 Picked up from shipper in Kolkata\n\nEverything looks on schedule. Want me to draft a status update email for the customer?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 957,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2183,
+       "completion_tokens": 198
+      }
+     }
+    }
+   ]
+  },
+  "track-10": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e0b7d5b682c58874",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "938wy00e6",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4521\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 488,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1877,
+       "completion_tokens": 32
+      }
+     }
+    },
+    {
+     "request_hash": "2795e4a1fb49b942",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Order 4521 (Thandiwe Nkosi, Johannesburg) is **delayed** \u2014 tracking MC100004521.\n\n- **Where it is:** Dubai Hub, UAE\n- **Why:** Flights out of Dubai were suspended due to a severe sandstorm; the parcel is on the next available flight.\n- **Revised ETA:** 5 October 2026 (originally 2 October)\n- **Action needed:** None \u2014 it will move automatically once flights resume.\n\nRecent events:\n- 1 Oct: delivery date revised\n- 30 Sep: flight cancelled (severe weather)\n- 29 Sep: arrived at origin facility, then picked up from shipper\n\nWant me to draft a delay notification email to the customer?"
+      },
+      "provider": "groq",
+      "model": "qwen/qwen3.8-27b",
+      "latency_ms": 671,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2300,
+       "completion_tokens": 170
+      }
+     }
+    }
+   ]
+  }
+ }
+}

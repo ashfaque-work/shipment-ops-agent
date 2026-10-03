@@ -1,0 +1,689 @@
+{
+ "suite": "tool_use",
+ "metrics": {
+  "cases": 40,
+  "tool_selection_accuracy": 1.0,
+  "argument_accuracy": 0.987012987012987,
+  "argument_accuracy_end_to_end": 0.987012987012987,
+  "errors": 0,
+  "drift": 0
+ },
+ "by_category": {
+  "address": {
+   "cases": 4,
+   "selection_accuracy": 1.0
+  },
+  "create": {
+   "cases": 6,
+   "selection_accuracy": 1.0
+  },
+  "documents": {
+   "cases": 2,
+   "selection_accuracy": 1.0
+  },
+  "email": {
+   "cases": 6,
+   "selection_accuracy": 1.0
+  },
+  "no_tool": {
+   "cases": 2,
+   "selection_accuracy": 1.0
+  },
+  "order": {
+   "cases": 1,
+   "selection_accuracy": 1.0
+  },
+  "rates": {
+   "cases": 9,
+   "selection_accuracy": 1.0
+  },
+  "track": {
+   "cases": 10,
+   "selection_accuracy": 1.0
+  }
+ },
+ "cases": [
+  {
+   "id": "track-01",
+   "category": "track",
+   "message": "Where is order 4512 going to Lagos?",
+   "called": [
+    "get_order",
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Order\u202f4512 \u2013 Destination Details**\n\n- **Recipient:** Adaeze\u202fOkafor  \n- **Address:** 14\u202fAdmiralty\u202fWay, Lekki Phase\u202f1, Lagos\u202f106104, Nigeria  \n- **Current status:** *In transit* \u2013 the parcel is now at the **Lagos Hub, Nigeria** after clearing customs.  \n- **Estimated delivery:** Today,\u202f3\u202fOctober\u202f202"
+  },
+  {
+   "id": "track-02",
+   "category": "track",
+   "message": "Can you check the status of MC100004521?",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Shipment MC100004521 (Order\u202f4521)**  \n- **Current status:** Delayed \u2013 severe weather at transit point (Dubai Hub,\u202fAE)  \n- **Original ETA:** 2\u202fOct\u202f2026\u202f09:00\u202fUTC  \n- **Revised ETA:** 5\u202fOct\u202f2026\u202f09:00\u202fUTC  \n- **Recent events:**  \n  \u2022 1\u202fOct\u202f2026\u202f04:12\u202fUTC \u2013 Delivery date revised  \n  \u2022 30\u202fSep\u202f2026\u202f09:"
+  },
+  {
+   "id": "track-03",
+   "category": "track",
+   "message": "Has order 4513 been delivered yet?",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Order\u202f4513** has been **delivered**.\n\n- **Delivered\u202fat:** 29\u202fSeptember\u202f2026, 09:00\u202fUTC  \n- **Recipient:** W.\u202fKAMAU (signed for)  \n- **Service used:** EXPRESS (Kolkata\u202f\u2192\u202fNairobi)  \n\nLet me know if you need a delivery confirmation email drafted or any other assistance."
+  },
+  {
+   "id": "track-04",
+   "category": "track",
+   "message": "what's happening with #4518",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Order\u202f#4518 \u2013 Current status**\n\n- **Status:**\u202fCustoms hold (Ghana Revenue Authority)  \n- **Location:**\u202fKotoka International Airport, Accra, Ghana  \n- **Reason:**\u202fCommercial invoice is missing the HS code for line\u202f2 and the consignee\u2019s Tax Identification Number (TIN) is not provided.  \n- **Action r"
+  },
+  {
+   "id": "track-05",
+   "category": "track",
+   "message": "Track mc100004527 please",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Shipment MC100004527 \u2013 Current Status**\n\n- **Status:** *Delivery attempt failed* \u2013 address incomplete  \n- **Detail:** Courier could not locate the premises (no building number) and the recipient phone was unreachable.  \n- **Location:** Lagos\u202fIkeja Delivery Station, Nigeria  \n- **Original estimated"
+  },
+  {
+   "id": "track-06",
+   "category": "track",
+   "message": "When will order 4530 arrive in Nairobi?",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Order\u202f4530 \u2013 Nairobi, Kenya**\n\n- **Current status:** In transit (departed Kolkata gateway)  \n- **Estimated delivery:** **10\u202fOctober\u202f2026** (around\u202f09:00\u202fUTC)\n\nSo you can expect the parcel to arrive in Nairobi on\u202f10\u202fOctober\u202f2026. Let me know if you need a tracking\u2011link, a delay notice, or anything "
+  },
+  {
+   "id": "track-07",
+   "category": "track",
+   "message": "Is the Accra parcel for order 4533 out for delivery?",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Status:** The parcel for order\u202f4533 (tracking\u202fMC100004533) is **out for delivery** in Accra, Ghana.  \n\n- **Current location:** Accra Delivery Station, GH  \n- **Estimated delivery:** today, 1\u202fOct\u202f2026 by\u202f17:00\u202fUTC  \n\nIf you need a customer\u2011facing email or any other assistance, just let me know."
+  },
+  {
+   "id": "track-08",
+   "category": "track",
+   "message": "status for order no. 4536",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Order\u202f4536 \u2013 Shipment Status**\n\n- **Tracking number:** MC100004536  \n- **Current status:** *Label created* \u2013 shipment information received and awaiting pickup.  \n- **Service:** STANDARD  \n- **Origin:** Dubai, United Arab Emirates  \n- **Destination:** Johannesburg, South Africa  \n- **Current locati"
+  },
+  {
+   "id": "track-09",
+   "category": "track",
+   "message": "Where's my shipment MC100000503?",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Shipment MC100000503 (Order\u202f4541)**  \n- **Current status:** In transit \u2013 \u201cIn transit to destination hub\u201d  \n- **Current location:** Dubai Hub, United Arab Emirates  \n- **Estimated delivery:** 4\u202fOctober\u202f2026 (09:00\u202fUTC)  \n\n**Recent events**  \n- 30\u202fSep\u202f2026\u202f09:00\u202fUTC \u2013 Arrived at Dubai transit hub  \n"
+  },
+  {
+   "id": "track-10",
+   "category": "track",
+   "message": "Any update on order 4521 to Johannesburg? The customer is asking.",
+   "called": [
+    "track_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Order\u202f4521 \u2013 Johannesburg,\u202fSouth\u202fAfrica**\n\n- **Current status:** **Delayed** (severe weather at Dubai hub)  \n- **Current location:** Dubai Hub, United Arab Emirates  \n- **Revised ETA:** **5\u202fOctober\u202f2026, 09:00\u202fUTC** (originally 2\u202fOct)  \n- **No action required** from the customer; the parcel will m"
+  },
+  {
+   "id": "rates-01",
+   "category": "rates",
+   "message": "How much to ship 5 kg from Kolkata to Nairobi?",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 3,
+   "args_total": 3,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Shipping quote \u2013 5\u202fkg, Kolkata\u202f\u2192\u202fNairobi**\n\n| Service | Price (USD) | Transit time | Estimated delivery |\n|---------|-------------|--------------|--------------------|\n| **Economy** | 75.55 | 10\u201115\u202fdays | around 16\u202fOct |\n| **Standard** *(recommended)* | 119.55 | 6\u20119\u202fdays | around 10\u202fOct |\n| Expres"
+  },
+  {
+   "id": "rates-02",
+   "category": "rates",
+   "message": "Cheapest way to send a 12 kg box (50x40x30 cm) from Mumbai to Lagos",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 7,
+   "args_total": 7,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Cheapest option \u2013 ECONOMY (Mock Economy Select)**  \n- **Price:**\u202fUSD\u202f172.74  \n- **Transit time:**\u202f10\u201115\u202fdays (estimated delivery\u202f\u2248\u202f16\u202fOct\u202f2026)  \n- **Why it\u2019s best:**\u202fLowest price among the services that can handle a 12\u202fkg, 50\u202f\u00d7\u202f40\u202f\u00d7\u202f30\u202fcm box.\n\n**Other available services for reference**\n\n| Servic"
+  },
+  {
+   "id": "rates-03",
+   "category": "rates",
+   "message": "I need 3 kg delivered to Accra from Delhi within 5 days, what are my options?",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 4,
+   "args_total": 4,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Shipping options for a 3\u202fkg parcel\u202f\u2014\u202fDelhi\u202f\u2192\u202fAccra (5\u2011day deadline)**  \n\n| Service (code) | Transit time* | Estimated delivery | Price (USD) |\n|----------------|---------------|--------------------|------------|\n| **ECONOMY** (ECONOMY) | 10\u201115\u202fdays | 16\u202fOct\u202f2026 | 58.98 |\n| **STANDARD** (STANDARD)"
+  },
+  {
+   "id": "rates-04",
+   "category": "rates",
+   "message": "Compare express vs economy for 20kg Dubai to Johannesburg",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 3,
+   "args_total": 3,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Rate comparison \u2013 Dubai\u202f\u2192\u202fJohannesburg (20\u202fkg)**  \n\n| Service | Price (USD) | Transit time | Estimated delivery |\n|---------|------------|--------------|--------------------|\n| **Economy** |\u202f$253.26 |\u202f10\u201115\u202fdays |\u202f\u2248\u202f16\u202fOct |\n| **Standard** |\u202f$405.28 |\u202f6\u20119\u202fdays |\u202f\u2248\u202f10\u202fOct |\n| **Express** |\u202f$665.54 "
+  },
+  {
+   "id": "rates-05",
+   "category": "rates",
+   "message": "Fastest option for 2 kg Kolkata to Mombasa",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 4,
+   "args_total": 4,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Fastest shipping option \u2013 Kolkata\u202f\u2192\u202fMombasa (2\u202fkg)**  \n\n| Service | Price (USD) | Transit time | Estimated delivery |\n|---------|-------------|--------------|--------------------|\n| **EXPRESS** (Mock Express Worldwide) | **102.87** | **3\u20115\u202fdays** | 6\u202fOct\u202f2026 |\n| STANDARD (Mock Standard Internatio"
+  },
+  {
+   "id": "rates-06",
+   "category": "rates",
+   "message": "Get me a quote for 120 kg of jute rugs from Kolkata to Durban",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 3,
+   "args_total": 3,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Quote for 120\u202fkg of jute rugs \u2013 Kolkata\u202f\u2192\u202fDurban**\n\n| Service | Code | Price (USD) | Transit (days) | Estimated delivery |\n|---------|------|-------------|----------------|--------------------|\n| Mock Air Freight (consolidated) | **FREIGHT** | **865.34** | 7\u201111 | 12\u202fOct\u202f2026 |\n| Mock Economy Selec"
+  },
+  {
+   "id": "rates-07",
+   "category": "rates",
+   "message": "What would it cost to send 750 g from Chennai to Abuja?",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 3,
+   "args_total": 3,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Shipping cost from Chennai (India) to Abuja (Nigeria) \u2013 750\u202fg**\n\n| Service | Price (USD) | Transit time (estimated) |\n|---------|-------------|---------------------------|\n| **Economy** (Mock Economy Select) | **31.05** | 10\u201115\u202fdays (delivery ~\u202fOct\u202f16) |\n| **Standard** (Mock Standard International"
+  },
+  {
+   "id": "rates-08",
+   "category": "rates",
+   "message": "Rates please: Mumbai to Nairobi, 8 kg, 40x30x20",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 6,
+   "args_total": 6,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Rate comparison \u2013 Mumbai\u202f\u2192\u202fNairobi (8\u202fkg, 40\u202f\u00d7\u202f30\u202f\u00d7\u202f20\u202fcm)**  \n\n| Service | Price (USD) | Transit time | Estimated delivery |\n|---------|------------|--------------|--------------------|\n| **ECONOMY** | 97.77 | 9\u201114\u202fdays | 15\u202fOct\u202f2026 |\n| **STANDARD** *(recommended)* | 155.27 | 5\u20118\u202fdays | 9\u202fOct\u202f20"
+  },
+  {
+   "id": "rates-09",
+   "category": "rates",
+   "message": "Shipping 15kg from Bengaluru to Cape Town - what's the best balance of cost and speed?",
+   "called": [
+    "compare_rates"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 4,
+   "args_total": 4,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Shipping 15\u202fkg from Bengaluru\u202f\u2192\u202fCape\u202fTown (balanced priority)**  \n\n| Service | Code | Price (USD) | Transit time | Estimated delivery |\n|---------|------|------------|--------------|--------------------|\n| Mock Economy Select | **ECONOMY** | 218.84 | 10\u201115\u202fdays | 16\u202fOct\u202f2026 |\n| Mock Standard Inte"
+  },
+  {
+   "id": "create-01",
+   "category": "create",
+   "message": "Ship order 4550 with Standard",
+   "called": [
+    "get_order",
+    "create_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": ""
+  },
+  {
+   "id": "create-02",
+   "category": "create",
+   "message": "Please book express shipping for order 4553",
+   "called": [
+    "get_order",
+    "create_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": ""
+  },
+  {
+   "id": "create-03",
+   "category": "create",
+   "message": "Create a shipment for order 4552 using freight",
+   "called": [
+    "get_order",
+    "create_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": ""
+  },
+  {
+   "id": "create-04",
+   "category": "create",
+   "message": "Generate an economy label for order 4550",
+   "called": [
+    "get_order",
+    "create_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": ""
+  },
+  {
+   "id": "create-05",
+   "category": "create",
+   "message": "Ship order 4553",
+   "called": [],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 0,
+   "args_total": 0,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "Sure thing! I can set up the shipment for order **4553**.\n\nTo proceed, could you let me know which shipping service you\u2019d like to use?\n\n- **EXPRESS** \u2013 fastest delivery (higher cost)  \n- **STANDARD** \u2013 balanced speed and price  \n- **ECONOMY** \u2013 cheapest option, slower transit  \n- **FREIGHT** \u2013 for l"
+  },
+  {
+   "id": "create-06",
+   "category": "create",
+   "message": "I want to send order 4551 to the customer by standard shipping",
+   "called": [
+    "get_order",
+    "create_shipment"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "The address we have for order\u202f4551 is missing a building/house number in the street line:\n\n- **Street\u202f1:** \u201cOpebi Road, Ikeja\u201d (no house or building number)\n\nThe carrier requires a complete street address to validate and ship the parcel. Could you please provide the full street address (e.g., \u201c12 Op"
+  },
+  {
+   "id": "address-01",
+   "category": "address",
+   "message": "Is the delivery address on order 4551 valid?",
+   "called": [
+    "validate_address"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "The address on order\u202f4551 is **not valid**.\n\n**Issue**\n- The street address lacks a building/house number.\n\n**What to do**\n- Ask the customer (Tunde\u202fBakare) for the missing house or building number and update the order before shipping."
+  },
+  {
+   "id": "address-02",
+   "category": "address",
+   "message": "Check this address: 14 Admiralty Way, Lekki, Lagos 106104, Nigeria",
+   "called": [
+    "validate_address"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 3,
+   "arg_errors": [
+    "validate_address.city: expected 'Lagos', got 'Lekki'"
+   ],
+   "error": null,
+   "drift": 0,
+   "reply": "The address you entered is **not valid for our carrier**:\n\n- **Issue:**\u202fThe city \u201cLekki\u201d is not in the carrier\u2019s service area for Nigeria.  \n- **What to do:**\u202fUse a recognized city name such as **Lagos** (or another city the carrier serves) while keeping the rest of the address unchanged.\n\n**Correct"
+  },
+  {
+   "id": "address-03",
+   "category": "address",
+   "message": "Validate this one: 5 Riverside Drive, Nairobi, Kenya",
+   "called": [
+    "validate_address"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "The address is **syntactically correct**, but it\u2019s **not valid for shipping** because Kenya requires a postal code.\n\n**Issue**\n- Missing postal code (e.g., \u201c00100\u201d).\n\n**What to do**\nAdd the appropriate Kenyan postal code to the address, e.g.:\n\n```\n5 Riverside Drive\nNairobi 00100\nKenya\n```\n\nOnce the "
+  },
+  {
+   "id": "address-04",
+   "category": "address",
+   "message": "Can you verify order 4550's shipping address before we ship?",
+   "called": [
+    "validate_address"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Address verification for order\u202f4550**\n\n- **Recipient:** Njeri\u202fMwangi  \n- **Street:** 12\u202fNgong\u202fRoad,\u202fKilimani  \n- **City:** Nairobi  \n- **Postal code:** 00100  \n- **Country:** Kenya (KE)  \n- **Phone:** +254\u202f711\u202f555\u202f090  \n\n**Result:** The address is valid. No issues or suggested changes were found. "
+  },
+  {
+   "id": "email-01",
+   "category": "email",
+   "message": "Draft a delay notification email for order 4521",
+   "called": [
+    "draft_customer_email"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Subject:** Update on your order #4521 \u2013 New delivery date  \n\nHi Thandi\u202fWe,\n\nWe wanted to let you know that your order **#4521** has been delayed. The carrier reports that flights out of Dubai are suspended due to a severe sandstorm.\n\n- **Original estimated delivery:** Friday,\u202f2\u202fOctober\u202f2026  \n- **"
+  },
+  {
+   "id": "email-02",
+   "category": "email",
+   "message": "Write to the customer of order 4518 explaining the customs hold",
+   "called": [
+    "draft_customer_email"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Subject:** Your order #4518 is being held at customs  \n\nHi Kwame,\n\nYour order #4518 has arrived in Accra, Ghana but is currently on hold with customs. The commercial invoice is missing the HS code for line\u202f2, and the importer\u2019s TIN has not been provided.\n\nWe are preparing the required documents wi"
+  },
+  {
+   "id": "email-03",
+   "category": "email",
+   "message": "Email the customer of 4527 asking for a corrected address",
+   "called": [
+    "draft_customer_email"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Draft Email (to be sent by you)**  \n\n**To:** chinedu.eze@example.com  \n**Subject:** Action needed: delivery attempt for your order #4527  \n\n**Body:**  \n\nHi Chinedu,\n\nThe courier tried to deliver your order #4527 but couldn\u2019t complete the delivery. The premises could not be located (missing buildin"
+  },
+  {
+   "id": "email-04",
+   "category": "email",
+   "message": "Let the customer know order 4513 was delivered",
+   "called": [
+    "draft_customer_email"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Subject:** Your order #4513 has been delivered  \n\nHi Wanjiru,\n\nGood news \u2013 the carrier reports your order #4513 was delivered on Tuesday,\u202f29\u202fSeptember\u202f2026 (signed for by\u202fW.\u202fKAMAU).\n\nIf anything is missing or damaged, just reply to this email.\n\nTracking number: **MC100004513**\n\nWarm regards,  \nRit"
+  },
+  {
+   "id": "email-05",
+   "category": "email",
+   "message": "Draft an update email for MC100004512",
+   "called": [
+    "draft_customer_email"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Subject:** Your order #4512 is on its way  \n\nHi Adaeze,\n\nYour order #4512 is in transit. Latest update: Arrived at the destination hub and cleared customs (Lagos Hub, NG).\n\n**Estimated delivery:** Saturday, 3\u202fOctober\u202f2026  \n**Tracking number:** MC100004512  \n\nWarm regards,  \nRitu\u202fSen  \nBengal Craf"
+  },
+  {
+   "id": "email-06",
+   "category": "email",
+   "message": "Prepare a customer message about the delay on MC100004521",
+   "called": [
+    "draft_customer_email"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 2,
+   "args_total": 2,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Subject:** Update on your order #4521 \u2013 New delivery date  \n\nHi Thandiwe,\n\nWe wanted to let you know that your order #4521 has been delayed. The carrier reports that flights out of Dubai are suspended due to a severe sandstorm.\n\n- **Original estimated delivery:** Friday, 2\u202fOctober\u202f2026  \n- **Revis"
+  },
+  {
+   "id": "docs-01",
+   "category": "documents",
+   "message": "Please check doc_1a2b3c4d5e for problems",
+   "called": [
+    "analyze_documents"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "I\u2019m unable to find a document with the ID **doc_1a2b3c4d5e**. Could you please upload the file (or double\u2011check the ID) so I can analyze it for any issues?"
+  },
+  {
+   "id": "docs-02",
+   "category": "documents",
+   "message": "I uploaded doc_aaaa111122 (invoice) and doc_bbbb333344 (bill of lading) - do they match?",
+   "called": [
+    "analyze_documents"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "I\u2019m unable to find the files you mentioned \u2013\u202fthe system reports that **doc_aaaa111122** and **doc_bbbb333344** haven\u2019t been uploaded.\n\nCould you please upload the invoice and the bill of lading again? Once they\u2019re available I\u2019ll extract the key fields and let you know if they match."
+  },
+  {
+   "id": "order-01",
+   "category": "order",
+   "message": "What's in order 4550 and who is it for?",
+   "called": [
+    "get_order"
+   ],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 1,
+   "args_total": 1,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "**Order\u202f4550**  \n- **Customer:** Njeri\u202fMwangi (email\u202fnjeri.mwangi@example.com, phone\u202f+254\u202f711\u202f555\u202f090)  \n- **Shipping address:** 12\u202fNgong\u202fRoad, Kilimani, Nairobi\u202f00100, Kenya  \n- **Items:** 3\u202fKantha quilts  \n- **Total value:**\u202fUSD\u202f360  \n- **Package:** 4.8\u202fkg, 45\u202f\u00d7\u202f35\u202f\u00d7\u202f20\u202fcm, cotton kantha quilts  \n"
+  },
+  {
+   "id": "none-01",
+   "category": "no_tool",
+   "message": "Hi! What can you help me with?",
+   "called": [],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 0,
+   "args_total": 0,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "Hello! I\u2019m your Shipment Ops Agent. I can help you with:\n\n- **Tracking shipments** \u2013 give me an order number or carrier tracking number.  \n- **Comparing shipping rates** \u2013 tell me the origin, destination, weight/size and any deadline or priority (cheapest, fastest, balanced).  \n- **Creating shipment"
+  },
+  {
+   "id": "none-02",
+   "category": "no_tool",
+   "message": "What's the capital of France?",
+   "called": [],
+   "selection_ok": true,
+   "tool_called": true,
+   "args_ok": 0,
+   "args_total": 0,
+   "arg_errors": [],
+   "error": null,
+   "drift": 0,
+   "reply": "The capital of France is **Paris**."
+  }
+ ]
+}

@@ -23,6 +23,13 @@ def _model(summary: dict) -> str:
     return ", ".join(sorted(models)) or "?"
 
 
+def _column_title(summary: dict) -> str:
+    if summary["label"] == "baseline":
+        return "Baseline<br><sub>rule-based, not an LLM</sub>"
+    provider = summary["label"].split("-", 1)[0].capitalize()
+    return f"{_model(summary)}<br><sub>via {provider}</sub>"
+
+
 def comparison_table(results_dir: Path) -> str:
     summaries = []
     for p in sorted(results_dir.glob("*/summary.json")):
@@ -56,7 +63,7 @@ def comparison_table(results_dir: Path) -> str:
             return ""
         head = (
             "| Metric | "
-            + " | ".join(f"{s['label']}<br><sub>{_model(s)}</sub>" for s in cols)
+            + " | ".join(_column_title(s) for s in cols)
             + " |"
         )
         sep = "|---|" + "---|" * len(cols)

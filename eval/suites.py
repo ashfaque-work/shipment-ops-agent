@@ -9,7 +9,7 @@ from typing import Any
 
 from fastapi.testclient import TestClient
 
-from eval.cassette import CaseLLM, CassetteMiss
+from eval.cassette import CaseLLM, CassetteMiss, SuiteAborted
 from eval.checks import check_turn, score_args
 from mock_carrier.app import create_app as create_carrier
 from shipops.agent.service import AgentService
@@ -90,11 +90,16 @@ def _run_case(llm: CaseLLM, case_id: str, fn) -> dict[str, Any]:
     turns = (result or {}).get("turns") or ([result] if result and "reply" in result else [])
     failed_llm = any(t.get("llm_errors") for t in turns)
     llm.end(complete=error is None and not failed_llm)
+    if llm.exhausted is not None:
+        raise SuiteAborted(str(llm.exhausted))
     out = {
         "id": case_id,
         "error": error or ("llm call failed" if failed_llm else None),
         "drift": llm.drift,
     }
+    if llm.mode == "record":
+        status = out["error"] or ("ok" if llm.case_live_calls else "ok (from cassette)")
+        print(f"    {case_id}: {status}", flush=True)
     return out | (result or {})
 
 
@@ -312,6 +317,9 @@ def run_extraction(llm: CaseLLM | None) -> dict[str, Any]:
         error = next((w for w in ex.warnings if "unavailable" in w.lower()), None)
         if llm is not None:
             llm.end(complete=error is None)
+            if llm.exhausted is not None:
+                raise SuiteAborted(str(llm.exhausted))
+            print(f"    {doc_id}: {error or ex.method}", flush=True)
         if error:  # never let the silent rules fallback inflate an LLM score
             ex.doc_type, ex.fields, ex.method = None, {}, "error"
         docs[doc_id] = {

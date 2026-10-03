@@ -10,6 +10,7 @@ from __future__ import annotations
 import contextlib
 import json
 import logging
+import re
 import time
 import uuid
 from dataclasses import dataclass
@@ -19,7 +20,24 @@ import openai
 from openai import OpenAI
 
 from shipops.config import Settings
-from shipops.llm.base import LLMError, LLMResult, RateLimiter
+from shipops.llm.base import LLMError, LLMResult, QuotaExhausted, RateLimiter
+
+MAX_WAIT_S = 120.0  # a longer retry-after means a daily quota: give up instead of waiting
+_RETRY_IN = re.compile(r"retry in (?:(\d+)h)?(?:(\d+)m)?(?:([\d.]+)s)?", re.I)
+
+
+def _retry_after(exc: Exception) -> float | None:
+    """Seconds to wait, from the Retry-After header or Gemini's 'Please retry in 17h29m50s'."""
+    with contextlib.suppress(ValueError, AttributeError, TypeError):
+        header = exc.response.headers.get("retry-after")  # type: ignore[attr-defined]
+        if header:
+            return float(header)
+    m = _RETRY_IN.search(str(exc))
+    if m and any(m.groups()):
+        h, mi, se = (float(g) if g else 0.0 for g in m.groups())
+        return h * 3600 + mi * 60 + se
+    return None
+
 
 log = logging.getLogger(__name__)
 
@@ -51,13 +69,16 @@ def _normalize_message(msg: Any) -> dict[str, Any]:
             json.loads(args)
         except json.JSONDecodeError:
             args = "{}"
-        calls.append(
-            {
-                "id": tc.id or f"call_{uuid.uuid4().hex[:12]}",  # some providers omit ids
-                "type": "function",
-                "function": {"name": tc.function.name, "arguments": args},
-            }
-        )
+        call: dict[str, Any] = {
+            "id": tc.id or f"call_{uuid.uuid4().hex[:12]}",  # some providers omit ids
+            "type": "function",
+            "function": {"name": tc.function.name, "arguments": args},
+        }
+        # Gemini 3 returns a "thought signature" that must be echoed back on later turns.
+        extra = getattr(tc, "model_extra", None) or {}
+        if extra.get("extra_content"):
+            call["extra_content"] = extra["extra_content"]
+        calls.append(call)
     if calls:
         out["tool_calls"] = calls
     return out
@@ -75,6 +96,7 @@ class OpenAICompatLLM:
         request_options: dict[str, Any] | None = None,
         rate_limit_retries: int = 0,
         rate_limit_wait_s: float = 20.0,
+        max_wait_s: float = MAX_WAIT_S,
         sleep=time.sleep,
     ):
         if not providers:
@@ -86,10 +108,11 @@ class OpenAICompatLLM:
         self.limiter = limiter or RateLimiter(0)
         self.temperature = temperature
         self.request_options = request_options or {}  # e.g. {"response_format": {...}}
-        # When EVERY provider returns 429, wait and retry this many times (evals use this
-        # to ride out per-minute token limits; the interactive API fails fast instead).
+        # When EVERY provider fails transiently (429/5xx), wait and retry this many times
+        # (evals ride out per-minute token limits this way; the interactive API fails fast).
         self.rate_limit_retries = rate_limit_retries
         self.rate_limit_wait_s = rate_limit_wait_s
+        self.max_wait_s = max_wait_s  # longer retry-after => treat as exhausted quota
         self._sleep = sleep
         self._clients = clients or {
             p.name: OpenAI(api_key=p.api_key, base_url=p.base_url, timeout=timeout_s, max_retries=0)
@@ -102,9 +125,17 @@ class OpenAICompatLLM:
             if result is not None:
                 return result
             all_429 = all("429" in e for e in errors)
-            if not all_429 or attempt == self.rate_limit_retries:
+            if all_429 and wait is not None and wait > self.max_wait_s:
+                raise QuotaExhausted(
+                    "All LLM providers are out of quota (retry in "
+                    f"{wait / 3600:.1f} h): " + "; ".join(errors),
+                    wait,
+                )
+            # 429 (quota) and 5xx "high demand" are transient; anything else is not.
+            transient = all("429" in e or "InternalServerError" in e for e in errors)
+            if not transient or attempt == self.rate_limit_retries:
                 break
-            delay = min(max(wait or self.rate_limit_wait_s, 1.0), 120.0)
+            delay = min(max(wait or self.rate_limit_wait_s, 1.0), self.max_wait_s)
             log.warning(
                 "All providers rate-limited; waiting %.0fs (retry %d/%d)",
                 delay,
@@ -135,8 +166,9 @@ class OpenAICompatLLM:
                 resp = self._clients[p.name].chat.completions.create(**kwargs)
             except openai.RateLimitError as exc:
                 errors.append(f"{p.name}: 429 rate limited")
-                with contextlib.suppress(ValueError, AttributeError):
-                    wait = float(exc.response.headers.get("retry-after", "")) or wait
+                w = _retry_after(exc)
+                if w is not None:  # across providers, keep the shortest wait
+                    wait = w if wait is None else min(wait, w)
                 log.warning("LLM provider %s rate-limited; falling back (%s)", p.name, exc)
                 continue
             except (openai.InternalServerError, openai.APIConnectionError) as exc:

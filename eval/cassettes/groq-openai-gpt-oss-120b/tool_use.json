@@ -1,0 +1,1982 @@
+{
+ "meta": {
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "recorded_at": "2026-10-03"
+ },
+ "cases": {
+  "address-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "c36389631cdfa721",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_c031b919-2eae-4402-bf4d-906c39bec73e",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"order_id\":\"4551\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 879,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1238,
+       "completion_tokens": 48
+      }
+     }
+    },
+    {
+     "request_hash": "2f7fbe708f635ed3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The address on order\u202f4551 is **not valid**.\n\n**Issue**\n- The street address lacks a building/house number.\n\n**What to do**\n- Ask the customer (Tunde\u202fBakare) for the missing house or building number and update the order before shipping."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 684,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1366,
+       "completion_tokens": 61
+      }
+     }
+    }
+   ]
+  },
+  "address-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "38dfd9a94156ec93",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_93e27fd8-9b05-4595-85b4-d73ef9a4ff1b",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"city\":\"Lekki\",\"country\":\"NG\",\"postal_code\":\"106104\",\"street1\":\"14 Admiralty Way\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 691,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1246,
+       "completion_tokens": 92
+      }
+     }
+    },
+    {
+     "request_hash": "4779fb3eb20ad4b1",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The address you entered is **not valid for our carrier**:\n\n- **Issue:**\u202fThe city \u201cLekki\u201d is not in the carrier\u2019s service area for Nigeria.  \n- **What to do:**\u202fUse a recognized city name such as **Lagos** (or another city the carrier serves) while keeping the rest of the address unchanged.\n\n**Corrected example**\n\n```\n14 Admiralty Way\nLagos 106104\nNigeria\n```\n\nIf you update the city to Lagos (or another supported city) and resend the address, I can re\u2011validate it for you. Let me know if you\u2019d like me to check the revised address."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 813,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1357,
+       "completion_tokens": 167
+      }
+     }
+    }
+   ]
+  },
+  "address-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "8400149804f93fc7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_20d1f9ae-4198-4c56-ac82-0e7094d911f8",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"city\":\"Nairobi\",\"country\":\"KE\",\"street1\":\"5 Riverside Drive\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 588,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1239,
+       "completion_tokens": 78
+      }
+     }
+    },
+    {
+     "request_hash": "e998c1f92bd340b9",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The address is **syntactically correct**, but it\u2019s **not valid for shipping** because Kenya requires a postal code.\n\n**Issue**\n- Missing postal code (e.g., \u201c00100\u201d).\n\n**What to do**\nAdd the appropriate Kenyan postal code to the address, e.g.:\n\n```\n5 Riverside Drive\nNairobi 00100\nKenya\n```\n\nOnce the postal code is included, the address will pass validation."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 896,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1336,
+       "completion_tokens": 150
+      }
+     }
+    }
+   ]
+  },
+  "address-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a959b0e7f54d5443",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_6d1291ed-7079-4eee-8ace-1427b15b679c",
+         "type": "function",
+         "function": {
+          "name": "validate_address",
+          "arguments": "{\"order_id\":\"4550\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 669,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1241,
+       "completion_tokens": 48
+      }
+     }
+    },
+    {
+     "request_hash": "571764e334917df5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Address verification for order\u202f4550**\n\n- **Recipient:** Njeri\u202fMwangi  \n- **Street:** 12\u202fNgong\u202fRoad,\u202fKilimani  \n- **City:** Nairobi  \n- **Postal code:** 00100  \n- **Country:** Kenya (KE)  \n- **Phone:** +254\u202f711\u202f555\u202f090  \n\n**Result:** The address is valid. No issues or suggested changes were found. You can proceed with shipping."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 772,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1416,
+       "completion_tokens": 99
+      }
+     }
+    }
+   ]
+  },
+  "create-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "d301a6dbf80e769d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_123263b4-af51-4f03-bb7f-10acaf94a2b2",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1527,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1234,
+       "completion_tokens": 60
+      }
+     }
+    },
+    {
+     "request_hash": "6275466f4f1ef22c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_6b94f72a-954e-4102-bcca-6fb3cedfefb6",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4550\",\"service_code\":\"STANDARD\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1000,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1428,
+       "completion_tokens": 97
+      }
+     }
+    }
+   ]
+  },
+  "create-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "524e91a764cbe77f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_6bbb9ed4-e254-4af6-ac0d-8f65b27cf402",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4553\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 775,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1236,
+       "completion_tokens": 74
+      }
+     }
+    },
+    {
+     "request_hash": "421d0f2ed332038a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_8e9b14a4-c73a-4b40-9694-2b37bb952c14",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4553\",\"service_code\":\"EXPRESS\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 750,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1432,
+       "completion_tokens": 79
+      }
+     }
+    }
+   ]
+  },
+  "create-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "28207a4572f818d0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_c6084969-eb4f-41c7-bf02-ab92bc4dd8ff",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4552\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 658,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1237,
+       "completion_tokens": 56
+      }
+     }
+    },
+    {
+     "request_hash": "6167c8ab68255e9d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_792d16b9-eb04-4491-a90e-1ac661d7731b",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4552\",\"service_code\":\"FREIGHT\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 858,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1440,
+       "completion_tokens": 105
+      }
+     }
+    }
+   ]
+  },
+  "create-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ae04602e70905886",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_c9a6985a-ca0e-4b89-a562-41821f71aa2d",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 645,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1236,
+       "completion_tokens": 77
+      }
+     }
+    },
+    {
+     "request_hash": "ddfdd23b6ebcdee2",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_f560e4e4-f88e-416e-9f8b-1dd7eb113046",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4550\",\"service_code\":\"ECONOMY\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 917,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1430,
+       "completion_tokens": 92
+      }
+     }
+    }
+   ]
+  },
+  "create-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e2cfe554275f363b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Sure thing! I can set up the shipment for order **4553**.\n\nTo proceed, could you let me know which shipping service you\u2019d like to use?\n\n- **EXPRESS** \u2013 fastest delivery (higher cost)  \n- **STANDARD** \u2013 balanced speed and price  \n- **ECONOMY** \u2013 cheapest option, slower transit  \n- **FREIGHT** \u2013 for large/heavy parcels  \n\nIf you have any special instructions (e.g., insurance, declared value), just let me know and I\u2019ll include them. Once I have the service choice, I\u2019ll confirm the address and create the shipment for you."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1080,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1232,
+       "completion_tokens": 301
+      }
+     }
+    }
+   ]
+  },
+  "create-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a2bd5babf8311fde",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_169f25ed-2ceb-4fec-805d-b565633eb9c9",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4551\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 701,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1241,
+       "completion_tokens": 62
+      }
+     }
+    },
+    {
+     "request_hash": "ea4075880204ff47",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_be21f383-8be4-4503-b0e3-39692199aaaf",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4551\",\"service_code\":\"STANDARD\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 798,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1436,
+       "completion_tokens": 119
+      }
+     }
+    },
+    {
+     "request_hash": "a980cc7085c0012d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The address we have for order\u202f4551 is missing a building/house number in the street line:\n\n- **Street\u202f1:** \u201cOpebi Road, Ikeja\u201d (no house or building number)\n\nThe carrier requires a complete street address to validate and ship the parcel. Could you please provide the full street address (e.g., \u201c12 Opebi Road, Ikeja\u201d) or any additional details that identify the exact location? Once we have the corrected address, I can re\u2011attempt booking the Standard shipment for you."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 841,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1535,
+       "completion_tokens": 161
+      }
+     }
+    }
+   ]
+  },
+  "docs-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "788c09e7af6cf5e8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_1ce19d43-6184-4893-88b5-8c816dee0fa5",
+         "type": "function",
+         "function": {
+          "name": "analyze_documents",
+          "arguments": "{\"document_ids\":[\"doc_1a2b3c4d5e\"]}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 630,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1243,
+       "completion_tokens": 65
+      }
+     }
+    },
+    {
+     "request_hash": "dfb0a251d816bd5e",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I\u2019m unable to find a document with the ID **doc_1a2b3c4d5e**. Could you please upload the file (or double\u2011check the ID) so I can analyze it for any issues?"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 854,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1334,
+       "completion_tokens": 72
+      }
+     }
+    }
+   ]
+  },
+  "docs-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "da0a9e60c8c4c08a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_7badef80-703b-4c89-b41a-f2adfb2f99e7",
+         "type": "function",
+         "function": {
+          "name": "analyze_documents",
+          "arguments": "{\"document_ids\":[\"doc_aaaa111122\",\"doc_bbbb333344\"]}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 767,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1254,
+       "completion_tokens": 54
+      }
+     }
+    },
+    {
+     "request_hash": "431e951dede82694",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I\u2019m unable to find the files you mentioned \u2013\u202fthe system reports that **doc_aaaa111122** and **doc_bbbb333344** haven\u2019t been uploaded.\n\nCould you please upload the invoice and the bill of lading again? Once they\u2019re available I\u2019ll extract the key fields and let you know if they match."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 684,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1343,
+       "completion_tokens": 91
+      }
+     }
+    }
+   ]
+  },
+  "email-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "7731806f42799f81",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_17d3cd5d-ee8f-4693-b7d2-18a1139cba8d",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"delay\",\"order_id\":\"4521\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 611,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1237,
+       "completion_tokens": 79
+      }
+     }
+    },
+    {
+     "request_hash": "e3798d04ed56d43f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Subject:** Update on your order #4521 \u2013 New delivery date  \n\nHi Thandi\u202fWe,\n\nWe wanted to let you know that your order **#4521** has been delayed. The carrier reports that flights out of Dubai are suspended due to a severe sandstorm.\n\n- **Original estimated delivery:** Friday,\u202f2\u202fOctober\u202f2026  \n- **Revised estimated delivery:** Monday,\u202f5\u202fOctober\u202f2026  \n- **Tracking number:** MC100004521  \n\nWe\u2019re sorry for the inconvenience and are monitoring the shipment closely. No action is needed on your part.\n\nWarm regards,  \nRitu\u202fSen  \nBengal\u202fCraft\u202fExports\u202fPvt\u202fLtd  \ndispatch@bengalcraft.example"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1037,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1472,
+       "completion_tokens": 153
+      }
+     }
+    }
+   ]
+  },
+  "email-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "07420bcbbcbed7fa",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_86cbb1c3-4676-4630-85f9-b01aa0779fd0",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"customs_hold\",\"order_id\":\"4518\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 692,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1240,
+       "completion_tokens": 89
+      }
+     }
+    },
+    {
+     "request_hash": "e7c36fec52b63923",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Subject:** Your order #4518 is being held at customs  \n\nHi Kwame,\n\nYour order #4518 has arrived in Accra, Ghana but is currently on hold with customs. The commercial invoice is missing the HS code for line\u202f2, and the importer\u2019s TIN has not been provided.\n\nWe are preparing the required documents with the carrier now and will update you as soon as the shipment is released. If customs contacts you directly for an importer ID/TIN, please reply to this email and we\u2019ll assist you right away.\n\n**Tracking number:** MC100004518  \n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 2590,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1476,
+       "completion_tokens": 148
+      }
+     }
+    }
+   ]
+  },
+  "email-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ced8372fe93881e6",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_a5a00ecc-8401-4ad4-9abf-f0fcde5f78c0",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"note\":\"We have noticed an issue with the delivery address on file. Please provide the corrected address at your earliest convenience so we can ensure timely delivery.\",\"order_id\":\"4527\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1236,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1239,
+       "completion_tokens": 347
+      }
+     }
+    },
+    {
+     "request_hash": "8d1f893a2ba582b2",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Draft Email (to be sent by you)**  \n\n**To:** chinedu.eze@example.com  \n**Subject:** Action needed: delivery attempt for your order #4527  \n\n**Body:**  \n\nHi Chinedu,\n\nThe courier tried to deliver your order #4527 but couldn\u2019t complete the delivery. The premises could not be located (missing building number) and the recipient phone was unreachable.\n\nCould you reply with your full delivery address (including building number or a nearby landmark) and a phone number the courier can reach? Please provide the corrected address and a reachable phone number within\u202f3\u202fdays, or the parcel will be returned.\n\nTracking number: MC100004527  \n\nWe have noticed an issue with the delivery address on file. Please provide the corrected address at your earliest convenience so we can ensure timely delivery.\n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example  "
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1328,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1532,
+       "completion_tokens": 197
+      }
+     }
+    }
+   ]
+  },
+  "email-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "13f42b10fa8bc878",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_6c02768c-a881-4d9a-beca-ff08ec79698e",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"delivered\",\"order_id\":\"4513\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 776,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1237,
+       "completion_tokens": 87
+      }
+     }
+    },
+    {
+     "request_hash": "2c4e8f0fb19cc1cf",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Subject:** Your order #4513 has been delivered  \n\nHi Wanjiru,\n\nGood news \u2013 the carrier reports your order #4513 was delivered on Tuesday,\u202f29\u202fSeptember\u202f2026 (signed for by\u202fW.\u202fKAMAU).\n\nIf anything is missing or damaged, just reply to this email.\n\nTracking number: **MC100004513**\n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 702,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1436,
+       "completion_tokens": 104
+      }
+     }
+    }
+   ]
+  },
+  "email-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "3271583789d61866",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_0f071253-440d-4ed7-8b11-2ccdfcf8ac47",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"auto\",\"tracking_number\":\"MC100004512\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 845,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1236,
+       "completion_tokens": 89
+      }
+     }
+    },
+    {
+     "request_hash": "8f89da47207afc2e",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Subject:** Your order #4512 is on its way  \n\nHi Adaeze,\n\nYour order #4512 is in transit. Latest update: Arrived at the destination hub and cleared customs (Lagos Hub, NG).\n\n**Estimated delivery:** Saturday, 3\u202fOctober\u202f2026  \n**Tracking number:** MC100004512  \n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 732,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1429,
+       "completion_tokens": 99
+      }
+     }
+    }
+   ]
+  },
+  "email-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "354d07f7f46d0ffc",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_53fe4007-c519-4368-97f8-06c787d67778",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"delay\",\"tracking_number\":\"MC100004521\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 923,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1239,
+       "completion_tokens": 85
+      }
+     }
+    },
+    {
+     "request_hash": "ee4d77d6ec03a744",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Subject:** Update on your order #4521 \u2013 New delivery date  \n\nHi Thandiwe,\n\nWe wanted to let you know that your order #4521 has been delayed. The carrier reports that flights out of Dubai are suspended due to a severe sandstorm.\n\n- **Original estimated delivery:** Friday, 2\u202fOctober\u202f2026  \n- **Revised estimated delivery:** Monday, 5\u202fOctober\u202f2026  \n- **Tracking number:** MC100004521  \n\nWe\u2019re sorry for the wait and are keeping a close eye on the shipment. No action is needed from you.\n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 925,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1476,
+       "completion_tokens": 149
+      }
+     }
+    }
+   ]
+  },
+  "none-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "188cb548b9616379",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "Hello! I\u2019m your Shipment Ops Agent. I can help you with:\n\n- **Tracking shipments** \u2013 give me an order number or carrier tracking number.  \n- **Comparing shipping rates** \u2013 tell me the origin, destination, weight/size and any deadline or priority (cheapest, fastest, balanced).  \n- **Creating shipments** \u2013 once you\u2019ve chosen a service, I can book the label (the system will show a confirmation before it\u2019s final).  \n- **Checking shipping documents** \u2013 upload invoices, bills of lading, etc., and I\u2019ll extract the key fields and flag any issues.  \n- **Drafting customer emails** \u2013 based on tracking status or a custom note, I\u2019ll prepare a subject and body for you to send.\n\nJust let me know what you need, and I\u2019ll take care of the rest!"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1204,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1236,
+       "completion_tokens": 196
+      }
+     }
+    }
+   ]
+  },
+  "none-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "ef35591690ef373a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The capital of France is **Paris**."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 2095,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1233,
+       "completion_tokens": 52
+      }
+     }
+    }
+   ]
+  },
+  "order-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a8feb7eba47728b9",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_09e394b0-151b-4d41-8e6f-72581d6b94a7",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 668,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1239,
+       "completion_tokens": 47
+      }
+     }
+    },
+    {
+     "request_hash": "8bf6bd7460d7f0fc",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4550**  \n- **Customer:** Njeri\u202fMwangi (email\u202fnjeri.mwangi@example.com, phone\u202f+254\u202f711\u202f555\u202f090)  \n- **Shipping address:** 12\u202fNgong\u202fRoad, Kilimani, Nairobi\u202f00100, Kenya  \n- **Items:** 3\u202fKantha quilts  \n- **Total value:**\u202fUSD\u202f360  \n- **Package:** 4.8\u202fkg, 45\u202f\u00d7\u202f35\u202f\u00d7\u202f20\u202fcm, cotton kantha quilts  \n\nThe order is ready to ship. Let me know if you\u2019d like a rate comparison, to create the shipment, or need anything else."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 2143,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1433,
+       "completion_tokens": 144
+      }
+     }
+    }
+   ]
+  },
+  "rates-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "517dd562b51e48e3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_737ac592-0705-459b-9364-8236e849f7b3",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Nairobi\",\"destination_country\":\"KE\",\"origin_city\":\"Kolkata\",\"origin_country\":\"IN\",\"weight_kg\":5}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1365,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1239,
+       "completion_tokens": 110
+      }
+     }
+    },
+    {
+     "request_hash": "8efbdfea86839e12",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipping quote \u2013 5\u202fkg, Kolkata\u202f\u2192\u202fNairobi**\n\n| Service | Price (USD) | Transit time | Estimated delivery |\n|---------|-------------|--------------|--------------------|\n| **Economy** | 75.55 | 10\u201115\u202fdays | around 16\u202fOct |\n| **Standard** *(recommended)* | 119.55 | 6\u20119\u202fdays | around 10\u202fOct |\n| Express | 195.13 | 3\u20115\u202fdays | around 6\u202fOct |\n\n**Why Standard is recommended**  \n- Best balance of cost and speed.  \n- Arrives up to\u202f6\u202fdays sooner than the cheapest option for only\u202f\u2248\u202f44\u202fUSD extra.  \n\nLet me know which service you\u2019d like to book, or if you have a different priority (cheapest or fastest)."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1010,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1577,
+       "completion_tokens": 211
+      }
+     }
+    }
+   ]
+  },
+  "rates-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "689b598efc82f9dd",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_f6ae9509-df82-4b1e-aa73-389b330a428d",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Lagos\",\"destination_country\":\"NG\",\"height_cm\":30,\"length_cm\":50,\"origin_city\":\"Mumbai\",\"origin_country\":\"IN\",\"priority\":\"cheapest\",\"weight_kg\":12,\"width_cm\":40}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 730,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1249,
+       "completion_tokens": 141
+      }
+     }
+    },
+    {
+     "request_hash": "c930006eff83a757",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Cheapest option \u2013 ECONOMY (Mock Economy Select)**  \n- **Price:**\u202fUSD\u202f172.74  \n- **Transit time:**\u202f10\u201115\u202fdays (estimated delivery\u202f\u2248\u202f16\u202fOct\u202f2026)  \n- **Why it\u2019s best:**\u202fLowest price among the services that can handle a 12\u202fkg, 50\u202f\u00d7\u202f40\u202f\u00d7\u202f30\u202fcm box.\n\n**Other available services for reference**\n\n| Service | Code | Price (USD) | Transit\u202fdays | Estimated delivery |\n|---------|------|------------|--------------|--------------------|\n| Mock Standard International | **STANDARD** | 275.82 | 6\u20119 | 10\u202fOct\u202f2026 |\n| Mock Express Worldwide | **EXPRESS** | 452.41 | 3\u20115 | 6\u202fOct\u202f2026 |\n\nIf you\u2019d like to book the ECONOMY service (or need a different priority), just let me know and I\u2019ll create the shipment for you."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1091,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1584,
+       "completion_tokens": 235
+      }
+     }
+    }
+   ]
+  },
+  "rates-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "2c031ccdccbcc3c5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_4fb88c56-64e3-448a-b65d-ca17185877ea",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"deadline_days\":5,\"destination_city\":\"Accra\",\"destination_country\":\"GH\",\"origin_city\":\"Delhi\",\"origin_country\":\"IN\",\"priority\":\"balanced\",\"weight_kg\":3}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 749,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1248,
+       "completion_tokens": 135
+      }
+     }
+    },
+    {
+     "request_hash": "49a19c8a5cced1de",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipping options for a 3\u202fkg parcel\u202f\u2014\u202fDelhi\u202f\u2192\u202fAccra (5\u2011day deadline)**  \n\n| Service (code) | Transit time* | Estimated delivery | Price (USD) |\n|----------------|---------------|--------------------|------------|\n| **ECONOMY** (ECONOMY) | 10\u201115\u202fdays | 16\u202fOct\u202f2026 | 58.98 |\n| **STANDARD** (STANDARD) | 6\u20119\u202fdays | 10\u202fOct\u202f2026 | 92.91 |\n| **EXPRESS** (EXPRESS) | 3\u20115\u202fdays | 6\u202fOct\u202f2026 | 151.28 |\n\n\\*Transit days are the carrier\u2019s range; only the **EXPRESS** option fits your 5\u2011day deadline.\n\n**Recommendation**  \n- **Service:** **EXPRESS** (Mock\u202fExpress\u202fWorldwide)  \n- **Why:** It is the only service that can deliver within the required 5\u202fdays, and it is the lowest\u2011priced option among those that meet the deadline.\n\nLet me know if you\u2019d like to book this shipment, compare other priorities (cheapest or fastest), or need anything else."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1497,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 344
+      }
+     }
+    }
+   ]
+  },
+  "rates-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "027c033500d1b0bd",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_c86bd55e-7620-4668-a199-dbffc13db790",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Johannesburg\",\"destination_country\":\"ZA\",\"origin_city\":\"Dubai\",\"origin_country\":\"AE\",\"weight_kg\":20}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 906,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1238,
+       "completion_tokens": 230
+      }
+     }
+    },
+    {
+     "request_hash": "9a66635748db32d4",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Rate comparison \u2013 Dubai\u202f\u2192\u202fJohannesburg (20\u202fkg)**  \n\n| Service | Price (USD) | Transit time | Estimated delivery |\n|---------|------------|--------------|--------------------|\n| **Economy** |\u202f$253.26 |\u202f10\u201115\u202fdays |\u202f\u2248\u202f16\u202fOct |\n| **Standard** |\u202f$405.28 |\u202f6\u20119\u202fdays |\u202f\u2248\u202f10\u202fOct |\n| **Express** |\u202f$665.54 |\u202f3\u20115\u202fdays |\u202f\u2248\u202f6\u202fOct |\n\n**Recommendation** \u2013 *Standard* (Mock Standard International)  \n- Best balance of cost and speed.  \n- Arrives up to 6\u202fdays sooner than Economy for an additional $152.\u202f  \n- If you need the cheapest option, choose **Economy**; if speed is critical, go with **Express**."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 931,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1573,
+       "completion_tokens": 188
+      }
+     }
+    }
+   ]
+  },
+  "rates-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4910c624d758a199",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_341c0c05-6033-4f77-9f61-17ca715c48de",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Mombasa\",\"destination_country\":\"KE\",\"origin_city\":\"Kolkata\",\"origin_country\":\"IN\",\"priority\":\"fastest\",\"weight_kg\":2}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1452,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1239,
+       "completion_tokens": 130
+      }
+     }
+    },
+    {
+     "request_hash": "b6bd68a6cd8aa2c0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Fastest shipping option \u2013 Kolkata\u202f\u2192\u202fMombasa (2\u202fkg)**  \n\n| Service | Price (USD) | Transit time | Estimated delivery |\n|---------|-------------|--------------|--------------------|\n| **EXPRESS** (Mock Express Worldwide) | **102.87** | **3\u20115\u202fdays** | 6\u202fOct\u202f2026 |\n| STANDARD (Mock Standard International) | 63.51 | 6\u20119\u202fdays | 10\u202fOct\u202f2026 |\n| ECONOMY (Mock Economy Select) | 40.70 | 10\u201115\u202fdays | 16\u202fOct\u202f2026 |\n\n**Recommendation:**  \nThe EXPRESS service is the fastest (3\u20115\u202fdays) and meets your \u201cfastest\u201d priority, arriving up to 10\u202fdays sooner than the next option. It costs USD\u202f102.87.\n\nLet me know if you\u2019d like to **book** this EXPRESS shipment (provide the order number or recipient details), or need a comparison with a different priority."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1109,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1580,
+       "completion_tokens": 217
+      }
+     }
+    }
+   ]
+  },
+  "rates-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "002600f80bcc6702",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_dee4259d-f319-4d2a-978b-2d457dba94a2",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Durban\",\"destination_country\":\"ZA\",\"origin_city\":\"Kolkata\",\"origin_country\":\"IN\",\"weight_kg\":120}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 484,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1243,
+       "completion_tokens": 153
+      }
+     }
+    },
+    {
+     "request_hash": "9fd397af8fc48846",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Quote for 120\u202fkg of jute rugs \u2013 Kolkata\u202f\u2192\u202fDurban**\n\n| Service | Code | Price (USD) | Transit (days) | Estimated delivery |\n|---------|------|-------------|----------------|--------------------|\n| Mock Air Freight (consolidated) | **FREIGHT** | **865.34** | 7\u201111 | 12\u202fOct\u202f2026 |\n| Mock Economy Select | **ECONOMY** | 1,661.99 | 10\u201115 | 16\u202fOct\u202f2026 |\n| Mock Standard International | **STANDARD** | 2,670.30 | 6\u20119 | 10\u202fOct\u202f2026 |\n| Mock Express Worldwide | **EXPRESS** | 4,394.54 | 3\u20115 | 6\u202fOct\u202f2026 |\n\n**Recommendation**  \n- **Service:** **FREIGHT** (Mock Air Freight \u2013 consolidated)  \n- **Why:**  \n  1. Best balance of price and speed among the options.  \n  2. Lowest cost (USD\u202f865.34) while still delivering within 7\u201111\u202fdays.  \n\nIf you have a tighter deadline or prefer a faster (but more expensive) service, let me know and I can adjust the quote or proceed to book the shipment."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1181,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1634,
+       "completion_tokens": 313
+      }
+     }
+    }
+   ]
+  },
+  "rates-07": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "75cbc83c213d8145",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_cb3db63e-a35d-4659-9d63-1529d6c28d3f",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Abuja\",\"destination_country\":\"NG\",\"origin_city\":\"Chennai\",\"origin_country\":\"IN\",\"weight_kg\":0.75}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1109,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1241,
+       "completion_tokens": 113
+      }
+     }
+    },
+    {
+     "request_hash": "b18f5dc88317632a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipping cost from Chennai (India) to Abuja (Nigeria) \u2013 750\u202fg**\n\n| Service | Price (USD) | Transit time (estimated) |\n|---------|-------------|---------------------------|\n| **Economy** (Mock Economy Select) | **31.05** | 10\u201115\u202fdays (delivery ~\u202fOct\u202f16) |\n| **Standard** (Mock Standard International) \u2013 *recommended* | **48.00** | 6\u20119\u202fdays (delivery ~\u202fOct\u202f10) |\n| **Express** (Mock Express Worldwide) | **77.34** | 3\u20115\u202fdays (delivery ~\u202fOct\u202f6) |\n\n**Why Standard is recommended**  \n- Best balance of price and speed.  \n- Only\u202fUSD\u202f16.95 more than the cheapest Economy option, but arrives up to\u202f6\u202fdays sooner.  \n\nIf you have a tighter deadline, the Express service will get the parcel there fastest; otherwise the Economy option is the lowest\u2011cost choice. Let me know which service you\u2019d like to book, or if you need any other details."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1112,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1579,
+       "completion_tokens": 282
+      }
+     }
+    }
+   ]
+  },
+  "rates-08": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "37f24046e250c7c3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_0a90b536-6086-4b31-9055-eaacbdc58710",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Nairobi\",\"destination_country\":\"KE\",\"height_cm\":20,\"length_cm\":40,\"origin_city\":\"Mumbai\",\"origin_country\":\"IN\",\"priority\":\"balanced\",\"weight_kg\":8,\"width_cm\":30}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 729,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1244,
+       "completion_tokens": 151
+      }
+     }
+    },
+    {
+     "request_hash": "cc0ec77d15d0ad42",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Rate comparison \u2013 Mumbai\u202f\u2192\u202fNairobi (8\u202fkg, 40\u202f\u00d7\u202f30\u202f\u00d7\u202f20\u202fcm)**  \n\n| Service | Price (USD) | Transit time | Estimated delivery |\n|---------|------------|--------------|--------------------|\n| **ECONOMY** | 97.77 | 9\u201114\u202fdays | 15\u202fOct\u202f2026 |\n| **STANDARD** *(recommended)* | 155.27 | 5\u20118\u202fdays | 9\u202fOct\u202f2026 |\n| EXPRESS | 253.94 | 2\u20114\u202fdays | 5\u202fOct\u202f2026 |\n\n**Why STANDARD is recommended**  \n- Best balance of cost and speed.  \n- Arrives up to 6\u202fdays sooner than the cheapest option for only USD\u202f57.50 extra.  \n\nLet me know if you\u2019d like to book the STANDARD service, need a cheaper or faster option, or have any other questions."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 2199,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1600,
+       "completion_tokens": 202
+      }
+     }
+    }
+   ]
+  },
+  "rates-09": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4994970104d473b0",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_d73345be-b59e-4b33-af2e-bbef550ba2cd",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Cape Town\",\"destination_country\":\"ZA\",\"origin_city\":\"Bengaluru\",\"origin_country\":\"IN\",\"priority\":\"balanced\",\"weight_kg\":15}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1404,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1246,
+       "completion_tokens": 151
+      }
+     }
+    },
+    {
+     "request_hash": "7d75c83a372a6068",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipping 15\u202fkg from Bengaluru\u202f\u2192\u202fCape\u202fTown (balanced priority)**  \n\n| Service | Code | Price (USD) | Transit time | Estimated delivery |\n|---------|------|------------|--------------|--------------------|\n| Mock Economy Select | **ECONOMY** | 218.84 | 10\u201115\u202fdays | 16\u202fOct\u202f2026 |\n| Mock Standard International | **STANDARD** | 349.94 | 6\u20119\u202fdays | 10\u202fOct\u202f2026 |\n| Mock Express Worldwide | **EXPRESS** | 574.43 | 3\u20115\u202fdays | 6\u202fOct\u202f2026 |\n\n**Recommendation:** **Standard International (code\u202fSTANDARD)**  \n*Reasoning:* It offers the best balance of price and speed\u2014about\u202fUSD\u202f131 more than the cheapest option but arrives up to\u202f6\u202fdays sooner, fitting a typical \u201cbalanced\u201d need.  \n\nLet me know if you\u2019d like to book this service, compare other priorities, or need anything else."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1251,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1591,
+       "completion_tokens": 251
+      }
+     }
+    }
+   ]
+  },
+  "track-01": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "848f11ea437331a8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_3f5f7420-a5fa-4097-8ad2-e828384f4bfb",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4512\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 915,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1237,
+       "completion_tokens": 47
+      }
+     }
+    },
+    {
+     "request_hash": "daccd2a863c8a588",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_978668e5-844f-4c44-ac3f-51a00a536179",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100004512\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 746,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1405,
+       "completion_tokens": 105
+      }
+     }
+    },
+    {
+     "request_hash": "9b9a0c2b3f594fef",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4512 \u2013 Destination Details**\n\n- **Recipient:** Adaeze\u202fOkafor  \n- **Address:** 14\u202fAdmiralty\u202fWay, Lekki Phase\u202f1, Lagos\u202f106104, Nigeria  \n- **Current status:** *In transit* \u2013 the parcel is now at the **Lagos Hub, Nigeria** after clearing customs.  \n- **Estimated delivery:** Today,\u202f3\u202fOctober\u202f2026 (by\u202f09:00\u202fUTC).  \n\nLet me know if you need anything else\u2014e.g., a tracking\u2011status email draft, rate comparison for a new shipment, or address validation."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 913,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1724,
+       "completion_tokens": 133
+      }
+     }
+    }
+   ]
+  },
+  "track-02": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "849334a835e5945b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_9e39bd83-9484-47c1-8e4d-1ef8e80eb4e2",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100004521\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 576,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1238,
+       "completion_tokens": 51
+      }
+     }
+    },
+    {
+     "request_hash": "394de369fcb42d86",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipment MC100004521 (Order\u202f4521)**  \n- **Current status:** Delayed \u2013 severe weather at transit point (Dubai Hub,\u202fAE)  \n- **Original ETA:** 2\u202fOct\u202f2026\u202f09:00\u202fUTC  \n- **Revised ETA:** 5\u202fOct\u202f2026\u202f09:00\u202fUTC  \n- **Recent events:**  \n  \u2022 1\u202fOct\u202f2026\u202f04:12\u202fUTC \u2013 Delivery date revised  \n  \u2022 30\u202fSep\u202f2026\u202f09:00\u202fUTC \u2013 Flight cancelled due to sandstorm  \n  \u2022 29\u202fSep\u202f2026\u202f13:48\u202fUTC \u2013 Arrived at origin facility (Dubai)  \n\n**Action required:** None. The carrier will move the parcel on the next available flight; the new ETA applies.  \n\nIf you\u2019d like to notify the customer, I can draft an email with these details. Let me know."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1043,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1588,
+       "completion_tokens": 197
+      }
+     }
+    }
+   ]
+  },
+  "track-03": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4dd4e88467a02bc7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_078e6372-d9cb-4f44-8070-ffe146919120",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4513\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 541,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1236,
+       "completion_tokens": 48
+      }
+     }
+    },
+    {
+     "request_hash": "d7d00c60c8914946",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4513** has been **delivered**.\n\n- **Delivered\u202fat:** 29\u202fSeptember\u202f2026, 09:00\u202fUTC  \n- **Recipient:** W.\u202fKAMAU (signed for)  \n- **Service used:** EXPRESS (Kolkata\u202f\u2192\u202fNairobi)  \n\nLet me know if you need a delivery confirmation email drafted or any other assistance."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 842,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1568,
+       "completion_tokens": 86
+      }
+     }
+    }
+   ]
+  },
+  "track-04": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "3ee8b35a930d5eb1",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_52658628-7c68-4ad2-ad2a-c8aa3888a8db",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4518\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1335,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1234,
+       "completion_tokens": 51
+      }
+     }
+    },
+    {
+     "request_hash": "3f5f83270e39a58a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f#4518 \u2013 Current status**\n\n- **Status:**\u202fCustoms hold (Ghana Revenue Authority)  \n- **Location:**\u202fKotoka International Airport, Accra, Ghana  \n- **Reason:**\u202fCommercial invoice is missing the HS code for line\u202f2 and the consignee\u2019s Tax Identification Number (TIN) is not provided.  \n- **Action required:**\u202fUpload a corrected commercial invoice that includes the missing HS code **and** the consignee\u2019s TIN within **5\u202fdays** (by\u202f8\u202fOct\u202f2026) to avoid the parcel being returned.  \n- **Original estimated delivery:**\u202f30\u202fSept\u202f2026 (now on hold).  \n\n**What you can do next**\n\n- **Upload the corrected documents** through our portal (or send them to the logistics team).  \n- If you\u2019d like, I can **draft a notification email** to Kwame Mensah explaining the hold and the required documents. Just let me know.  \n\nLet me know how you\u2019d like to proceed!"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1378,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1651,
+       "completion_tokens": 255
+      }
+     }
+    }
+   ]
+  },
+  "track-05": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e854545f7aef84c5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_c3f1fb07-4037-4bb5-bd02-238c88abbc76",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100004527\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 832,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1233,
+       "completion_tokens": 52
+      }
+     }
+    },
+    {
+     "request_hash": "2d87c3e6671ed762",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipment MC100004527 \u2013 Current Status**\n\n- **Status:** *Delivery attempt failed* \u2013 address incomplete  \n- **Detail:** Courier could not locate the premises (no building number) and the recipient phone was unreachable.  \n- **Location:** Lagos\u202fIkeja Delivery Station, Nigeria  \n- **Original estimated delivery:** 30\u202fSeptember\u202f2026 (missed)  \n- **Required action:** Provide a corrected address (include building number or a clear landmark) **and** a reachable phone number within the next\u202f3\u202fdays, otherwise the parcel will be returned to the sender.\n\n**Recent events**\n\n| Time (UTC) | Location | Event |\n|------------|----------|-------|\n| 30\u202fSep\u202f2026\u202f09:00 | Lagos Ikeja Delivery Station | Delivery attempt failed \u2013 address incomplete |\n| 30\u202fSep\u202f2026\u202f01:48 | Lagos Ikeja Delivery Station | Out for delivery |\n| 28\u202fSep\u202f2026\u202f09:00 | Lagos Hub | Cleared customs |\n| 27\u202fSep\u202f2026\u202f09:00 | Lagos Hub | Arrived at destination hub |\n| 23\u202fSep\u202f2026\u202f16:12 | Mumbai Gateway | Departed origin facility |\n\n**Next steps you can take**\n\n1. **Contact the recipient** (Chinedu\u202fEze) to obtain the missing address details and a working phone number.  \n2. Once the corrected address is ready, reply here and I can **draft a customer\u2011facing email** notifying them of the required update and the next delivery attempt.  \n3. If you prefer to **re\u2011ship** the parcel after the address is fixed, let me know and we can arrange a new shipment.\n\nLet me know how you\u2019d like to proceed!"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1438,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1635,
+       "completion_tokens": 433
+      }
+     }
+    }
+   ]
+  },
+  "track-06": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "8a19328031dd7329",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_57b98afb-ec63-46be-8941-268985e1731e",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4530\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 680,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1237,
+       "completion_tokens": 50
+      }
+     }
+    },
+    {
+     "request_hash": "45a66af165a321ed",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4530 \u2013 Nairobi, Kenya**\n\n- **Current status:** In transit (departed Kolkata gateway)  \n- **Estimated delivery:** **10\u202fOctober\u202f2026** (around\u202f09:00\u202fUTC)\n\nSo you can expect the parcel to arrive in Nairobi on\u202f10\u202fOctober\u202f2026. Let me know if you need a tracking\u2011link, a delay notice, or anything else."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1417,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1454,
+       "completion_tokens": 127
+      }
+     }
+    }
+   ]
+  },
+  "track-07": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "885a179484ba1725",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_93b1e50f-e3ab-4fca-8acd-e4a8c136d5c5",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4533\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1424,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1241,
+       "completion_tokens": 50
+      }
+     }
+    },
+    {
+     "request_hash": "b70a581565d00a30",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Status:** The parcel for order\u202f4533 (tracking\u202fMC100004533) is **out for delivery** in Accra, Ghana.  \n\n- **Current location:** Accra Delivery Station, GH  \n- **Estimated delivery:** today, 1\u202fOct\u202f2026 by\u202f17:00\u202fUTC  \n\nIf you need a customer\u2011facing email or any other assistance, just let me know."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 704,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1554,
+       "completion_tokens": 88
+      }
+     }
+    }
+   ]
+  },
+  "track-08": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "16fbecdd28b57f73",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_c5292f0c-6789-47bb-9d99-7f0f5836e21e",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4536\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 685,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1235,
+       "completion_tokens": 51
+      }
+     }
+    },
+    {
+     "request_hash": "82dbec715728b0c4",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4536 \u2013 Shipment Status**\n\n- **Tracking number:** MC100004536  \n- **Current status:** *Label created* \u2013 shipment information received and awaiting pickup.  \n- **Service:** STANDARD  \n- **Origin:** Dubai, United Arab Emirates  \n- **Destination:** Johannesburg, South Africa  \n- **Current location:** Dubai, United Arab Emirates  \n- **Estimated delivery:** 8\u202fOctober\u202f2026 (around\u202f09:00\u202fUTC)  \n\nThe parcel is still at our Dubai warehouse and has not yet been handed over to the carrier. Let me know if you\u2019d like to:\n\n- Request a pickup / create the shipment now  \n- Get a delivery\u2011date update later  \n- Draft a customer email (e.g., to inform the buyer of the expected delivery)  \n\nI\u2019m here to help with any next steps."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1258,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1406,
+       "completion_tokens": 217
+      }
+     }
+    }
+   ]
+  },
+  "track-09": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "37dbf3e68e946c1b",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_8accdb31-9f3f-4280-8c45-012e1ed5a36d",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100000503\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 623,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1236,
+       "completion_tokens": 51
+      }
+     }
+    },
+    {
+     "request_hash": "db9d8739be19f690",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipment MC100000503 (Order\u202f4541)**  \n- **Current status:** In transit \u2013 \u201cIn transit to destination hub\u201d  \n- **Current location:** Dubai Hub, United Arab Emirates  \n- **Estimated delivery:** 4\u202fOctober\u202f2026 (09:00\u202fUTC)  \n\n**Recent events**  \n- 30\u202fSep\u202f2026\u202f09:00\u202fUTC \u2013 Arrived at Dubai transit hub  \n- 28\u202fSep\u202f2026\u202f18:36\u202fUTC \u2013 Departed Kolkata origin facility  \n- 28\u202fSep\u202f2026\u202f09:00\u202fUTC \u2013 Picked up from shipper in Kolkata  \n\nLet me know if you need anything else\u2014e.g., a delay notice email, address validation, or a new rate quote."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 860,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1487,
+       "completion_tokens": 163
+      }
+     }
+    }
+   ]
+  },
+  "track-10": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e0b7d5b682c58874",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_efd9bd81-9627-4b09-8944-54ccd1423e66",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4521\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1112,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1242,
+       "completion_tokens": 50
+      }
+     }
+    },
+    {
+     "request_hash": "9d6f3326b2087abe",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4521 \u2013 Johannesburg,\u202fSouth\u202fAfrica**\n\n- **Current status:** **Delayed** (severe weather at Dubai hub)  \n- **Current location:** Dubai Hub, United Arab Emirates  \n- **Revised ETA:** **5\u202fOctober\u202f2026, 09:00\u202fUTC** (originally 2\u202fOct)  \n- **No action required** from the customer; the parcel will move on the next available flight.\n\nYou can let the customer know the delay is weather\u2011related and the new delivery date is 5\u202fOct. If you\u2019d like a draft email to send to the customer, just let me know."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1014,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1590,
+       "completion_tokens": 137
+      }
+     }
+    }
+   ]
+  }
+ }
+}

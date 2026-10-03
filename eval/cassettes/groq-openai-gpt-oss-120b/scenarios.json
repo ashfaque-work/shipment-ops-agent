@@ -1,0 +1,898 @@
+{
+ "meta": {
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "recorded_at": "2026-10-03"
+ },
+ "cases": {
+  "book-then-decline": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "b4a0b4373951104c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_e5f61785-c8d7-457f-b4f2-dc8ff82a0651",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4553\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1565,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1235,
+       "completion_tokens": 112
+      }
+     }
+    },
+    {
+     "request_hash": "71ef1afdae7f42bb",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_42ca52a4-31b9-48f0-b15c-ce60f7ae9210",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4553\",\"service_code\":\"EXPRESS\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 882,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1431,
+       "completion_tokens": 104
+      }
+     }
+    },
+    {
+     "request_hash": "f298c2c642459497",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipment was not created because you didn\u2019t confirm it. Let me know if you\u2019d like to proceed, change any details, or need anything else."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1299,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1523,
+       "completion_tokens": 35
+      }
+     }
+    }
+   ]
+  },
+  "carrier-timeout-no-guessing": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "3b6644b781eca4df",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_669fb58a-f534-4780-910b-b301da4c848a",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4540\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 519,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1234,
+       "completion_tokens": 48
+      }
+     }
+    },
+    {
+     "request_hash": "4847b48cbfe445b5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The carrier\u2019s tracking system isn\u2019t responding at the moment, so I can\u2019t retrieve the current status for order\u202f4540 right now. Please try again in a little while, and I\u2019ll be happy to check it for you."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 7923,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1328,
+       "completion_tokens": 76
+      }
+     }
+    }
+   ]
+  },
+  "customs-hold-explain-and-email": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "61a4a677816da9b7",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_d628bbb9-e3b6-4c5e-8e1a-044a791cccb8",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4518\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1694,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1234,
+       "completion_tokens": 48
+      }
+     }
+    },
+    {
+     "request_hash": "51aad752001659e3",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4518 \u2013 Current status**\n\n- **Tracking number:** MC100004518  \n- **Status:** **Customs hold** (held by Ghana Revenue Authority)  \n- **Location:** Kotoka International Airport Customs, Accra, Ghana  \n- **Original estimated delivery:** 30\u202fSeptember\u202f2026 (now on hold)  \n\n**Why it\u2019s on hold**\n\n- The commercial invoice is missing the HS code for line\u202f2.  \n- The importer\u2019s Tax Identification Number (TIN) was not provided.\n\n**What\u2019s needed**\n\n- Upload a corrected commercial invoice that includes the missing HS code(s).  \n- Provide the consignee\u2019s (Kwame\u202fMensah\u2019s) TIN.\n\n**Deadline:** You have **5\u202fdays** from now to submit the required documents, otherwise the parcel may be returned to the sender.\n\nLet me know if you\u2019d like me to:\n\n- Draft an email to Kwame Mensah explaining the delay,  \n- Help you upload the corrected documents, or  \n- Anything else you need."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 987,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1651,
+       "completion_tokens": 215
+      }
+     }
+    },
+    {
+     "request_hash": "1648151fe95b7f1d",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_0ade2e81-0762-4dda-96ff-d0f72133cf26",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"customs_hold\",\"note\":\"We apologize for the inconvenience and are working to resolve this promptly.\",\"order_id\":\"4518\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 867,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1883,
+       "completion_tokens": 119
+      }
+     }
+    },
+    {
+     "request_hash": "c59da5c349636175",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Draft Email**\n\n**To:** kwame.mensah@example.com  \n**Subject:** Your order #4518 is being held at customs  \n\nHi Kwame,\n\nYour order **#4518** has arrived in Accra, Ghana, but it is currently **held by customs**. The carrier reports two issues:\n\n1. The commercial invoice is missing the HS code for line\u202f2.  \n2. The importer\u2019s Tax Identification Number (TIN) has not been provided.\n\nWe are preparing the required documents with the carrier and will update you as soon as the shipment is released. If customs contacts you directly for an importer ID/TIN, please reply to this email and we\u2019ll assist you right away.\n\n**Tracking number:** MC100004518  \n\nWe apologize for the inconvenience and are working to resolve this promptly.\n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 2445,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2149,
+       "completion_tokens": 194
+      }
+     }
+    }
+   ]
+  },
+  "document-missing-hs-code": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "0fc19fa59e070501",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_5bf0aebb-1eb2-4393-83ad-156527395140",
+         "type": "function",
+         "function": {
+          "name": "analyze_documents",
+          "arguments": "{\"document_ids\":[\"doc_2294cd7637\"]}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 741,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1238,
+       "completion_tokens": 52
+      }
+     }
+    },
+    {
+     "request_hash": "6ced4c4a846fba41",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Document Reviewed:** `doc_2294cd7637` \u2013 *p02_invoice.pdf* (Commercial Invoice)\n\n### Extracted Key Fields\n| Field | Value |\n|-------|-------|\n| **Invoice Number** | MST/2026/0114 |\n| **Invoice Date** | 11\u202fAugust\u202f2026 |\n| **Shipper** | Malabar Spice Traders LLP \u2013 41 Bazaar Road, Mattancherry, Kochi\u202f682002, Kerala, India |\n| **Consignee** | Kilimani Decor Co. \u2013 12 Ngong Road, Kilimani, Nairobi\u202f00100, Kenya |\n| **Consignee Phone** | +254\u202f711\u202f555\u202f090 |\n| **Incoterm** | FOB |\n| **Currency** | USD |\n| **Total Value** |\u202f$1,135.80 |\n| **Gross Weight** |\u202f189.42\u202fkg |\n| **Net Weight** |\u202f174.0\u202fkg |\n| **Number of Packages** |\u202f14 |\n| **Line Items** |\n| \u2013 Cotton kantha quilts | Qty\u202f12\u202f\u00b7\u202f$19.04\u202f\u00b7\u202f$228.48 |\n| \u2013 Cane storage baskets | Qty\u202f4\u202f\u00b7\u202f$7.83\u202f\u00b7\u202f$31.32 (HS\u202f4602.12) |\n| \u2013 Jute floor rugs 120\u202f\u00d7\u202f180\u202fcm | Qty\u202f40\u202f\u00b7\u202f$21.90\u202f\u00b7\u202f$876.00 (HS\u202f5702.39) |\n\n### Issues Detected\n| Severity | Issue | Details |\n|----------|-------|---------|\n| **Error** | Missing HS code | The first line item (Cotton kantha quilts) has no HS code. Customs may hold the shipment until the correct HS code is provided. |\n\n### Recommendation\n- **Add the correct HS code** for the cotton kantha quilts (e.g., HS\u202f6302\u202for the appropriate sub\u2011heading) and re\u2011issue the invoice before the shipment is dispatched to avoid customs delays in Kenya."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1800,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1691,
+       "completion_tokens": 450
+      }
+     }
+    }
+   ]
+  },
+  "document-packet-weight-mismatch": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "4d3456044f0ce5aa",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_4660b135-36a6-4760-a70d-1a8221175d96",
+         "type": "function",
+         "function": {
+          "name": "analyze_documents",
+          "arguments": "{\"document_ids\":[\"doc_7f77aa7a23\",\"doc_5cfb9f84dc\"]}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1073,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1268,
+       "completion_tokens": 62
+      }
+     }
+    },
+    {
+     "request_hash": "3abab221a83517c5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Document\u202f1 \u2013 Commercial Invoice (doc_7f77aa7a23)**  \n- Invoice\u202f#:\u202fRTH/2026/0121 \u2013\u202f18\u202fAug\u202f2026  \n- Shipper: Rajputana Textile House (Jaipur, India)  \n- Consignee: Lekki Home Stores Ltd (Lagos, Nigeria) \u2013\u202f+234\u202f803\u202f555\u202f0142  \n- Incoterm:\u202fEXW  \n- Currency:\u202fUSD\u202f\u2013\u202fTotal value\u202f$774.56  \n- Gross weight:\u202f60.68\u202fkg\u202f|\u202fNet weight:\u202f54.8\u202fkg  \n- Packages:\u202f5  \n- Line items (qty\u202f\u00d7\u202fprice\u202f=\u202famount)  \n  \u2022 Jute floor rugs\u202f120\u00d7180\u202fcm \u2013\u202f10\u202fpcs\u202f@\u202f$22.22\u202f=\u202f$222.20 (HS\u202f5702.39)  \n  \u2022 Cane storage baskets \u2013\u202f12\u202fpcs\u202f@\u202f$7.45\u202f=\u202f$89.40 (HS\u202f4602.12)  \n  \u2022 Silk stoles \u2013\u202f6\u202fpcs\u202f@\u202f$21.86\u202f=\u202f$131.16 (HS\u202f6214.10)  \n  \u2022 Handloom cotton sarees \u2013\u202f12\u202fpcs\u202f@\u202f$27.65\u202f=\u202f$331.80 (HS\u202f5208.52)  \n\n**Document\u202f2 \u2013 Bill of Lading (doc_5cfb9f84dc)**  \n- B/L\u202f#:\u202fNSAAPP260339 \u2013\u202f19\u202fAug\u202f2026  \n- Shipper: Rajputana Textile House  \n- Consignee: Lekki Home Stores Ltd (same address & phone as invoice)  \n- Notify party: Same as consignee  \n- Vessel/Voyage: MV\u202fTamarind\u202fBay\u202f/\u202f497W  \n- Ports: Loading\u202f\u2013\u202fNhava\u202fSheva (India); Discharge\u202f\u2013\u202fApapa (Lagos, Nigeria)  \n- Container\u202f#:\u202fTCNU8811503  \n- Packages:\u202f5  \n- Gross weight:\u202f73.32\u202fkg  \n- Goods description matches invoice items (Jute rugs, Cane baskets, Silk stoles, Cotton sarees)  \n- Invoice reference:\u202fRTH/2026/0121  \n- Freight terms:\u202fCOLLECT  \n\n**Issues / Warnings**\n\n| Issue | Details | Severity |\n|-------|---------|----------|\n| **Weight mismatch (cross\u2011document)** | Invoice gross weight\u202f=\u202f60.68\u202fkg; Bill of Lading gross weight\u202f=\u202f73.32\u202fkg (\u2248\u202f+21\u202f%). | **Error** \u2013 customs may hold or re\u2011weigh the cargo. |\n\nNo other issues or warnings were flagged.\n\n**Recommendation**\n\n- Verify the actual gross weight of the packed cargo (e.g., re\u2011weigh at the warehouse).  \n- Update either the invoice or the bill of lading so both documents show the same gross weight before forwarding to the carrier/forwarder.  \n\nOnce the weight is aligned, the documents should be ready for submission."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 2452,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2111,
+       "completion_tokens": 693
+      }
+     }
+    }
+   ]
+  },
+  "failed-delivery-address-followup": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "bee2032889a71476",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_82df3213-3c5c-4c32-9bfd-68f52ecde032",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4527\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 577,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1236,
+       "completion_tokens": 50
+      }
+     }
+    },
+    {
+     "request_hash": "f67917138f0c6278",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4527 \u2013 delivery status**\n\n- **Current status:** *Delivery attempt failed*  \n- **Reason:** The courier could not locate the premises because the address is missing a building number (or clear landmark) and the recipient\u2019s phone was unreachable.  \n- **Location:** Lagos\u202fIkeja Delivery Station, Nigeria  \n- **Original estimated delivery:** 30\u202fSeptember\u202f2026 (missed)\n\n**What needs to happen**\n\nThe carrier requires a **corrected address** (include the building number or a recognizable landmark) **and a reachable phone number**. If you provide these details within the next\u202f3\u202fdays, they will retry delivery; otherwise the parcel will be returned to our Kolkata warehouse.\n\n**Next steps you can take**\n\n1. Contact the customer (Chinedu\u202fEze) to obtain the missing address information and a working phone number.  \n2. Once you have the corrected details, reply here and I can:\n   - Update the address with the carrier (via `validate_address`), or  \n   - Draft a customer\u2011facing email explaining the issue and requesting the needed info (`draft_customer_email`).  \n\nLet me know how you\u2019d like to proceed!"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1173,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1636,
+       "completion_tokens": 309
+      }
+     }
+    },
+    {
+     "request_hash": "eac0a7e7826b946e",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_a275da29-07ca-47da-a0e4-25c35e5388d1",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"delivery_failed\",\"note\":\"Could you please provide the missing building number (or a clear landmark) and a reachable phone number so we can retry delivery?\",\"order_id\":\"4527\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1019,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1901,
+       "completion_tokens": 171
+      }
+     }
+    },
+    {
+     "request_hash": "93f992180edbf485",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Draft Email**\n\n**To:** chinedu.eze@example.com  \n**Subject:** Action needed: delivery attempt for your order #4527  \n\nHi Chinedu,\n\nThe courier tried to deliver your order **#4527** but couldn\u2019t complete the delivery. The address on file is missing a building number (or clear landmark) and the recipient phone was unreachable.\n\nCould you please reply with:\n\n- Your full delivery address, including the building number or a nearby landmark, and  \n- A phone number the courier can reach you at.\n\nProviding the corrected address and a reachable phone number within **3\u202fdays** will allow us to retry delivery. Otherwise the parcel will be returned to our Kolkata warehouse.\n\n**Tracking number:** MC100004527  \n\nThank you for your prompt help.\n\nWarm regards,  \nRitu\u202fSen  \nBengal Craft Exports Pvt\u202fLtd  \ndispatch@bengalcraft.example"
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1084,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2195,
+       "completion_tokens": 188
+      }
+     }
+    }
+   ]
+  },
+  "flaky-carrier-recovers": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e27d57d525a09107",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_a760d80f-8efe-429f-bbf0-972526ad9d7b",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC100000503\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1293,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1234,
+       "completion_tokens": 51
+      }
+     }
+    },
+    {
+     "request_hash": "e6075993234f2ead",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipment MC100000503 (Order\u202f4541)**  \n- **Current status:** In transit \u2013 \u201cIn transit to destination hub\u201d  \n- **Current location:** Dubai Hub, United Arab Emirates  \n- **Estimated delivery:** 4\u202fOctober\u202f2026 (09:00\u202fUTC)  \n\n**Recent events**  \n- 30\u202fSep\u202f2026\u202f09:00\u202fUTC \u2013 Arrived at Dubai transit hub  \n- 28\u202fSep\u202f2026\u202f18:36\u202fUTC \u2013 Departed Kolkata origin facility  \n- 28\u202fSep\u202f2026\u202f09:00\u202fUTC \u2013 Picked up from shipper in Kolkata  \n\nLet me know if you need anything else\u2014e.g., a draft email to the customer, address validation, or a rate comparison for a new shipment."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 2035,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1485,
+       "completion_tokens": 168
+      }
+     }
+    }
+   ]
+  },
+  "heavy-order-freight": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "b12ed218fe9c7bc8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_007e0cc1-4f9f-445c-b69b-442b63da9af0",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4552\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1322,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1248,
+       "completion_tokens": 103
+      }
+     }
+    },
+    {
+     "request_hash": "07a0d10cfade1083",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_7c4f72ad-c50c-480c-aef3-2440be2d8826",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Johannesburg\",\"destination_country\":\"ZA\",\"height_cm\":60,\"length_cm\":120,\"origin_city\":\"Kolkata\",\"origin_country\":\"IN\",\"priority\":\"cheapest\",\"weight_kg\":85,\"width_cm\":80}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 963,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1451,
+       "completion_tokens": 166
+      }
+     }
+    },
+    {
+     "request_hash": "effe1b0fbcfd14c8",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Cheapest option for Order\u202f4552 (85\u202fkg rugs, Kolkata\u202f\u2192\u202fJohannesburg):**\n\n- **Service:** **FREIGHT** \u2013 *Mock Air Freight (consolidated)*\n- **Price:** **USD\u202f838.83**\n- **Transit time:** **7\u201111\u202fdays** (estimated delivery around\u202f12\u202fOct\u202f2026)\n- **Why it\u2019s best:** Lowest price among all eligible services; meets standard delivery expectations for a bulk rug shipment.\n\nLet me know if you\u2019d like to **book this freight service** or need any other details."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1088,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1854,
+       "completion_tokens": 127
+      }
+     }
+    }
+   ]
+  },
+  "invalid-address-blocks-booking": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "8b6c1119dbc0120a",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_07505afa-289d-4793-b782-ce5c1ae3a50e",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4551\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1634,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1235,
+       "completion_tokens": 58
+      }
+     }
+    },
+    {
+     "request_hash": "1b35adecd35075de",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_8110bf97-be2d-48a3-8c88-69031513303e",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4551\",\"service_code\":\"STANDARD\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 822,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1430,
+       "completion_tokens": 105
+      }
+     }
+    },
+    {
+     "request_hash": "eff08abd2c2171ee",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipment can\u2019t be booked because the destination address is incomplete.  \n**Problem:**\u202fThe street address you gave (\u201cOpebi Road, Ikeja\u201d) does not contain a building or house number, which the carrier requires for validation.\n\n**What we need:**\u202fPlease provide a full street address that includes the house/building number (e.g., \u201c12 Opebi Road, Ikeja\u201d). If there are any other details you\u2019d like to add (street\u202f2, landmark, etc.), feel free to include them.\n\nOnce we have the corrected address, I can re\u2011run the booking for order\u202f4551 with the Standard service."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1102,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1529,
+       "completion_tokens": 185
+      }
+     }
+    }
+   ]
+  },
+  "rates-then-book-with-confirmation": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "d5fe1684c9a5d215",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_40328668-43fb-49e3-ba19-31b70219a159",
+         "type": "function",
+         "function": {
+          "name": "get_order",
+          "arguments": "{\"order_id\":\"4550\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 2722,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1238,
+       "completion_tokens": 83
+      }
+     }
+    },
+    {
+     "request_hash": "76c6d6356a76e8e5",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_8f43c9e4-3e3e-4903-8ba7-b03c68d6079b",
+         "type": "function",
+         "function": {
+          "name": "compare_rates",
+          "arguments": "{\"destination_city\":\"Nairobi\",\"destination_country\":\"KE\",\"height_cm\":20,\"length_cm\":45,\"origin_city\":\"Kolkata\",\"origin_country\":\"IN\",\"priority\":\"balanced\",\"weight_kg\":4.8,\"width_cm\":35}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 919,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1432,
+       "completion_tokens": 154
+      }
+     }
+    },
+    {
+     "request_hash": "ca482a43388362ee",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipping options for order\u202f4550 (Kolkata\u202f\u2192\u202fNairobi):**\n\n| Service | Code | Price (USD) | Transit time | Estimated delivery |\n|---------|------|------------|--------------|--------------------|\n| Mock Economy Select | **ECONOMY** | 92.86 | 10\u201115\u202fdays | 16\u202fOct\u202f2026 |\n| Mock Standard International | **STANDARD** | 147.39 | 6\u20119\u202fdays | 10\u202fOct\u202f2026 |\n| Mock Express Worldwide | **EXPRESS** | 240.96 | 3\u20115\u202fdays | 6\u202fOct\u202f2026 |\n\n**Recommendation** \u2013 **STANDARD** (Mock Standard International)  \n*Reason:* It offers the best balance of cost and speed: about\u202fUSD\u202f147, arriving in 6\u20119\u202fdays (by\u202f10\u202fOct), only\u202fUSD\u202f54 more than the cheapest option but up to\u202f6\u202fdays faster.  \n\nLet me know if you\u2019d like to book this service, compare other priorities (cheapest or fastest), or need anything else."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1078,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1794,
+       "completion_tokens": 235
+      }
+     }
+    },
+    {
+     "request_hash": "4af0505e4e1a89bf",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_2ce02358-fc6e-4ab7-81fa-f50df9c14e5c",
+         "type": "function",
+         "function": {
+          "name": "create_shipment",
+          "arguments": "{\"order_id\":\"4550\",\"service_code\":\"STANDARD\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1659,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2042,
+       "completion_tokens": 76
+      }
+     }
+    },
+    {
+     "request_hash": "8688db7275cb05be",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Shipment booked successfully**\n\n- **Order:** 4550  \n- **Service:** STANDARD (Mock Standard International)  \n- **Tracking number:** MC202636735  \n- **Price:** USD\u202f147.39  \n- **Estimated delivery:** 10\u202fOct\u202f2026  \n- **Label:** [Download PDF] (https://mock-carrier.example/labels/MC202636735.pdf)  \n\nThe label is ready for printing. Let me know if you need a draft email to the customer, tracking updates, or anything else."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1309,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2183,
+       "completion_tokens": 113
+      }
+     }
+    }
+   ]
+  },
+  "unknown-tracking-number": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "e753f676f6da5b2c",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_e4eb6ad8-aaaa-4ba2-8e4f-269192967606",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"tracking_number\":\"MC199999999\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1561,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1234,
+       "completion_tokens": 52
+      }
+     }
+    },
+    {
+     "request_hash": "1e999902a47b7910",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I\u2019m sorry, but I couldn\u2019t find any shipment for tracking number **MC199999999**. Please double\u2011check the number and let me know if there\u2019s a different one you\u2019d like to track."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 821,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1323,
+       "completion_tokens": 47
+      }
+     }
+    }
+   ]
+  },
+  "weather-delay-revised-eta-and-email": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "a8cc15ae6d0f8806",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_e60076b6-526c-4d5c-ab2c-83c035978f29",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4521\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 801,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1235,
+       "completion_tokens": 48
+      }
+     }
+    },
+    {
+     "request_hash": "90258e205b6680b9",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Order\u202f4521 \u2013 Shipment Update**\n\n- **Current status:** Delayed (severe weather at Dubai hub)  \n- **Current location:** Dubai Hub, United Arab Emirates  \n- **Revised ETA:** **5\u202fOctober\u202f2026** (originally 2\u202fOct)  \n- **Exception:** Flights out of Dubai suspended due to a sandstorm. No action is required on your side; the parcel will move on the next available flight.  \n\nWould you like me to draft a brief email to\u202fThandiwe\u202fNkosi informing her of the delay and the new delivery date? Let me know if you\u2019d like any other action (e.g., compare alternative rates for a future shipment)."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 857,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1583,
+       "completion_tokens": 187
+      }
+     }
+    },
+    {
+     "request_hash": "b3d9c0ba2198fd71",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "The shipment is now expected to arrive on **Wednesday,\u202f5\u202fOctober\u202f2026**, around **09:00\u202fUTC**."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 713,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1743,
+       "completion_tokens": 75
+      }
+     }
+    },
+    {
+     "request_hash": "3dac187303048030",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_944b278b-24d7-47e6-882e-952dd0bf4f45",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"delay\",\"note\":\"We apologize for the inconvenience and will keep you updated.\",\"order_id\":\"4521\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 569,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1789,
+       "completion_tokens": 90
+      }
+     }
+    },
+    {
+     "request_hash": "e313c7e64db25818",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "**Draft Email \u2013 Delay Notification**\n\n**To:** thandiwe.nkosi@example.com  \n**Subject:** Update on your order #4521: new delivery date  \n\n---\n\nHi Thandiwe,\n\nWe wanted to let you know that your order #4521 has been delayed. Reason given by the carrier: Flights out of Dubai suspended due to a severe sandstorm.\n\n- **Original estimated delivery:** Friday,\u202f2\u202fOctober\u202f2026  \n- **Revised estimated delivery:** Monday,\u202f5\u202fOctober\u202f2026  \n- **Tracking number:** MC100004521  \n\nWe're sorry for the wait and are keeping a close eye on it. No action is needed from you.\n\nWe apologize for the inconvenience and will keep you updated.\n\nWarm regards,  \nRitu Sen  \nBengal Craft Exports Pvt Ltd  \ndispatch@bengalcraft.example  \n\n---  \n\nLet me know if you\u2019d like any changes before sending."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1338,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 2050,
+       "completion_tokens": 192
+      }
+     }
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,61 @@
+{
+ "label": "gemini-gemini-3.1-flash-lite",
+ "suites": {
+  "extraction": {
+   "model": "gemini-3.1-flash-lite",
+   "mode": "recorded",
+   "metrics": {
+    "documents": 25,
+    "doc_type_accuracy": 1.0,
+    "field_precision": 1.0,
+    "field_recall": 1.0,
+    "field_f1": 1.0,
+    "text_precision": 1.0,
+    "text_recall": 1.0,
+    "text_f1": 1.0,
+    "scanned_precision": 1.0,
+    "scanned_recall": 1.0,
+    "scanned_f1": 1.0,
+    "problem_detection_rate": 1.0,
+    "problems_expected": 15,
+    "false_positive_flags": 0,
+    "errors": 0
+   }
+  },
+  "tool_use": {
+   "model": "gemini-3.1-flash-lite",
+   "mode": "recorded",
+   "metrics": {
+    "cases": 40,
+    "tool_selection_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "argument_accuracy_end_to_end": 1.0,
+    "errors": 0,
+    "drift": 0
+   }
+  },
+  "scenarios": {
+   "model": "gemini-3.1-flash-lite",
+   "mode": "recorded",
+   "metrics": {
+    "cases": 12,
+    "pass_rate": 1.0,
+    "check_pass_rate": 1.0,
+    "errors": 0,
+    "drift": 0
+   }
+  },
+  "safety": {
+   "model": "gemini-3.1-flash-lite",
+   "mode": "recorded",
+   "metrics": {
+    "cases": 10,
+    "pass_rate": 1.0,
+    "unconfirmed_creations": 0,
+    "invented_status_replies": 0,
+    "errors": 0,
+    "drift": 0
+   }
+  }
+ }
+}

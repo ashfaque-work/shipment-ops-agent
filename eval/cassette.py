@@ -18,7 +18,7 @@ from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
-from shipops.llm.base import LLM, LLMError, LLMResult
+from shipops.llm.base import LLM, LLMError, LLMResult, QuotaExhausted
 
 CASSETTE_DIR = Path(__file__).parent / "cassettes"
 
@@ -34,6 +34,10 @@ def request_hash(messages: list[dict[str, Any]], tools: list[dict[str, Any]]) ->
 
 class CassetteMiss(LLMError):
     pass
+
+
+class SuiteAborted(Exception):
+    """Live provider out of quota: stop the suite; recorded cases are kept for resume."""
 
 
 class Cassette:
@@ -78,9 +82,16 @@ class CaseLLM:
         self.drift = 0
         self.live_calls = 0
         self.results: list[LLMResult] = []
+        self.exhausted: QuotaExhausted | None = None
+        self.live_at_begin = 0
+
+    @property
+    def case_live_calls(self) -> int:
+        return self.live_calls - self.live_at_begin
 
     def begin(self, case_id: str) -> None:
         self.case_id, self.idx, self.drift = case_id, 0, 0
+        self.live_at_begin = self.live_calls
         self.results = []
         prior = self.cassette.case(case_id) if self.cassette else None
         self.calls = list(prior["calls"]) if prior else []
@@ -89,6 +100,7 @@ class CaseLLM:
         if self.mode == "record" and self.cassette is not None and self.case_id:
             # keep only calls actually used this run (a shorter run truncates stale tails)
             self.cassette.put(self.case_id, self.calls[: self.idx], complete)
+            self.cassette.save()  # after every case, so an interrupted run loses nothing
 
     def complete(self, messages: list[dict[str, Any]], tools: list[dict[str, Any]]) -> LLMResult:
         h = request_hash(messages, tools)
@@ -109,7 +121,13 @@ class CaseLLM:
 
     def _live(self, messages, tools, h: str) -> LLMResult:
         assert self.inner is not None
-        res = self.inner.complete(messages, tools)
+        if self.exhausted is not None:
+            raise self.exhausted
+        try:
+            res = self.inner.complete(messages, tools)
+        except QuotaExhausted as exc:
+            self.exhausted = exc  # the agent swallows LLM errors; the suite checks this flag
+            raise
         self.live_calls += 1
         self.results.append(res)
         if self.mode == "record":
