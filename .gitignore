@@ -22,7 +22,6 @@ next-env.d.ts
 
 # Runtime artefacts
 uploads/
-eval/results/live/
 *.log
 
 # OS / editor

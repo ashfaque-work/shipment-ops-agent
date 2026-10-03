@@ -110,3 +110,17 @@ def test_rate_limiter_blocks_when_full() -> None:
     assert lim.acquire() == 0 and lim.acquire() == 0
     waited = lim.acquire()
     assert waited > 59 and slept
+
+
+def test_waits_and_retries_when_all_rate_limited() -> None:
+    slept: list[float] = []
+    groq = FakeClient([_rate_limit_error(), _resp("ok")])
+    llm = OpenAICompatLLM(
+        P[:1],
+        clients={"groq": groq},
+        rate_limit_retries=2,
+        rate_limit_wait_s=7,
+        sleep=slept.append,
+    )
+    assert llm.complete([], []).message["content"] == "ok"
+    assert slept == [7]

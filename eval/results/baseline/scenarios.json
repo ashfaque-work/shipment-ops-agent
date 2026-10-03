@@ -1,0 +1,533 @@
+{
+ "suite": "scenarios",
+ "metrics": {
+  "cases": 12,
+  "pass_rate": 0.5833333333333334,
+  "check_pass_rate": 0.6470588235294117,
+  "errors": 0,
+  "drift": 0
+ },
+ "cases": [
+  {
+   "id": "customs-hold-explain-and-email",
+   "kind": null,
+   "passed": false,
+   "failures": [
+    "turn 2: expected tool draft_customer_email (called: none)",
+    "turn 2: reply lacks any of ['Subject']",
+    "turn 2: reply lacks 'customs'",
+    "turn 2: reply lacks 'Kwame'"
+   ],
+   "turns": [
+    {
+     "user": "Where is order 4518?",
+     "reply": "**MC100004518** (Delhi, IN \u2192 Accra, GH) is **customs hold**: Held by Ghana Revenue Authority customs - documents required. Current location: Kotoka Intl Airport Customs, Accra, GH. Issue: Commercial invoice is missing the HS code for line 2 and the importer's TIN is not provided. Next step: Shipper must upload a corrected commercial invoice (with HS codes) and the consignee's TIN within 5 days to avoid return.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4518"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "Draft an email to the customer explaining what's going on.",
+     "reply": "I can track shipments (e.g. 'Where is order 4512?'), compare rates ('rates from Mumbai to Lagos for 5 kg'), create shipments ('ship order 4550 with standard'), check documents, and draft customer emails ('draft a delay email for order 4521').",
+     "pending": false,
+     "created_total": 0,
+     "tools": [],
+     "tool_args": [],
+     "llm_errors": [],
+     "failures": [
+      "expected tool draft_customer_email (called: none)",
+      "reply lacks any of ['Subject']",
+      "reply lacks 'customs'",
+      "reply lacks 'Kwame'"
+     ]
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 6,
+   "checks_failed": 4
+  },
+  {
+   "id": "weather-delay-revised-eta-and-email",
+   "kind": null,
+   "passed": false,
+   "failures": [
+    "turn 2: reply lacks any of ['5 October', 'October 5', '2026-10-05', 'Oct 5', '5 Oct', 'Monday']",
+    "turn 3: expected tool draft_customer_email (called: none)",
+    "turn 3: reply lacks any of ['Subject']",
+    "turn 3: reply lacks 'Thandiwe'"
+   ],
+   "turns": [
+    {
+     "user": "Any news on order 4521?",
+     "reply": "**MC100004521** (Dubai, AE \u2192 Johannesburg, ZA) is **delayed**: Delayed - severe weather at transit point. Current location: Dubai Hub, AE. Estimated delivery: 2026-10-05 09:00 UTC (originally 2026-10-02 09:00 UTC). Issue: Flights out of Dubai suspended due to a severe sandstorm. Next step: No action needed. Shipment will move on the next available flight; revised ETA applies.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4521"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "When is it expected now?",
+     "reply": "I can track shipments (e.g. 'Where is order 4512?'), compare rates ('rates from Mumbai to Lagos for 5 kg'), create shipments ('ship order 4550 with standard'), check documents, and draft customer emails ('draft a delay email for order 4521').",
+     "pending": false,
+     "created_total": 0,
+     "tools": [],
+     "tool_args": [],
+     "llm_errors": [],
+     "failures": [
+      "reply lacks any of ['5 October', 'October 5', '2026-10-05', 'Oct 5', '5 Oct', 'Monday']"
+     ]
+    },
+    {
+     "user": "Send the customer a delay email draft.",
+     "reply": "I can track shipments (e.g. 'Where is order 4512?'), compare rates ('rates from Mumbai to Lagos for 5 kg'), create shipments ('ship order 4550 with standard'), check documents, and draft customer emails ('draft a delay email for order 4521').",
+     "pending": false,
+     "created_total": 0,
+     "tools": [],
+     "tool_args": [],
+     "llm_errors": [],
+     "failures": [
+      "expected tool draft_customer_email (called: none)",
+      "reply lacks any of ['Subject']",
+      "reply lacks 'Thandiwe'"
+     ]
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 7,
+   "checks_failed": 4
+  },
+  {
+   "id": "failed-delivery-address-followup",
+   "kind": null,
+   "passed": false,
+   "failures": [
+    "turn 2: expected tool draft_customer_email (called: none)",
+    "turn 2: reply lacks any of ['building number', 'landmark']"
+   ],
+   "turns": [
+    {
+     "user": "Why hasn't order 4527 been delivered?",
+     "reply": "**MC100004527** (Mumbai, IN \u2192 Lagos, NG) is **delivery failed**: Delivery attempt failed - address incomplete. Current location: Lagos Ikeja Delivery Station, NG. Issue: Courier could not locate the premises: no building number and the recipient phone was unreachable. Next step: Provide a corrected address (building number / landmark) and a reachable phone number within 3 days, or the parcel is returned.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4527"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "Draft an email asking the customer for the corrected address.",
+     "reply": "I can track shipments (e.g. 'Where is order 4512?'), compare rates ('rates from Mumbai to Lagos for 5 kg'), create shipments ('ship order 4550 with standard'), check documents, and draft customer emails ('draft a delay email for order 4521').",
+     "pending": false,
+     "created_total": 0,
+     "tools": [],
+     "tool_args": [],
+     "llm_errors": [],
+     "failures": [
+      "expected tool draft_customer_email (called: none)",
+      "reply lacks any of ['building number', 'landmark']"
+     ]
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 4,
+   "checks_failed": 2
+  },
+  {
+   "id": "rates-then-book-with-confirmation",
+   "kind": null,
+   "passed": false,
+   "failures": [
+    "turn 1: expected tool compare_rates (called: ['track_shipment'])",
+    "turn 1: reply lacks any of ['Express', 'EXPRESS']",
+    "turn 2: expected tool create_shipment (called: none)",
+    "turn 2: pending confirmation expected=True",
+    "turn 3: reply lacks any of ['MC2']",
+    "turn 3: shipments created=0, expected 1"
+   ],
+   "turns": [
+    {
+     "user": "What are the shipping options for order 4550?",
+     "reply": "I couldn't find that shipment: Order #4550 has not shipped yet (status: ready_to_ship).",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4550"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": [
+      "expected tool compare_rates (called: ['track_shipment'])",
+      "reply lacks any of ['Express', 'EXPRESS']"
+     ]
+    },
+    {
+     "user": "Go with Standard and book it.",
+     "reply": "I can track shipments (e.g. 'Where is order 4512?'), compare rates ('rates from Mumbai to Lagos for 5 kg'), create shipments ('ship order 4550 with standard'), check documents, and draft customer emails ('draft a delay email for order 4521').",
+     "pending": false,
+     "created_total": 0,
+     "tools": [],
+     "tool_args": [],
+     "llm_errors": [],
+     "failures": [
+      "expected tool create_shipment (called: none)",
+      "pending confirmation expected=True"
+     ]
+    },
+    {
+     "user": "[approve]",
+     "reply": "There is no shipment waiting for confirmation.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [],
+     "tool_args": [],
+     "llm_errors": [],
+     "failures": [
+      "reply lacks any of ['MC2']",
+      "shipments created=0, expected 1"
+     ]
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 10,
+   "checks_failed": 6
+  },
+  {
+   "id": "book-then-decline",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Ship order 4553 with express.",
+     "reply": null,
+     "pending": true,
+     "created_total": 0,
+     "tools": [
+      "create_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "create_shipment",
+       "args": {
+        "order_id": "4553",
+        "service_code": "EXPRESS"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    },
+    {
+     "user": "[decline]",
+     "reply": "Understood - the shipment was not created.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "create_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "create_shipment",
+       "args": {
+        "order_id": "4553",
+        "service_code": "EXPRESS"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 7,
+   "checks_failed": 0
+  },
+  {
+   "id": "invalid-address-blocks-booking",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Ship order 4551 via standard.",
+     "reply": "I couldn't create the shipment: Recipient address failed validation: No building/house number found in street address",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "create_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "create_shipment",
+       "args": {
+        "order_id": "4551",
+        "service_code": "STANDARD"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 3,
+   "checks_failed": 0
+  },
+  {
+   "id": "heavy-order-freight",
+   "kind": null,
+   "passed": false,
+   "failures": [
+    "turn 1: expected tool compare_rates (called: ['get_order'])",
+    "turn 1: reply lacks any of ['Freight', 'FREIGHT']"
+   ],
+   "turns": [
+    {
+     "user": "Order 4552 is 85 kg of rugs to Johannesburg. What's the cheapest way to ship it?",
+     "reply": "Order #4552 for Lerato Mokoena (Johannesburg, ZA): Jute floor rugs x20, value USD 1450.00. Status: ready to ship. Which service should I use (Express, Standard or Economy)?",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "get_order"
+     ],
+     "tool_args": [
+      {
+       "name": "get_order",
+       "args": {
+        "order_id": "4552"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": [
+      "expected tool compare_rates (called: ['get_order'])",
+      "reply lacks any of ['Freight', 'FREIGHT']"
+     ]
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 2,
+   "checks_failed": 2
+  },
+  {
+   "id": "carrier-timeout-no-guessing",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Where is order 4540?",
+     "reply": "I couldn't get tracking for MC100000408 right now - the carrier system didn't respond. I won't guess the status; please try again in a few minutes.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "order_id": "4540"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 3,
+   "checks_failed": 0
+  },
+  {
+   "id": "unknown-tracking-number",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Track MC199999999 for me",
+     "reply": "I couldn't find that shipment: No shipment found for tracking number MC199999999",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "tracking_number": "MC199999999"
+       },
+       "ok": false
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 3,
+   "checks_failed": 0
+  },
+  {
+   "id": "flaky-carrier-recovers",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Status of MC100000503?",
+     "reply": "**MC100000503** (Kolkata, IN \u2192 Nairobi, KE) is **in transit**: In transit to destination hub. Current location: Dubai Hub, AE. Estimated delivery: 2026-10-04 09:00 UTC.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "track_shipment"
+     ],
+     "tool_args": [
+      {
+       "name": "track_shipment",
+       "args": {
+        "tracking_number": "MC100000503"
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 2,
+   "checks_failed": 0
+  },
+  {
+   "id": "document-packet-weight-mismatch",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "I've uploaded the invoice doc_7f77aa7a23 and the bill of lading doc_5cfb9f84dc. Please check them before we send them to the forwarder.",
+     "reply": "Document check:\n- doc_7f77aa7a23 (commercial_invoice): no issues\n- doc_5cfb9f84dc (bill_of_lading): no issues\n- Cross-check: Gross weight differs: invoice 60.68 kg vs bill of lading 73.32 kg (+21%). Customs may hold or re-weigh the cargo.",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "analyze_documents"
+     ],
+     "tool_args": [
+      {
+       "name": "analyze_documents",
+       "args": {
+        "document_ids": [
+         "doc_7f77aa7a23",
+         "doc_5cfb9f84dc"
+        ]
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 2,
+   "checks_failed": 0
+  },
+  {
+   "id": "document-missing-hs-code",
+   "kind": null,
+   "passed": true,
+   "failures": [],
+   "turns": [
+    {
+     "user": "Can you review doc_2294cd7637?",
+     "reply": "Document check:\n- doc_2294cd7637 (commercial_invoice): Line 1 (Cotton kantha quilts) has no HS code - customs will hold the shipment",
+     "pending": false,
+     "created_total": 0,
+     "tools": [
+      "analyze_documents"
+     ],
+     "tool_args": [
+      {
+       "name": "analyze_documents",
+       "args": {
+        "document_ids": [
+         "doc_2294cd7637"
+        ]
+       },
+       "ok": true
+      }
+     ],
+     "llm_errors": [],
+     "failures": []
+    }
+   ],
+   "error": null,
+   "drift": 0,
+   "checks_total": 2,
+   "checks_failed": 0
+  }
+ ]
+}

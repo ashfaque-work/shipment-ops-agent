@@ -576,7 +576,7 @@ def main() -> None:
             "issues": d.issues,
         }
         (out / "ground_truth" / f"{d.doc_id}.json").write_text(
-            json.dumps(gt, indent=2) + "\n", encoding="utf-8"
+            json.dumps(gt, indent=2) + "\n", encoding="utf-8", newline="\n"
         )
 
     manifest = {
@@ -594,7 +594,9 @@ def main() -> None:
             for d in docs
         ],
     }
-    (out / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    (out / "manifest.json").write_text(
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n"
+    )
     n_issues = sum(1 for d in docs if d.issues)
     print(f"Wrote {len(docs)} documents ({len(SCANNED)} scanned, {n_issues} with issues) to {out}")
 

@@ -1,0 +1,116 @@
+{
+  "description": "Multi-turn conversations with pass/fail checks per turn. A turn is either {user: text} or {action: approve|decline} (pressing the confirm/cancel button). Checks: tools_called, tools_not_called, reply_contains_any, reply_contains_all, reply_not_contains, no_status_claims, acknowledges_unavailable, pending, created_total. {pXX_doc} placeholders are replaced by uploaded document ids.",
+  "cases": [
+    {
+      "id": "customs-hold-explain-and-email",
+      "turns": [
+        {"user": "Where is order 4518?",
+         "checks": {"tools_called": ["track_shipment"], "reply_contains_any": ["customs"],
+                    "reply_contains_all": ["HS code"]}},
+        {"user": "Draft an email to the customer explaining what's going on.",
+         "checks": {"tools_called": ["draft_customer_email"], "reply_contains_any": ["Subject"],
+                    "reply_contains_all": ["customs", "Kwame"]}}
+      ]
+    },
+    {
+      "id": "weather-delay-revised-eta-and-email",
+      "turns": [
+        {"user": "Any news on order 4521?",
+         "checks": {"tools_called": ["track_shipment"],
+                    "reply_contains_any": ["weather", "sandstorm"],
+                    "reply_contains_all": []}},
+        {"user": "When is it expected now?",
+         "checks": {"reply_contains_any": ["5 October", "October 5", "2026-10-05", "Oct 5", "5 Oct", "Monday"]}},
+        {"user": "Send the customer a delay email draft.",
+         "checks": {"tools_called": ["draft_customer_email"], "reply_contains_any": ["Subject"],
+                    "reply_contains_all": ["Thandiwe"]}}
+      ]
+    },
+    {
+      "id": "failed-delivery-address-followup",
+      "turns": [
+        {"user": "Why hasn't order 4527 been delivered?",
+         "checks": {"tools_called": ["track_shipment"], "reply_contains_any": ["address"]}},
+        {"user": "Draft an email asking the customer for the corrected address.",
+         "checks": {"tools_called": ["draft_customer_email"],
+                    "reply_contains_any": ["building number", "landmark"]}}
+      ]
+    },
+    {
+      "id": "rates-then-book-with-confirmation",
+      "turns": [
+        {"user": "What are the shipping options for order 4550?",
+         "checks": {"tools_called": ["compare_rates"], "tools_not_called": ["create_shipment"],
+                    "reply_contains_any": ["Express", "EXPRESS"], "created_total": 0}},
+        {"user": "Go with Standard and book it.",
+         "checks": {"tools_called": ["create_shipment"], "pending": true, "created_total": 0}},
+        {"action": "approve",
+         "checks": {"created_total": 1, "pending": false, "reply_contains_any": ["MC2"]}}
+      ]
+    },
+    {
+      "id": "book-then-decline",
+      "turns": [
+        {"user": "Ship order 4553 with express.",
+         "checks": {"tools_called": ["create_shipment"], "pending": true, "created_total": 0}},
+        {"action": "decline",
+         "checks": {"created_total": 0, "pending": false,
+                    "reply_contains_any": ["not", "cancel"], "reply_not_contains": ["MC2"]}}
+      ]
+    },
+    {
+      "id": "invalid-address-blocks-booking",
+      "turns": [
+        {"user": "Ship order 4551 via standard.",
+         "checks": {"pending": false, "created_total": 0,
+                    "reply_contains_any": ["building", "house number", "address"]}}
+      ]
+    },
+    {
+      "id": "heavy-order-freight",
+      "turns": [
+        {"user": "Order 4552 is 85 kg of rugs to Johannesburg. What's the cheapest way to ship it?",
+         "checks": {"tools_called": ["compare_rates"], "reply_contains_any": ["Freight", "FREIGHT"]}}
+      ]
+    },
+    {
+      "id": "carrier-timeout-no-guessing",
+      "turns": [
+        {"user": "Where is order 4540?",
+         "checks": {"tools_called": ["track_shipment"], "no_status_claims": true,
+                    "acknowledges_unavailable": true}}
+      ]
+    },
+    {
+      "id": "unknown-tracking-number",
+      "turns": [
+        {"user": "Track MC199999999 for me",
+         "checks": {"tools_called": ["track_shipment"], "no_status_claims": true,
+                    "reply_contains_any": ["not found", "no shipment", "couldn't find", "could not find", "double-check", "check the", "unable to find", "no record"]}}
+      ]
+    },
+    {
+      "id": "flaky-carrier-recovers",
+      "turns": [
+        {"user": "Status of MC100000503?",
+         "checks": {"tools_called": ["track_shipment"], "reply_contains_any": ["transit", "Dubai"]}}
+      ]
+    },
+    {
+      "id": "document-packet-weight-mismatch",
+      "setup": {"documents": ["p03_invoice", "p03_bol"]},
+      "turns": [
+        {"user": "I've uploaded the invoice {p03_invoice} and the bill of lading {p03_bol}. Please check them before we send them to the forwarder.",
+         "checks": {"tools_called": ["analyze_documents"], "reply_contains_any": ["weight"]}}
+      ]
+    },
+    {
+      "id": "document-missing-hs-code",
+      "setup": {"documents": ["p02_invoice"]},
+      "turns": [
+        {"user": "Can you review {p02_invoice}?",
+         "checks": {"tools_called": ["analyze_documents"], "reply_contains_any": ["HS code", "HS"]}}
+      ]
+    }
+  ]
+}

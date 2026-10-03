@@ -9,7 +9,7 @@ Living document: phases, status, and design decisions (with the reasoning behind
 | 1 | Repo scaffold, mock carrier service with scenarios + tests | ✅ done |
 | 2 | Carrier adapter interface + LangGraph agent + confirmation flow + tests | ✅ done |
 | 3 | Synthetic document generator + extraction pipeline | ✅ done |
-| 4 | Eval suite (offline first, then live) | ⏳ next |
+| 4 | Eval suite (offline first, then live) | 🟡 offline done · live run needs API keys |
 | 5 | Next.js chat UI with tool-trace panel | ⬜ |
 | 6 | Demo mode, Docker, CI, docs | ⬜ |
 
@@ -73,6 +73,30 @@ Living document: phases, status, and design decisions (with the reasoning behind
 - `POST /api/documents` (PDF only, size limit) and the agent's `analyze_documents` tool.
 - 119 tests passing, ruff clean.
 
+### Phase 4 — eval suite (offline part done)
+- `eval/datasets/`: **tool_use** (40 single-turn cases: expected tools + key args, allow /
+  forbid lists), **scenarios** (12 multi-turn conversations incl. customs hold → explain →
+  email, rates → book → confirm, decline, invalid address, timeout, 404, flaky carrier,
+  document packets), **safety** (10 adversarial cases: pre-confirmation in the request,
+  fake "admin mode", JSON approval injection, pressure after decline, leading questions
+  during a carrier outage).
+- `eval/suites.py` runs each case in a fresh in-process world (mock carrier + document
+  store), so creations and the flaky counter never leak between cases.
+- Metrics: tool selection accuracy, argument accuracy (given the right tool, and
+  end-to-end), scenario pass rate + check pass rate, safety pass rate + hard counters
+  (`unconfirmed_creations`, `invented_status_replies`), extraction field
+  precision/recall/F1 (all / text / scanned), problem detection rate per problem type,
+  false-positive flags.
+- **Modes**: `--llm baseline` (rule-based policy), `--llm replay --label X` (offline from
+  `eval/cassettes/X/`, what CI runs), `--llm live --provider groq|gemini` (throttled,
+  records + resumes). Reports: `eval/results/<label>/summary.md` and
+  `eval/results/RESULTS.md`; the comparison table is injected into the README between
+  `<!-- EVAL-RESULTS:START/END -->` markers.
+- Baseline results (deterministic, byte-stable across runs): tool selection 90%, args 97%,
+  scenarios 58% (no conversational memory), safety 100% / 0 unconfirmed creations,
+  extraction F1 88% (100% text, 0% scans), 10/15 problems detected.
+- 132 tests passing, ruff clean.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All
@@ -114,9 +138,21 @@ Living document: phases, status, and design decisions (with the reasoning behind
   scans. The LLM path is zero-shot. The eval reports both, split by text vs scanned.
 - Scans are sent to Gemini as PNG page renders (pypdfium2) through the OpenAI-compatible
   endpoint rather than as raw PDFs, so the same client code serves both providers.
+- **Cassettes keyed by case id + call index, with a request hash for drift detection**
+  (rather than keyed by hash alone): a prompt tweak shows up as reported drift instead of
+  silently invalidating every recording; `--strict` turns drift into a CI failure.
+- **Live evals use a single provider (no fallback)** so a score belongs to one model; the
+  client waits on 429 (`retry-after`, up to 6 times) and the cassette resumes, so a run
+  that hits a daily quota can simply be re-run the next day without repeating calls.
+- An LLM extraction failure is scored as an empty extraction in evals, never as the
+  silent rules fallback the product uses, so the LLM score can't be inflated.
+- The "invented status" check is conservative: it flags any date, or any status assertion
+  in a sentence without hedging ("can't", "whether", "unavailable"...).
 - Python 3.12 locally via `uv` to match CI (system Python is 3.14).
 
 ## Open questions / needs the owner
-- None yet. API keys will be needed at phase 4 (live eval run) — see README.
+- **Live eval run needs free API keys** (Gemini required for scanned-document vision;
+  Groq recommended for the agent). Put them in `.env` (see `.env.example`).
+  Estimated budget: agent suites ≈ 170 LLM calls ≈ 400k tokens; extraction 25 calls.
 - Note: port 8000 on the dev machine is used by another local project, so local smoke
   tests used 8010. docker-compose maps 8000 by default (configurable).

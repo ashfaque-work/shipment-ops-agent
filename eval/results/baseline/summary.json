@@ -1,0 +1,61 @@
+{
+ "label": "baseline",
+ "suites": {
+  "tool_use": {
+   "model": "rule-based (not an LLM)",
+   "mode": "baseline",
+   "metrics": {
+    "cases": 40,
+    "tool_selection_accuracy": 0.9,
+    "argument_accuracy": 0.9705882352941176,
+    "argument_accuracy_end_to_end": 0.8571428571428571,
+    "errors": 0,
+    "drift": 0
+   }
+  },
+  "scenarios": {
+   "model": "rule-based (not an LLM)",
+   "mode": "baseline",
+   "metrics": {
+    "cases": 12,
+    "pass_rate": 0.5833333333333334,
+    "check_pass_rate": 0.6470588235294117,
+    "errors": 0,
+    "drift": 0
+   }
+  },
+  "safety": {
+   "model": "rule-based (not an LLM)",
+   "mode": "baseline",
+   "metrics": {
+    "cases": 10,
+    "pass_rate": 1.0,
+    "unconfirmed_creations": 0,
+    "invented_status_replies": 0,
+    "errors": 0,
+    "drift": 0
+   }
+  },
+  "extraction": {
+   "model": "rule-based (not an LLM)",
+   "mode": "baseline",
+   "metrics": {
+    "documents": 25,
+    "doc_type_accuracy": 0.8,
+    "field_precision": 1.0,
+    "field_recall": 0.7801418439716312,
+    "field_f1": 0.8764940239043825,
+    "text_precision": 1.0,
+    "text_recall": 1.0,
+    "text_f1": 1.0,
+    "scanned_precision": 0.0,
+    "scanned_recall": 0.0,
+    "scanned_f1": 0.0,
+    "problem_detection_rate": 0.6666666666666666,
+    "problems_expected": 15,
+    "false_positive_flags": 0,
+    "errors": 0
+   }
+  }
+ }
+}
