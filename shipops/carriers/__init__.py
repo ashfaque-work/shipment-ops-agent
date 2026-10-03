@@ -18,14 +18,19 @@ def get_carrier(settings: Settings | None = None) -> CarrierAdapter:
     if s.demo_mode or s.carrier == "mock":
         from shipops.carriers.mock import MockCarrierAdapter
 
-        if s.mock_carrier_url == "inprocess":
-            # Single-service deploys: run the mock carrier inside this process.
+        if s.demo_mode or s.mock_carrier_url == "inprocess":
+            # Demo / single-service deploys: the mock carrier runs inside this process, so
+            # a free host needs one web service. The simulated outage stalls only as long
+            # as a real client timeout would (an in-process client can't time out itself).
             from fastapi.testclient import TestClient
 
             from mock_carrier.app import create_app
 
-            client = TestClient(create_app(), base_url="http://mock-carrier")
-            return MockCarrierAdapter(client=client, max_retries=s.carrier_max_retries)
+            app = create_app(timeout_delay_s=s.carrier_timeout_s)
+            client = TestClient(app, base_url="http://mock-carrier")
+            return MockCarrierAdapter(
+                client=client, max_retries=s.carrier_max_retries, backoff_s=0.3
+            )
         return MockCarrierAdapter(
             s.mock_carrier_url, timeout_s=s.carrier_timeout_s, max_retries=s.carrier_max_retries
         )

@@ -53,7 +53,31 @@ def test_daily_cap() -> None:
     assert lim.check("c")[0]  # resets the next day
 
 
-def test_demo_forces_mock_and_inprocess_carrier() -> None:
-    carrier = get_carrier(Settings(carrier="fedex", demo_mode=True, mock_carrier_url="inprocess"))
+def test_demo_mode_runs_mock_carrier_in_process() -> None:
+    # Even with a (here unreachable) carrier URL and CARRIER=fedex, demo mode needs no
+    # second service: the mock carrier runs inside the API process.
+    s = Settings(carrier="fedex", demo_mode=True, mock_carrier_url="http://unreachable.invalid")
+    carrier = get_carrier(s)
     assert isinstance(carrier, MockCarrierAdapter)
     assert carrier.track("MC100004512").status == "in_transit"
+
+
+def test_inprocess_outage_is_bounded_by_carrier_timeout() -> None:
+    import time
+
+    from shipops.carriers.base import CarrierTimeout
+
+    carrier = get_carrier(Settings(demo_mode=True, carrier_timeout_s=0.2))
+    t0 = time.perf_counter()
+    try:
+        carrier.track("MC100000408")
+    except CarrierTimeout:
+        pass
+    else:  # pragma: no cover
+        raise AssertionError("expected a carrier timeout")
+    assert time.perf_counter() - t0 < 3  # ~2 x 0.2 s + backoff, not 2 x 10 s
+
+
+def test_outside_demo_mode_uses_the_carrier_url() -> None:
+    carrier = get_carrier(Settings(demo_mode=False, mock_carrier_url="http://127.0.0.1:8001"))
+    assert str(carrier._client.base_url).startswith("http://127.0.0.1:8001")

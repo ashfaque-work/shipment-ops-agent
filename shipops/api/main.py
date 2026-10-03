@@ -110,7 +110,11 @@ def create_app(settings: Settings | None = None, service: AgentService | None = 
             "status": "ok" if request.app.state.service else "degraded",
             "error": request.app.state.startup_error,
             "llm_provider": settings.llm_provider,
-            "carrier": "mock" if settings.demo_mode else settings.carrier,
+            "carrier": (
+                "mock (in-process)"
+                if settings.demo_mode or settings.mock_carrier_url == "inprocess"
+                else settings.carrier
+            ),
             "demo_mode": settings.demo_mode,
             "max_upload_mb": settings.max_upload_mb,
         }

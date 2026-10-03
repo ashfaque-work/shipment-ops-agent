@@ -1,18 +1,8 @@
-# Render Blueprint: two free web services (mock carrier + agent API).
+# Render Blueprint: ONE free web service.
+# DEMO_MODE runs the mock carrier inside the API process, so no second service is needed.
+# (docker-compose keeps the two-service setup for local development.)
 # Frontend goes on Vercel - see docs/DEPLOY.md.
 services:
-  - type: web
-    name: shipops-mock-carrier
-    runtime: docker
-    plan: free
-    dockerfilePath: ./docker/python.Dockerfile
-    dockerContext: .
-    dockerCommand: sh -c "uvicorn mock_carrier.app:app --host 0.0.0.0 --port $PORT"
-    healthCheckPath: /health
-    envVars:
-      - key: MOCK_CLOCK
-        value: now # fresh dates for a live demo (evals use a fixed clock)
-
   - type: web
     name: shipops-api
     runtime: docker
@@ -22,11 +12,11 @@ services:
     healthCheckPath: /api/health
     envVars:
       - key: DEMO_MODE
-        value: "true"
+        value: "true" # mock carrier in-process + per-IP / daily request limits
       - key: TRUST_PROXY
-        value: "true"
+        value: "true" # client IP from Render's X-Forwarded-For
       - key: MOCK_CLOCK
-        value: now # must match the mock carrier's clock
+        value: now # fresh dates for a live demo (evals use a fixed clock)
       - key: LLM_PROVIDER
         value: groq
       - key: RATE_LIMIT_PER_MINUTE
@@ -39,8 +29,6 @@ services:
       - key: GROQ_API_KEY
         sync: false
       - key: GEMINI_API_KEY
-        sync: false
-      - key: MOCK_CARRIER_URL # e.g. https://shipops-mock-carrier.onrender.com
         sync: false
       - key: CORS_ORIGINS # e.g. https://shipment-ops-agent.vercel.app
         sync: false

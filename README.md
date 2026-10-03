@@ -256,7 +256,7 @@ sample document buttons.
 
 ## Deploy (free)
 
-Render (two Docker web services from `render.yaml`) + Vercel for the frontend.
+Render (a **single** free Docker web service from `render.yaml`; in demo mode the mock carrier runs in-process) + Vercel for the frontend.
 Step-by-step guide, environment variables and free-tier caveats: [docs/DEPLOY.md](docs/DEPLOY.md).
 
 ## Project layout

@@ -60,7 +60,10 @@ def _resolve_city(loc_city: str, loc_country: str, field: str):
     return city
 
 
-def create_app() -> FastAPI:
+def create_app(*, timeout_delay_s: float | None = None) -> FastAPI:
+    """`timeout_delay_s` overrides MOCK_TIMEOUT_DELAY_S (how long the simulated carrier
+    outage stalls). In-process callers set it to their own timeout, since an in-process
+    client cannot time out on its own."""
     app = FastAPI(
         title="Mock Carrier API",
         version="1.0.0",
@@ -87,7 +90,10 @@ def create_app() -> FastAPI:
         tn = tracking_number.strip().upper()
         if tn == TIMEOUT_TRACKING:
             # Simulate an upstream that hangs; clients must time out and degrade gracefully.
-            await asyncio.sleep(float(os.getenv("MOCK_TIMEOUT_DELAY_S", "10")))
+            delay = timeout_delay_s
+            if delay is None:
+                delay = float(os.getenv("MOCK_TIMEOUT_DELAY_S", "10"))
+            await asyncio.sleep(delay)
             raise CarrierError(504, "upstream_timeout", "Carrier tracking backend timed out")
         if tn == FLAKY_TRACKING:
             with state.lock:

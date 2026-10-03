@@ -179,6 +179,15 @@ is ignored (tested). Agent-facing tool schemas unchanged → all recorded evals 
 through MCP with zero drift. Verified stdio (subprocess) and Streamable HTTP transports.
 Docs: `docs/MCP.md` (Claude Code / Desktop / Inspector / Python).
 
+**Step 3 — single-service deploy.** `DEMO_MODE=true` now always runs the mock carrier
+in-process (ignoring `CARRIER` / `MOCK_CARRIER_URL`), so Render needs one free web service;
+`render.yaml` reduced to `shipops-api`. Because an in-process client cannot time out, the
+mock's simulated outage is capped at `CARRIER_TIMEOUT_S` (`create_app(timeout_delay_s=…)`),
+keeping the "carrier down" path at ~7 s instead of ~20 s. docker-compose keeps the separate
+`mock-carrier` service. Verified by running the API image alone with Render's `PORT`
+convention: health reports `mock (in-process)`, tracking, outage handling and the demo rate
+limit (429 + Retry-After) all work.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All
