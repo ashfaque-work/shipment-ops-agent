@@ -18,6 +18,14 @@ def get_carrier(settings: Settings | None = None) -> CarrierAdapter:
     if s.demo_mode or s.carrier == "mock":
         from shipops.carriers.mock import MockCarrierAdapter
 
+        if s.mock_carrier_url == "inprocess":
+            # Single-service deploys: run the mock carrier inside this process.
+            from fastapi.testclient import TestClient
+
+            from mock_carrier.app import create_app
+
+            client = TestClient(create_app(), base_url="http://mock-carrier")
+            return MockCarrierAdapter(client=client, max_retries=s.carrier_max_retries)
         return MockCarrierAdapter(
             s.mock_carrier_url, timeout_s=s.carrier_timeout_s, max_retries=s.carrier_max_retries
         )

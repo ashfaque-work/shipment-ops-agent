@@ -90,6 +90,7 @@ export type Health = {
   llm_provider: string;
   carrier: string;
   demo_mode: boolean;
+  max_upload_mb: number;
 };
 
 export class ApiError extends Error {

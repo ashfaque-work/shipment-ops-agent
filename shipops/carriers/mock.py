@@ -34,7 +34,7 @@ class MockCarrierAdapter(CarrierAdapter):
 
     def __init__(
         self,
-        base_url: str = "http://localhost:8001",
+        base_url: str = "http://127.0.0.1:8001",
         *,
         timeout_s: float = 3.0,
         max_retries: int = 2,

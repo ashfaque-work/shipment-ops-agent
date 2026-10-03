@@ -9,12 +9,13 @@ import logging
 import uuid
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, File, HTTPException, Request, UploadFile
+from fastapi import Depends, FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 from shipops.agent.service import AgentService, TurnResult
 from shipops.agent.tools import ToolContext
+from shipops.api.ratelimit import DemoLimiter, client_ip
 from shipops.carriers import get_carrier
 from shipops.config import Settings, get_settings
 from shipops.documents import DocumentStore, get_extractor
@@ -82,6 +83,16 @@ def create_app(settings: Settings | None = None, service: AgentService | None = 
         allow_headers=["Content-Type"],
     )
 
+    limiter = DemoLimiter(settings.rate_limit_per_minute, settings.demo_daily_request_cap)
+
+    def limited(request: Request) -> None:
+        """Demo mode: per-IP and daily caps on endpoints that spend LLM / carrier calls."""
+        if not settings.demo_mode:
+            return
+        ok, retry, reason = limiter.check(client_ip(request, settings.trust_proxy))
+        if not ok:
+            raise HTTPException(429, reason, headers={"Retry-After": str(retry)})
+
     def svc(request: Request) -> AgentService:
         s = request.app.state.service
         if s is None:
@@ -96,18 +107,19 @@ def create_app(settings: Settings | None = None, service: AgentService | None = 
             "llm_provider": settings.llm_provider,
             "carrier": "mock" if settings.demo_mode else settings.carrier,
             "demo_mode": settings.demo_mode,
+            "max_upload_mb": settings.max_upload_mb,
         }
 
-    @app.post("/api/chat", response_model=TurnResult)
+    @app.post("/api/chat", response_model=TurnResult, dependencies=[Depends(limited)])
     def chat(body: ChatRequest, request: Request) -> TurnResult:
         session_id = body.session_id or uuid.uuid4().hex
         return svc(request).chat(session_id, body.message.strip())
 
-    @app.post("/api/chat/confirm", response_model=TurnResult)
+    @app.post("/api/chat/confirm", response_model=TurnResult, dependencies=[Depends(limited)])
     def confirm(body: ConfirmRequest, request: Request) -> TurnResult:
         return svc(request).confirm(body.session_id, body.approved)
 
-    @app.post("/api/documents")
+    @app.post("/api/documents", dependencies=[Depends(limited)])
     def upload_document(request: Request, file: UploadFile = File(...)) -> dict:
         store = svc(request).ctx.documents
         limit = int(settings.max_upload_mb * 1024 * 1024)
@@ -129,7 +141,7 @@ def create_app(settings: Settings | None = None, service: AgentService | None = 
             for s in SAMPLES
         ]
 
-    @app.post("/api/samples/{sample_id}")
+    @app.post("/api/samples/{sample_id}", dependencies=[Depends(limited)])
     def load_sample(sample_id: str, request: Request) -> dict:
         sample = get_sample(sample_id)
         if sample is None:

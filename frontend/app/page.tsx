@@ -35,7 +35,6 @@ const SUGGESTIONS = [
   "Where is order 4540?",
 ];
 
-const MAX_UPLOAD_MB = Number(process.env.NEXT_PUBLIC_MAX_UPLOAD_MB ?? 5);
 
 function newSessionId(): string {
   try {
@@ -50,6 +49,9 @@ function newSessionId(): string {
 }
 
 let nextId = 1;
+
+// Markdown merges single newlines; agent replies (email drafts, signatures) need them kept.
+const keepLineBreaks = (text: string) => text.replace(/([^\n])\n(?!\n)/g, "$1  \n");
 
 export default function Home() {
   const [session, setSession] = useState("");
@@ -146,8 +148,9 @@ export default function Home() {
   async function upload(files: File[]) {
     const pdfs = files.filter((f) => f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
     if (pdfs.length < files.length) push({ kind: "error", text: "Only PDF files can be checked." });
-    const tooBig = pdfs.filter((f) => f.size > MAX_UPLOAD_MB * 1024 * 1024);
-    if (tooBig.length) push({ kind: "error", text: `${tooBig.map((f) => f.name).join(", ")} is over ${MAX_UPLOAD_MB} MB.` });
+    const limitMb = health?.max_upload_mb ?? 5;
+    const tooBig = pdfs.filter((f) => f.size > limitMb * 1024 * 1024);
+    if (tooBig.length) push({ kind: "error", text: `${tooBig.map((f) => f.name).join(", ")} is over ${limitMb} MB.` });
     const ok = pdfs.filter((f) => !tooBig.includes(f));
     if (!ok.length) return;
     setBusy(true);
@@ -181,6 +184,7 @@ export default function Home() {
     if (prompt) await send(prompt);
   }
 
+  const maxMb = health?.max_upload_mb ?? 5;
   const offline = healthError !== null || health?.status === "degraded";
 
   return (
@@ -256,7 +260,7 @@ export default function Home() {
               ) : it.kind === "agent" ? (
                 <div key={it.id} className="msg agent">
                   <div className="md">
-                    <ReactMarkdown>{it.text}</ReactMarkdown>
+                    <ReactMarkdown>{keepLineBreaks(it.text)}</ReactMarkdown>
                   </div>
                 </div>
               ) : (
@@ -305,7 +309,7 @@ export default function Home() {
             docs={docs}
             samples={samples}
             busy={busy}
-            maxMb={MAX_UPLOAD_MB}
+            maxMb={maxMb}
             onUpload={upload}
             onSample={loadSample}
             onAsk={(d) => send(`Please check ${d.document_id} (${d.filename}) for problems.`)}

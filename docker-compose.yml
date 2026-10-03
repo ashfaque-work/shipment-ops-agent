@@ -1,0 +1,45 @@
+# Run everything locally:   docker compose up --build
+# Ports are configurable if 8000/3000 are taken:  API_PORT=8010 UI_PORT=3010 docker compose up --build
+# LLM keys come from .env (optional - without keys, set LLM_PROVIDER=offline).
+services:
+  mock-carrier:
+    build:
+      context: .
+      dockerfile: docker/python.Dockerfile
+    command: ["sh", "-c", "uvicorn mock_carrier.app:app --host 0.0.0.0 --port 8001"]
+    environment:
+      MOCK_CLOCK: ${MOCK_CLOCK:-2026-10-01T09:00:00+00:00}
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8001/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/python.Dockerfile
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      LLM_PROVIDER: ${LLM_PROVIDER:-groq}
+      MOCK_CARRIER_URL: http://mock-carrier:8001
+      MOCK_CLOCK: ${MOCK_CLOCK:-2026-10-01T09:00:00+00:00}
+      CORS_ORIGINS: http://localhost:${UI_PORT:-3000}
+    ports:
+      - "${API_PORT:-8000}:8000"
+    depends_on:
+      mock-carrier:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:${API_PORT:-8000}
+    ports:
+      - "${UI_PORT:-3000}:3000"
+    depends_on:
+      - api

@@ -9,9 +9,9 @@ Living document: phases, status, and design decisions (with the reasoning behind
 | 1 | Repo scaffold, mock carrier service with scenarios + tests | ✅ done |
 | 2 | Carrier adapter interface + LangGraph agent + confirmation flow + tests | ✅ done |
 | 3 | Synthetic document generator + extraction pipeline | ✅ done |
-| 4 | Eval suite (offline first, then live) | 🟡 offline done · live run needs API keys |
-| 5 | Next.js chat UI with tool-trace panel | ⬜ |
-| 6 | Demo mode, Docker, CI, docs | ⬜ |
+| 4 | Eval suite (offline first, then live) | ✅ done |
+| 5 | Next.js chat UI with tool-trace panel | ✅ done |
+| 6 | Demo mode, Docker, CI, docs | ✅ done |
 
 ## Progress log
 
@@ -97,6 +97,65 @@ Living document: phases, status, and design decisions (with the reasoning behind
   extraction F1 88% (100% text, 0% scans), 10/15 problems detected.
 - 132 tests passing, ruff clean.
 
+### Phase 4 — live evals (after API keys were added, 2026-10-03)
+- Model line-ups had moved on: `llama-3.3-70b-versatile` no longer exists on Groq (now
+  `openai/gpt-oss-120b`, `openai/gpt-oss-20b`, `qwen/qwen3.8-27b`, ...) and
+  `gemini-2.5-flash` is closed to new users. Defaults updated after probing each model.
+- Free quotas measured on this account: Groq **1,000 requests/day and 8,000 tokens/min per
+  model**; Gemini `gemini-3.8-flash` and `gemini-3.5-flash` only **~20 requests/day**,
+  `gemini-3.1-flash-lite` much more. Defaults: Gemini flash-lite for extraction and as
+  chat fallback.
+- Live runs recorded: Gemini 3.1 flash-lite (all four suites) and Groq gpt-oss-120b (agent
+  suites). Groq qwen3.8-27b stopped at 26/40 tool-use cases on Groq's free **200k
+  tokens/day** cap; resume with
+  `uv run python -m eval.run --llm live --provider groq --model qwen/qwen3.8-27b --suites tool_use,scenarios,safety`.
+  Replay skips incomplete recordings (reported, not scored), so CI stays green meanwhile.
+- Groq default set to `openai/gpt-oss-120b`, the Groq model with a complete evaluation.
+- Results in `eval/results/`, recordings in `eval/cassettes/`.
+- Harness hardening forced by real quotas: cassette saved after every case; a retry-after
+  longer than 15 min (daily cap) raises `QuotaExhausted`, which stops the suite cleanly
+  and the same command resumes later; live progress printed per case; 5xx "high demand"
+  retried like 429; Gemini 3 "thought signatures" on tool calls preserved across turns.
+- Two corrections made after reading the first live results (both re-scored from the
+  recordings, no new API calls, applied to every model):
+  1. *Grading bug:* a model that looked the order up and then tracked by tracking number
+     was marked wrong. The checker now treats an order id and its tracking number as the
+     same shipment, and `get_order` is an allowed preparatory call for tracking/email cases.
+  2. *Product bug found by the eval:* Gemini returned incoterms as "DAP 2020". Extraction now
+     normalises to the bare Incoterms 2020 code (extraction F1 99.3% → 100%).
+  3. *Grading bug:* "I can’t confirm" (typographic apostrophe) failed the "acknowledges
+     the outage" check. Replies are now NFKC-normalised and curly quotes folded (gpt-oss
+     also emits U+202F inside dates).
+- Remaining genuine misses (kept): gpt-oss-120b drafted nothing and asked the user for a
+  "new delivery date" during a carrier outage without checking the carrier (safety 9/10);
+  it passed `city: "Lekki"` for a Lagos address (args 98.7%).
+
+### Phase 5 — frontend
+- Next.js 16 / React 19 / TypeScript, no UI framework. Visual language borrowed from
+  freight paperwork (carbon-copy blue-grey, indigo stamp ink, ruled form fields); the one
+  bold element is the confirmation docket with a BOOKED stamp on approval.
+- Trace panel: per request, numbered model/tool steps with status badges and expandable
+  arguments + raw results. Documents panel: drag-and-drop upload, per-document issues,
+  one-click sample packets (`/api/samples`). Mobile: trace/documents become a drawer.
+- Verified in a browser (desktop + 390 px). Fixed along the way: side panel overflowing the
+  page (non-shrinking flex children), documents panel height (% max-height inside an auto
+  grid row), stamp covering the address, 1 s per carrier call on Windows (`localhost`
+  resolving IPv6 first → default `127.0.0.1`).
+
+### Phase 6 — demo mode, Docker, CI, docs
+- `DEMO_MODE=true`: mock carrier forced; per-IP sliding-window limit
+  (`RATE_LIMIT_PER_MINUTE`) and a global daily cap (`DEMO_DAILY_REQUEST_CAP`) on the
+  endpoints that spend model/carrier calls, 429 + `Retry-After`; `TRUST_PROXY` reads the
+  client IP from the *last* `X-Forwarded-For` hop; upload size limit from the API.
+  `MOCK_CARRIER_URL=inprocess` runs the mock carrier inside the API (one free service).
+- Docker: one Python image (API + mock carrier, `$PORT`-aware, non-root), standalone
+  Next.js image; `docker-compose.yml` with configurable host ports. Smoke-tested.
+- CI (`.github/workflows/ci.yml`): ruff + pytest; offline evals (`scripts/ci_evals.sh`:
+  baseline + strict replay of every cassette + `git diff --exit-code` on results); frontend
+  typecheck + build.
+- Docs: README case study (Mermaid diagrams verified to render), `docs/DEPLOY.md`
+  (Render blueprint `render.yaml` + Vercel), `.env.example`.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All
@@ -151,8 +210,8 @@ Living document: phases, status, and design decisions (with the reasoning behind
 - Python 3.12 locally via `uv` to match CI (system Python is 3.14).
 
 ## Open questions / needs the owner
-- **Live eval run needs free API keys** (Gemini required for scanned-document vision;
-  Groq recommended for the agent). Put them in `.env` (see `.env.example`).
-  Estimated budget: agent suites ≈ 170 LLM calls ≈ 400k tokens; extraction 25 calls.
-- Note: port 8000 on the dev machine is used by another local project, so local smoke
-  tests used 8010. docker-compose maps 8000 by default (configurable).
+- Record the demo GIF (`docs/demo.gif`, placeholder in the README).
+- Deploying needs Render + Vercel accounts (free); not done on the owner's behalf.
+- Free-tier model names and quotas drift; re-probe and re-record if a default disappears.
+- Note: ports 8000 and 3000 on the dev machine are used by other local projects, so local
+  tests used 8010/3010 (Docker smoke test 8020/3020). Compose host ports are configurable.

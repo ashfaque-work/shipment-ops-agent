@@ -1,0 +1,46 @@
+# Render Blueprint: two free web services (mock carrier + agent API).
+# Frontend goes on Vercel - see docs/DEPLOY.md.
+services:
+  - type: web
+    name: shipops-mock-carrier
+    runtime: docker
+    plan: free
+    dockerfilePath: ./docker/python.Dockerfile
+    dockerContext: .
+    dockerCommand: sh -c "uvicorn mock_carrier.app:app --host 0.0.0.0 --port $PORT"
+    healthCheckPath: /health
+    envVars:
+      - key: MOCK_CLOCK
+        value: now # fresh dates for a live demo (evals use a fixed clock)
+
+  - type: web
+    name: shipops-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./docker/python.Dockerfile
+    dockerContext: .
+    healthCheckPath: /api/health
+    envVars:
+      - key: DEMO_MODE
+        value: "true"
+      - key: TRUST_PROXY
+        value: "true"
+      - key: MOCK_CLOCK
+        value: now # must match the mock carrier's clock
+      - key: LLM_PROVIDER
+        value: groq
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "10"
+      - key: DEMO_DAILY_REQUEST_CAP
+        value: "400"
+      - key: MAX_UPLOAD_MB
+        value: "3"
+      # Set these in the Render dashboard (never commit them):
+      - key: GROQ_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: MOCK_CARRIER_URL # e.g. https://shipops-mock-carrier.onrender.com
+        sync: false
+      - key: CORS_ORIGINS # e.g. https://shipment-ops-agent.vercel.app
+        sync: false

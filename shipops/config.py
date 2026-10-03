@@ -16,9 +16,9 @@ class Settings(BaseSettings):
     llm_provider: Literal["groq", "gemini", "offline"] = "groq"
     groq_api_key: str = ""
     gemini_api_key: str = ""
-    groq_model: str = "llama-3.3-70b-versatile"
-    gemini_model: str = "gemini-2.5-flash"
-    gemini_vision_model: str = "gemini-2.5-flash"
+    groq_model: str = "openai/gpt-oss-120b"
+    gemini_model: str = "gemini-3.1-flash-lite"
+    gemini_vision_model: str = "gemini-3.1-flash-lite"
     groq_base_url: str = "https://api.groq.com/openai/v1"
     gemini_base_url: str = "https://generativelanguage.googleapis.com/v1beta/openai/"
     llm_timeout_s: float = 60.0
@@ -26,13 +26,15 @@ class Settings(BaseSettings):
 
     # Carrier
     carrier: Literal["mock", "fedex"] = "mock"
-    mock_carrier_url: str = "http://localhost:8001"
+    mock_carrier_url: str = "http://127.0.0.1:8001"  # not "localhost": avoids IPv6 lookup stalls
     carrier_timeout_s: float = 3.0
     carrier_max_retries: int = 2
 
     # API / demo
     demo_mode: bool = False
-    rate_limit_per_minute: int = 20
+    rate_limit_per_minute: int = 20  # per client IP, demo mode only
+    demo_daily_request_cap: int = 500  # all clients together, demo mode only (0 = off)
+    trust_proxy: bool = False  # take client IP from X-Forwarded-For (behind Render etc.)
     max_upload_mb: float = 5.0
     cors_origins: str = "http://localhost:3000"
     upload_dir: str = "uploads"
