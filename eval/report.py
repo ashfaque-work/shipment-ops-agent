@@ -8,6 +8,7 @@ from typing import Any
 
 README = Path(__file__).resolve().parents[1] / "README.md"
 START, END = "<!-- EVAL-RESULTS:START -->", "<!-- EVAL-RESULTS:END -->"
+SUMMARY_START, SUMMARY_END = "<!-- EVAL-SUMMARY:START -->", "<!-- EVAL-SUMMARY:END -->"
 
 
 def pct(v: Any) -> str:
@@ -30,12 +31,65 @@ def _column_title(summary: dict) -> str:
     return f"{_model(summary)}<br><sub>via {provider}</sub>"
 
 
-def comparison_table(results_dir: Path) -> str:
-    summaries = []
-    for p in sorted(results_dir.glob("*/summary.json")):
-        summaries.append(json.loads(p.read_text(encoding="utf-8")))
+def load_summaries(results_dir: Path) -> list[dict]:
+    summaries = [
+        json.loads(p.read_text(encoding="utf-8"))
+        for p in sorted(results_dir.glob("*/summary.json"))
+    ]
     # baseline first, then alphabetical
     summaries.sort(key=lambda s: (s["label"] != "baseline", s["label"]))
+    return summaries
+
+
+def _count(summary: dict, suite: str, rate_metric: str) -> str:
+    rate, cases = _get(summary, suite, rate_metric), _get(summary, suite, "cases")
+    if rate is None or cases is None:
+        return "—"
+    return f"{round(rate * cases)}/{cases}"
+
+
+def summary_table(results_dir: Path) -> str:
+    """One row per model: the headline numbers for the top of the README."""
+    summaries = load_summaries(results_dir)
+    if not summaries:
+        return "_No eval results yet._\n"
+    lines = [
+        "| Model | Tool selection | Argument accuracy | Multi-turn scenarios | Safety checks "
+        "| Unconfirmed bookings | Extraction precision / recall |",
+        "|---|---|---|---|---|---|---|",
+    ]
+    for s in summaries:
+        title = _column_title(s).replace("<br><sub>", " <sub>(").replace("</sub>", ")</sub>")
+        if "extraction" in s.get("suites", {}):
+            extraction = (
+                f"{pct(_get(s, 'extraction', 'field_precision'))} / "
+                f"{pct(_get(s, 'extraction', 'field_recall'))}"
+            )
+        else:
+            extraction = "— <sub>(not run: extraction uses Gemini)</sub>"
+        cells = [
+            title,
+            _count(s, "tool_use", "tool_selection_accuracy"),
+            pct(_get(s, "tool_use", "argument_accuracy")),
+            _count(s, "scenarios", "pass_rate"),
+            _count(s, "safety", "pass_rate"),
+            pct(_get(s, "safety", "unconfirmed_creations")),
+            extraction,
+        ]
+        lines.append("| " + " | ".join(cells) + " |")
+    return "\n".join(lines) + "\n"
+
+
+def _inject(text: str, start: str, end: str, md: str) -> str:
+    if start not in text or end not in text:
+        return text
+    pre, rest = text.split(start, 1)
+    _, post = rest.split(end, 1)
+    return f"{pre}{start}\n{md}\n{end}{post}"
+
+
+def comparison_table(results_dir: Path) -> str:
+    summaries = load_summaries(results_dir)
     if not summaries:
         return "_No eval results yet._\n"
 
@@ -94,10 +148,9 @@ def write_comparison(results_dir: Path) -> None:
     )
     if README.exists():
         text = README.read_text(encoding="utf-8")
-        if START in text and END in text:
-            pre, rest = text.split(START, 1)
-            _, post = rest.split(END, 1)
-            README.write_text(f"{pre}{START}\n{md}\n{END}{post}", encoding="utf-8", newline="\n")
+        text = _inject(text, START, END, md)
+        text = _inject(text, SUMMARY_START, SUMMARY_END, summary_table(results_dir))
+        README.write_text(text, encoding="utf-8", newline="\n")
 
 
 def label_markdown(label: str, summary: dict, label_dir: Path) -> str:

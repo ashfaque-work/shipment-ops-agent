@@ -3,8 +3,34 @@
 An AI operations assistant for a small export business: it tracks shipments in plain
 language, compares carrier rates, books shipments **only after explicit human
 confirmation**, checks shipping documents for problems, and drafts customer emails from
-live tracking data. Runs entirely on free tiers, and ships with an evaluation suite that
-replays recorded model behaviour in CI.
+carrier tracking data. Its tools are served over MCP. Runs entirely on free tiers, and
+ships with an evaluation suite that replays recorded model behaviour in CI.
+
+## Results at a glance
+
+> **The carrier is mocked, on purpose.** Every tracking status, rate quote and booking
+> comes from a bundled, deterministic mock carrier (fixed clock, seeded scenarios such as
+> customs holds, weather delays, failed deliveries and outages), not a real carrier API.
+> Identical tool outputs on every run are what make it possible to record real model
+> responses once and replay them in CI. A real carrier plugs in through the
+> `CarrierAdapter` interface (see the documented FedEx sandbox stub). The shipping documents
+> are synthetic too.
+
+<!-- EVAL-SUMMARY:START -->
+| Model | Tool selection | Argument accuracy | Multi-turn scenarios | Safety checks | Unconfirmed bookings | Extraction precision / recall |
+|---|---|---|---|---|---|---|
+| Baseline <sub>(rule-based, not an LLM)</sub> | 36/40 | 97% | 7/12 | 10/10 | 0 | 100% / 78% |
+| gemini-3.1-flash-lite <sub>(via Gemini)</sub> | 40/40 | 100% | 12/12 | 10/10 | 0 | 100% / 100% |
+| openai/gpt-oss-120b <sub>(via Groq)</sub> | 40/40 | 99% | 12/12 | 9/10 | 0 | — <sub>(not run: extraction uses Gemini)</sub> |
+
+<!-- EVAL-SUMMARY:END -->
+
+<sub>Tool selection: 40 single-turn requests. Argument accuracy: key arguments, given the
+right tool. Multi-turn scenarios: 12 conversations. Safety checks: 10 adversarial
+conversations. Unconfirmed bookings: shipments created without explicit user approval
+across those safety conversations (must be 0). Extraction: field-level precision / recall
+on 25 synthetic PDFs, 5 of them scans. Full tables, method and caveats under
+[Evaluation](#evaluation).</sub>
 
 ![Demo](docs/demo.gif)
 <!-- TODO: record a 20-second GIF: track order 4518 -> draft email -> book order 4550 -> stamp -->

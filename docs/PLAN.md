@@ -188,6 +188,12 @@ keeping the "carrier down" path at ~7 s instead of ~20 s. docker-compose keeps t
 convention: health reports `mock (in-process)`, tracking, outage handling and the demo rate
 limit (429 + Retry-After) all work.
 
+**Step 4 — README.** A generated per-model summary table (tool selection, argument
+accuracy, multi-turn scenarios, safety checks, unconfirmed bookings, extraction
+precision/recall) now sits right under the intro (`<!-- EVAL-SUMMARY -->` markers, written
+by `eval/report.py`, covered by the CI results-diff check), preceded by an explicit note
+that the carrier is mocked for reproducibility. Intro no longer says "live" tracking data.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All

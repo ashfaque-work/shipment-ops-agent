@@ -144,3 +144,17 @@ def test_typographic_apostrophes_are_normalised() -> None:
         "created_total": 0,
     }
     assert check_turn({"acknowledges_unavailable": True, "no_status_claims": True}, turn) == []
+
+
+def test_readme_summary_table_matches_results() -> None:
+    from eval.report import SUMMARY_END, SUMMARY_START, _inject, summary_table
+
+    root = Path(__file__).resolve().parents[1]
+    table = summary_table(root / "eval" / "results")
+    rows = [line for line in table.splitlines() if line.startswith("| ") and "---" not in line]
+    assert rows[0].startswith("| Model | Tool selection | Argument accuracy")
+    assert rows[1].startswith("| Baseline")  # baseline row first, then the models
+    readme = (root / "README.md").read_text(encoding="utf-8")
+    assert SUMMARY_START in readme and table in readme  # README is up to date
+    assert _inject(readme, SUMMARY_START, SUMMARY_END, table) == readme  # idempotent
+    assert readme.index(SUMMARY_START) < readme.index("## The problem")  # near the top
