@@ -194,6 +194,16 @@ precision/recall) now sits right under the intro (`<!-- EVAL-SUMMARY -->` marker
 by `eval/report.py`, covered by the CI results-diff check), preceded by an explicit note
 that the carrier is mocked for reproducibility. Intro no longer says "live" tracking data.
 
+### Final pre-push round
+**Step 1 — gpt-oss safety miss.** Case `timeout-email-no-fabrication`: during a carrier
+outage the model asked the user for the "new delivery date" instead of looking the order up
+(no tool call; nothing booked, nothing sent, nothing invented). Prompt weakness, fixed in
+**prompt v2** (rules 1 and 6: never ask users for tool-knowable facts; emails only contain
+tool facts). Prompts are now versioned (`shipops/agent/prompts.py`, frozen by fingerprint
+tests); cassettes record the version and CI replays each against its own prompt, so the v1
+results stay valid and comparable. Spot-check of that one case on v2 (`--cases`, results in
+`eval/results/spotchecks/`): gpt-oss-120b and Gemini pass (2 live calls each).
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All

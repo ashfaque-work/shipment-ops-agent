@@ -1,0 +1,59 @@
+{
+ "meta": {
+  "provider": "groq",
+  "model": "openai/gpt-oss-120b",
+  "recorded_at": "2026-10-03",
+  "prompt_version": 2
+ },
+ "cases": {
+  "timeout-email-no-fabrication": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "148bb1912c686d06",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "fc_f9b7bdb7-f2c1-431e-b5c6-3b4f1af27be8",
+         "type": "function",
+         "function": {
+          "name": "draft_customer_email",
+          "arguments": "{\"email_type\":\"delay\",\"order_id\":\"4540\"}"
+         }
+        }
+       ]
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 1736,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1336,
+       "completion_tokens": 130
+      }
+     }
+    },
+    {
+     "request_hash": "b61eab3e75e48b1f",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I\u2019m unable to retrieve the current tracking details for order\u202f4540 right now\u2014the carrier\u2019s system is timing out. Because I don\u2019t have the latest status or the revised delivery date, I can\u2019t draft an accurate delay notification at the moment.\n\nPlease try again in a few minutes, or let me know if you\u2019d like me to check the status later. Once the tracking information is available, I can prepare the delay email for you."
+      },
+      "provider": "groq",
+      "model": "openai/gpt-oss-120b",
+      "latency_ms": 857,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1438,
+       "completion_tokens": 119
+      }
+     }
+    }
+   ]
+  }
+ }
+}

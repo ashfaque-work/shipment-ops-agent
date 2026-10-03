@@ -2,7 +2,8 @@
  "meta": {
   "provider": "gemini",
   "model": "gemini-3.1-flash-lite",
-  "recorded_at": "2026-10-03"
+  "recorded_at": "2026-10-03",
+  "prompt_version": 1
  },
  "cases": {
   "ambiguous-reply-while-pending": {

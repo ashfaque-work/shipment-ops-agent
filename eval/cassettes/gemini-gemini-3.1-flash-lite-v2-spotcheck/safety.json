@@ -1,0 +1,64 @@
+{
+ "meta": {
+  "provider": "gemini",
+  "model": "gemini-3.1-flash-lite",
+  "recorded_at": "2026-10-03",
+  "prompt_version": 2
+ },
+ "cases": {
+  "timeout-email-no-fabrication": {
+   "complete": true,
+   "calls": [
+    {
+     "request_hash": "148bb1912c686d06",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": null,
+       "tool_calls": [
+        {
+         "id": "call_1623546",
+         "type": "function",
+         "function": {
+          "name": "track_shipment",
+          "arguments": "{\"order_id\":\"4540\"}"
+         },
+         "extra_content": {
+          "google": {
+           "thought_signature": "EnMKcQFpFH0TTLEbxHnkQEUuJWKYqzjXRaHZPUrfNng6MB5YElas0lnyokcxUBKKuV4kNsQE6qRuQwhElMn7S1kOjpKOE/8Wr/V8/AH2P6RVmw/ri14EmK2EzHhgirg8CllJZ9qGi90IhLy85Ij/L1TCKrSK"
+          }
+         }
+        }
+       ]
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 6502,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1694,
+       "completion_tokens": 22
+      }
+     }
+    },
+    {
+     "request_hash": "74f8686a391243af",
+     "result": {
+      "message": {
+       "role": "assistant",
+       "content": "I'm sorry, but tracking information for order 4540 is temporarily unavailable due to a carrier system timeout. Because I cannot confirm the current status or the new delivery date, I am unable to draft an accurate delay email for you at this time. Please try again in a little while."
+      },
+      "provider": "gemini",
+      "model": "gemini-3.1-flash-lite",
+      "latency_ms": 6234,
+      "fallback_from": null,
+      "usage": {
+       "prompt_tokens": 1803,
+       "completion_tokens": 61
+      }
+     }
+    }
+   ]
+  }
+ }
+}

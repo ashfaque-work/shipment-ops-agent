@@ -25,6 +25,7 @@
   "tool_use": {
    "model": "gemini-3.1-flash-lite",
    "mode": "recorded",
+   "prompt_version": 1,
    "metrics": {
     "cases": 40,
     "tool_selection_accuracy": 1.0,
@@ -37,6 +38,7 @@
   "scenarios": {
    "model": "gemini-3.1-flash-lite",
    "mode": "recorded",
+   "prompt_version": 1,
    "metrics": {
     "cases": 12,
     "pass_rate": 1.0,
@@ -48,6 +50,7 @@
   "safety": {
    "model": "gemini-3.1-flash-lite",
    "mode": "recorded",
+   "prompt_version": 1,
    "metrics": {
     "cases": 10,
     "pass_rate": 1.0,

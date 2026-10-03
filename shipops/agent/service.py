@@ -42,6 +42,7 @@ class AgentService:
         gateway: McpGateway | None = None,
         checkpointer=None,
         recursion_limit: int = 60,
+        prompt_version: int | None = None,
     ):
         from shipops.mcp_server import build_server
 
@@ -49,7 +50,9 @@ class AgentService:
         self.ctx = ctx
         # All tools run through the MCP server; in-process by default (shares ctx).
         self.gateway = gateway or McpGateway(build_server(ctx))
-        self.graph = build_graph(llm, self.gateway, checkpointer or InMemorySaver())
+        self.graph = build_graph(
+            llm, self.gateway, checkpointer or InMemorySaver(), prompt_version=prompt_version
+        )
         self.recursion_limit = recursion_limit
 
     def close(self) -> None:

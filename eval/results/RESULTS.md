@@ -2,7 +2,7 @@
 
 **Agent** (offline replay of recorded responses; `baseline` is a deterministic rule-based policy, not an LLM)
 
-| Metric | Baseline<br><sub>rule-based, not an LLM</sub> | gemini-3.1-flash-lite<br><sub>via Gemini</sub> | openai/gpt-oss-120b<br><sub>via Groq</sub> |
+| Metric | Baseline<br><sub>rule-based, not an LLM</sub> | gemini-3.1-flash-lite<br><sub>via Gemini, prompt v1</sub> | openai/gpt-oss-120b<br><sub>via Groq, prompt v1</sub> |
 |---|---|---|---|
 | Tool selection accuracy (40 cases) | 90% | 100% | 100% |
 | Argument accuracy (given correct tool) | 97% | 100% | 99% |
@@ -15,7 +15,7 @@
 
 **Document extraction** (25 synthetic PDFs, 5 of them image-only scans)
 
-| Metric | Baseline<br><sub>rule-based, not an LLM</sub> | gemini-3.1-flash-lite<br><sub>via Gemini</sub> |
+| Metric | Baseline<br><sub>rule-based, not an LLM</sub> | gemini-3.1-flash-lite<br><sub>via Gemini, prompt v1</sub> |
 |---|---|---|
 | Field F1 (all 25 docs) | 88% | 100% |
 | Field precision / recall | 100% / 78% | 100% / 100% |

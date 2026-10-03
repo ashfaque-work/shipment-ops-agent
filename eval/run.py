@@ -35,6 +35,7 @@ from eval.cassette import CASSETTE_DIR, CaseLLM, Cassette, SuiteAborted  # noqa:
 from eval.suites import DOCS as DOCS_DIR  # noqa: E402
 from eval.suites import load as load_dataset  # noqa: E402
 from eval.suites import run_extraction, run_safety, run_scenarios, run_tool_use  # noqa: E402
+from shipops.agent.prompts import CURRENT_PROMPT_VERSION  # noqa: E402
 from shipops.redact import scrub  # noqa: E402
 
 RESULTS = Path(__file__).parent / "results"
@@ -101,6 +102,11 @@ def main() -> None:
     ap.add_argument("--label", help="results/cassette label (default derived from model)")
     ap.add_argument("--rpm", type=int, help="live mode request-per-minute throttle")
     ap.add_argument("--strict", action="store_true", help="fail on cassette drift / misses")
+    ap.add_argument(
+        "--cases",
+        help="comma-separated case ids: run only these (spot-check; results go to "
+        "eval/results/spotchecks/, never into the headline tables)",
+    )
     ap.add_argument("--report-only", action="store_true")
     a = ap.parse_args()
 
@@ -113,27 +119,42 @@ def main() -> None:
     if unknown:
         sys.exit(f"Unknown suites: {unknown}")
 
+    only = {c.strip() for c in a.cases.split(",") if c.strip()} if a.cases else None
+    if only is not None and a.llm == "live" and not a.label:
+        sys.exit("--cases with --llm live needs an explicit --label (keeps spot-checks separate)")
     summaries: dict[str, Any] = {}
     label = a.label
     exit_code = 0
     for suite in suites:
         t0 = time.time()
+        pv: int | None = None
         if a.llm == "baseline":
             label = label or "baseline"
             llm = None if suite == "extraction" else CaseLLM(_baseline(), None, "passthrough")
-            res = RUNNERS[suite](llm)
+            res = RUNNERS[suite](llm, only)
             model = "rule-based (not an LLM)"
         elif a.llm == "live":
             inner, model = live_llm(a.provider, suite, a.rpm or DEFAULT_RPM[a.provider], a.model)
             suite_label = label or f"{a.provider}-{_slug(model)}"
             cas = Cassette(CASSETTE_DIR / suite_label / f"{suite}.json")
-            llm = CaseLLM(inner, cas, "record")
-            cas.save(
-                {"provider": a.provider, "model": model, "recorded_at": time.strftime("%Y-%m-%d")}
-            )
+            pv = None if suite == "extraction" else CURRENT_PROMPT_VERSION
+            if cas.data["cases"] and _cassette_prompt(cas, suite) != pv:
+                sys.exit(
+                    f"{cas.path} was recorded with prompt v{_cassette_prompt(cas, suite)}; the "
+                    f"current prompt is v{pv}. Record into a new --label instead of mixing."
+                )
+            llm = CaseLLM(inner, cas, "record", prompt_version=pv)
+            meta = {
+                "provider": a.provider,
+                "model": model,
+                "recorded_at": time.strftime("%Y-%m-%d"),
+            }
+            if pv is not None:
+                meta["prompt_version"] = pv
+            cas.save(meta)
             print(f"[{suite}] recording into {cas.path}", flush=True)
             try:
-                res = RUNNERS[suite](llm)
+                res = RUNNERS[suite](llm, only)
             except SuiteAborted as exc:
                 done = sum(1 for c in cas.data["cases"].values() if c.get("complete"))
                 print(
@@ -145,7 +166,11 @@ def main() -> None:
                 continue
             print(f"  [{suite}] live calls this run: {llm.live_calls}")
             label = suite_label if label is None and len(suites) == 1 else label
-            _store(suite_label, suite, res, model, "recorded")
+            if only is not None:  # spot-check: never part of the headline tables
+                _store_spotcheck(suite_label, suite, res, model, pv)
+                _print(suite, res, time.time() - t0)
+                continue
+            _store(suite_label, suite, res, model, "recorded", pv)
             summaries.setdefault(suite_label, {})[suite] = res["metrics"]
             _print(suite, res, time.time() - t0)
             continue
@@ -166,12 +191,13 @@ def main() -> None:
                     f"{len(expected)} cases) - skipped; resume with --llm live"
                 )
                 continue
-            llm = CaseLLM(None, cas, "replay")
+            pv = _cassette_prompt(cas, suite)  # replay against the prompt it was recorded with
+            llm = CaseLLM(None, cas, "replay", prompt_version=pv)
             res = RUNNERS[suite](llm)
             model = cas.data["meta"].get("model", "?")
             if a.strict and (res["metrics"].get("drift") or res["metrics"].get("errors")):
                 exit_code = 1
-        _store(label, suite, res, model, "recorded" if a.llm == "replay" else a.llm)
+        _store(label, suite, res, model, "recorded" if a.llm == "replay" else a.llm, pv)
         summaries.setdefault(label, {})[suite] = res["metrics"]
         _print(suite, res, time.time() - t0)
 
@@ -192,7 +218,29 @@ def _baseline():
     return RuleBasedLLM()
 
 
-def _store(label: str, suite: str, res: dict[str, Any], model: str, mode: str) -> None:
+def _cassette_prompt(cas: Cassette, suite: str) -> int | None:
+    """Prompt version a cassette was recorded with (recordings before versioning: v1)."""
+    if suite == "extraction":
+        return None
+    return int(cas.data["meta"].get("prompt_version", 1))
+
+
+def _store_spotcheck(
+    label: str, suite: str, res: dict[str, Any], model: str, pv: int | None
+) -> None:
+    out = RESULTS / "spotchecks" / label
+    out.mkdir(parents=True, exist_ok=True)
+    payload = {"label": label, "suite": suite, "model": model, "prompt_version": pv} | res
+    (out / f"{suite}.json").write_text(
+        json.dumps(scrub(payload), indent=1, default=sorted) + "\n",
+        encoding="utf-8",
+        newline="\n",
+    )
+
+
+def _store(
+    label: str, suite: str, res: dict[str, Any], model: str, mode: str, pv: int | None = None
+) -> None:
     out = RESULTS / label
     out.mkdir(parents=True, exist_ok=True)
     (out / f"{suite}.json").write_text(
@@ -201,11 +249,10 @@ def _store(label: str, suite: str, res: dict[str, Any], model: str, mode: str) -
     summary_path = out / "summary.json"
     summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
     summary["label"] = label
-    summary.setdefault("suites", {})[suite] = {
-        "model": model,
-        "mode": mode,
-        "metrics": res["metrics"],
-    }
+    entry: dict[str, Any] = {"model": model, "mode": mode}
+    if pv is not None:
+        entry["prompt_version"] = pv
+    summary.setdefault("suites", {})[suite] = entry | {"metrics": res["metrics"]}
     summary_path.write_text(json.dumps(summary, indent=1) + "\n", encoding="utf-8", newline="\n")
     (out / "summary.md").write_text(
         report.label_markdown(label, summary, RESULTS / label), encoding="utf-8", newline="\n"

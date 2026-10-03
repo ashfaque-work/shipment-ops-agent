@@ -78,8 +78,16 @@ class CaseLLM:
     mode 'passthrough': just forward (baseline / no recording).
     """
 
-    def __init__(self, inner: LLM | None, cassette: Cassette | None, mode: str):
+    def __init__(
+        self,
+        inner: LLM | None,
+        cassette: Cassette | None,
+        mode: str,
+        prompt_version: int | None = None,
+    ):
         self.inner, self.cassette, self.mode = inner, cassette, mode
+        # Agent prompt version this run uses: replays use the one recorded in the cassette.
+        self.prompt_version = prompt_version
         self.case_id: str | None = None
         self.calls: list[dict[str, Any]] = []
         self.idx = 0

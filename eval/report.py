@@ -28,7 +28,11 @@ def _column_title(summary: dict) -> str:
     if summary["label"] == "baseline":
         return "Baseline<br><sub>rule-based, not an LLM</sub>"
     provider = summary["label"].split("-", 1)[0].capitalize()
-    return f"{_model(summary)}<br><sub>via {provider}</sub>"
+    versions = sorted(
+        {v["prompt_version"] for v in summary.get("suites", {}).values() if "prompt_version" in v}
+    )
+    prompt = f", prompt v{'/v'.join(map(str, versions))}" if versions else ""
+    return f"{_model(summary)}<br><sub>via {provider}{prompt}</sub>"
 
 
 def load_summaries(results_dir: Path) -> list[dict]:

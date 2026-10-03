@@ -25,7 +25,7 @@ from langgraph.types import interrupt
 from shipops import clock
 from shipops.agent import tools as T
 from shipops.agent.gateway import McpGateway
-from shipops.agent.prompts import system_prompt
+from shipops.agent.prompts import CURRENT_PROMPT_VERSION, system_prompt
 from shipops.llm.base import LLM, LLMError
 
 MAX_LLM_STEPS_PER_TURN = 8
@@ -59,7 +59,11 @@ def _tool_msg(call_id: str, payload: dict) -> dict[str, Any]:
     return {"role": "tool", "tool_call_id": call_id, "content": content}
 
 
-def build_graph(llm: LLM, gateway: McpGateway, checkpointer=None):
+def build_graph(
+    llm: LLM, gateway: McpGateway, checkpointer=None, prompt_version: int | None = None
+):
+    version = prompt_version or CURRENT_PROMPT_VERSION
+
     def agent(state: AgentState) -> dict:
         steps = state.get("steps", 0) + 1
         if steps > MAX_LLM_STEPS_PER_TURN:
@@ -73,7 +77,7 @@ def build_graph(llm: LLM, gateway: McpGateway, checkpointer=None):
                 "steps": steps,
                 "trace": [{"type": "guard", "name": "step_limit", "ok": False}],
             }
-        msgs = [{"role": "system", "content": system_prompt(clock.now())}]
+        msgs = [{"role": "system", "content": system_prompt(clock.now(), version)}]
         msgs += window(state["messages"])
         try:
             res = llm.complete(msgs, T.TOOL_SPECS)

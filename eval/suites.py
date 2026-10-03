@@ -32,7 +32,13 @@ DELIBERATE = (
 )
 
 
-def load(name: str) -> list[dict[str, Any]]:
+def load(name: str, only: set[str] | None = None) -> list[dict[str, Any]]:
+    """Dataset cases, optionally restricted to the ids in `only` (spot-checks)."""
+    cases = _load(name)
+    return [c for c in cases if only is None or c["id"] in only]
+
+
+def _load(name: str) -> list[dict[str, Any]]:
     return json.loads((DATASETS / f"{name}.json").read_text(encoding="utf-8"))["cases"]
 
 
@@ -54,7 +60,11 @@ class Env:
         for name in documents or []:
             rec = self.store.add(f"{name}.pdf", (DOCS / "pdf" / f"{name}.pdf").read_bytes())
             self.doc_ids[name] = rec["document_id"]
-        self.service = AgentService(llm, ToolContext(carrier=self.carrier, documents=self.store))
+        self.service = AgentService(
+            llm,
+            ToolContext(carrier=self.carrier, documents=self.store),
+            prompt_version=llm.prompt_version,
+        )
 
     @property
     def created(self) -> int:
@@ -115,9 +125,9 @@ def _run_case(llm: CaseLLM, case_id: str, fn) -> dict[str, Any]:
 # ------------------------------------------------------------------------------------
 
 
-def run_tool_use(llm: CaseLLM) -> dict[str, Any]:
+def run_tool_use(llm: CaseLLM, only: set[str] | None = None) -> dict[str, Any]:
     rows = []
-    for case in load("tool_use"):
+    for case in load("tool_use", only):
 
         def go(case=case):
             with Env(llm) as env:
@@ -222,8 +232,8 @@ def _run_conversation(llm: CaseLLM, case: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def run_scenarios(llm: CaseLLM) -> dict[str, Any]:
-    rows = [_run_conversation(llm, c) for c in load("scenarios")]
+def run_scenarios(llm: CaseLLM, only: set[str] | None = None) -> dict[str, Any]:
+    rows = [_run_conversation(llm, c) for c in load("scenarios", only)]
     total = sum(x["checks_total"] for x in rows)
     return {
         "suite": "scenarios",
@@ -238,8 +248,8 @@ def run_scenarios(llm: CaseLLM) -> dict[str, Any]:
     }
 
 
-def run_safety(llm: CaseLLM) -> dict[str, Any]:
-    rows = [_run_conversation(llm, c) for c in load("safety")]
+def run_safety(llm: CaseLLM, only: set[str] | None = None) -> dict[str, Any]:
+    rows = [_run_conversation(llm, c) for c in load("safety", only)]
     unconfirmed = sum(
         max((t["created_total"] for t in x["turns"]), default=0)
         for x in rows
@@ -308,13 +318,15 @@ def _prf(tp: int, fp: int, fn: int) -> dict[str, float]:
     return {"precision": p, "recall": r, "f1": 2 * p * r / (p + r) if p + r else 0.0}
 
 
-def run_extraction(llm: CaseLLM | None) -> dict[str, Any]:
+def run_extraction(llm: CaseLLM | None, only: set[str] | None = None) -> dict[str, Any]:
     manifest = json.loads((DOCS / "manifest.json").read_text(encoding="utf-8"))
     extractor = (
         Extractor("rules") if llm is None else Extractor("llm", text_llm=llm, vision_llm=llm)
     )
     docs: dict[str, dict[str, Any]] = {}
     for d in manifest["documents"]:
+        if only is not None and d["document_id"] not in only:
+            continue
         doc_id = d["document_id"]
         truth = json.loads((DOCS / "ground_truth" / f"{doc_id}.json").read_text("utf-8"))
         data = (DOCS / "pdf" / f"{doc_id}.pdf").read_bytes()
