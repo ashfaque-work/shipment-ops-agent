@@ -216,6 +216,12 @@ with an order id *and* new fields validated the stored address; fixed, and only 
 affected case was re-recorded (the harness re-records from the first drifted call). Reported
 as separate "hard set" rows.
 
+**Step 3 — browser tests.** Playwright (`frontend/e2e/app.spec.ts`, 7 tests): tracking chat +
+trace panel, carrier outage, confirmation card approve and cancel, PDF upload, sample packet
+weight mismatch, phone width (no horizontal overflow, trace drawer). The config starts the
+API (LLM_PROVIDER=offline, in-process carrier) and a production build of the UI, so CI needs
+no keys. 21/21 over three repeated runs locally. New CI job `e2e`.
+
 ## Decisions
 
 - **Deterministic reference clock** (`MOCK_CLOCK`, default `2026-10-01T09:00Z`). All

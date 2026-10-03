@@ -53,6 +53,35 @@ jobs:
         if: always()
         run: cat eval/results/RESULTS.md >> "$GITHUB_STEP_SUMMARY"
 
+  e2e:
+    name: Browser tests (Playwright, no API keys)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --frozen --all-extras --python 3.12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci --no-audit --no-fund
+        working-directory: frontend
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend
+      # Starts the API (rule-based LLM, in-process mock carrier) and a production build of
+      # the UI itself - see frontend/playwright.config.ts
+      - run: npx playwright test
+        working-directory: frontend
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-report
+          path: frontend/playwright-report
+          retention-days: 7
+
   frontend:
     name: Typecheck and build (frontend)
     runs-on: ubuntu-latest

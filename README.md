@@ -307,6 +307,7 @@ uv run pytest                                  # unit/integration tests
 uv run ruff check . && uv run ruff format --check .
 uv run python -m eval.run --llm baseline       # deterministic baseline
 bash scripts/ci_evals.sh                       # what CI runs: baseline + replays + diff check
+cd frontend && npx playwright install chromium && npm run e2e   # browser tests (no keys)
 uv run python scripts/generate_documents.py    # regenerate the synthetic PDFs
 ```
 
