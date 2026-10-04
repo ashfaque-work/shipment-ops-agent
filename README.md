@@ -6,7 +6,9 @@ confirmation**, checks shipping documents for problems, and drafts customer emai
 carrier tracking data. Its tools are served over MCP. Runs entirely on free tiers, and
 ships with an evaluation suite that replays recorded model behaviour in CI.
 
-![Demo: customs-hold tracking, a grounded delay email, rate comparison, the confirmation card, a document weight mismatch caught, and the eval table](docs/demo/demo.gif)
+![Demo: asking why an order is stuck, the agent reading the carrier and explaining a customs hold, then a booking request that stops at a confirmation card until it is approved](docs/demo/demo.gif)
+
+<sub>Recorded against the running app. Waits while the model thinks are shortened; nothing else is edited.</sub>
 
 <sub>38-second GIF of the [90-second demo video](docs/demo/demo.webm) ([narration
 script](docs/DEMO_SCRIPT.md)). It shows recorded Gemini responses replayed with no API key
