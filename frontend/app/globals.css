@@ -178,6 +178,28 @@ code,
 
 .msg.agent {
   align-self: flex-start;
+  position: relative;
+}
+.msg.agent .copy {
+  margin-top: 0.35rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius-field);
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.msg.agent:hover .copy,
+.msg.agent .copy:focus-visible {
+  opacity: 1;
+}
+@media (hover: none) {
+  .msg.agent .copy {
+    opacity: 1;
+  }
 }
 
 .msg.agent .md > :first-child {

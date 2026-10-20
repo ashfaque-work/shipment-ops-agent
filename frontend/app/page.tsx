@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { Docket, type DocketState } from "@/components/Docket";
@@ -36,16 +36,25 @@ const SUGGESTIONS = [
   "Where is order 4540?",
 ];
 
+const SESSION_KEY = "shipops-session";
 
-function newSessionId(): string {
+function randomId(): string {
   try {
-    const existing = sessionStorage.getItem("shipops-session");
-    if (existing) return existing;
-    const id = crypto.randomUUID().replace(/-/g, "");
-    sessionStorage.setItem("shipops-session", id);
-    return id;
+    return crypto.randomUUID().replace(/-/g, "");
   } catch {
     return Math.random().toString(36).slice(2);
+  }
+}
+
+function sessionId(fresh = false): string {
+  try {
+    const existing = sessionStorage.getItem(SESSION_KEY);
+    if (existing && !fresh) return existing;
+    const id = randomId();
+    sessionStorage.setItem(SESSION_KEY, id);
+    return id;
+  } catch {
+    return randomId();
   }
 }
 
@@ -53,6 +62,56 @@ let nextId = 1;
 
 // Markdown merges single newlines; agent replies (email drafts, signatures) need them kept.
 const keepLineBreaks = (text: string) => text.replace(/([^\n])\n(?!\n)/g, "$1  \n");
+
+function AgentMessage({ text }: { text: string }) {
+  const [copied, setCopied] = useState(false);
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch {
+      /* clipboard blocked (insecure origin, permissions): nothing useful to show */
+    }
+  }
+  return (
+    <div className="msg agent">
+      <div className="md">
+        <ReactMarkdown>{keepLineBreaks(text)}</ReactMarkdown>
+      </div>
+      <button type="button" className="copy" onClick={copy} aria-label="Copy this reply">
+        {copied ? "Copied" : "Copy"}
+      </button>
+    </div>
+  );
+}
+
+// Memoised so typing in the composer doesn't re-parse every reply's Markdown.
+const Messages = memo(function Messages({
+  items,
+  onDecide,
+}: {
+  items: Item[];
+  onDecide: (approved: boolean) => void;
+}) {
+  return items.map((it) =>
+    it.kind === "docket" ? (
+      <Docket
+        key={it.id}
+        summary={it.pending.summary}
+        state={it.state}
+        trackingNumber={it.trackingNumber}
+        onDecide={onDecide}
+      />
+    ) : it.kind === "agent" ? (
+      <AgentMessage key={it.id} text={it.text} />
+    ) : (
+      <div key={it.id} className={`msg ${it.kind}`} role={it.kind === "error" ? "alert" : undefined}>
+        {it.text}
+      </div>
+    ),
+  );
+});
 
 export default function Home() {
   const [session, setSession] = useState("");
@@ -66,9 +125,10 @@ export default function Home() {
   const [busy, setBusy] = useState(false);
   const [showTrace, setShowTrace] = useState(false);
   const bottom = useRef<HTMLDivElement>(null);
+  const composer = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
-    setSession(newSessionId());
+    setSession(sessionId());
     api.health().then(setHealth, (e: Error) => setHealthError(e.message));
     api.samples().then(setSamples, () => setSamples([]));
   }, []);
@@ -76,6 +136,14 @@ export default function Home() {
   useEffect(() => {
     bottom.current?.scrollIntoView({ behavior: "smooth", block: "end" });
   }, [items, busy]);
+
+  // Grow the composer with its content (CSS caps the height).
+  useEffect(() => {
+    const el = composer.current;
+    if (!el) return;
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight + el.offsetHeight - el.clientHeight}px`; // + borders
+  }, [draft]);
 
   const push = (...add: Omit<TextItem, "id">[]) =>
     setItems((prev) => [...prev, ...add.map((a) => ({ ...a, id: nextId++ }))]);
@@ -100,8 +168,14 @@ export default function Home() {
       );
       if (res.pending_confirmation) {
         next.push({ id: nextId++, kind: "docket", pending: res.pending_confirmation, state: "pending" });
-      } else if (res.reply) {
+      } else if (res.reply?.trim()) {
         next.push({ id: nextId++, kind: "agent", text: res.reply });
+      } else {
+        next.push({
+          id: nextId++,
+          kind: "note",
+          text: "The agent finished without writing a reply. The trace shows what it did.",
+        });
       }
       return next;
     });
@@ -147,6 +221,7 @@ export default function Home() {
   }
 
   async function upload(files: File[]) {
+    if (busy) return;
     const pdfs = files.filter((f) => f.type === "application/pdf" || f.name.toLowerCase().endsWith(".pdf"));
     if (pdfs.length < files.length) push({ kind: "error", text: "Only PDF files can be checked." });
     const limitMb = health?.max_upload_mb ?? 5;
@@ -155,17 +230,21 @@ export default function Home() {
     const ok = pdfs.filter((f) => !tooBig.includes(f));
     if (!ok.length) return;
     setBusy(true);
-    try {
-      for (const f of ok) {
+    let read = 0;
+    // One unreadable file shouldn't stop the others.
+    for (const f of ok) {
+      try {
         const rec = await api.upload(f);
         setDocs((prev) => [rec, ...prev.filter((d) => d.document_id !== rec.document_id)]);
+        read++;
+      } catch (e) {
+        push({ kind: "error", text: `${f.name}: ${e instanceof Error ? e.message : String(e)}` });
       }
-      push({ kind: "note", text: `Read ${ok.length} document${ok.length > 1 ? "s" : ""}. Ask the agent to check them, or see the summary on the right.` });
-    } catch (e) {
-      fail(e);
-    } finally {
-      setBusy(false);
     }
+    if (read) {
+      push({ kind: "note", text: `Read ${read} document${read > 1 ? "s" : ""}. Ask the agent to check them, or see the summary on the right.` });
+    }
+    setBusy(false);
   }
 
   async function loadSample(id: string) {
@@ -184,6 +263,31 @@ export default function Home() {
     }
     if (prompt) await send(prompt);
   }
+
+  function newConversation() {
+    if (busy) return;
+    // The old conversation (and any booking waiting for approval) is left behind on the
+    // server, where idle sessions expire. Uploaded documents stay usable.
+    setSession(sessionId(true));
+    setItems([]);
+    setTurns([]);
+    setDraft("");
+    setShowTrace(false);
+    composer.current?.focus();
+  }
+
+  // Stable handlers for the memoised children; they always call the latest closure.
+  const latest = useRef({ decide, upload, loadSample, send });
+  useEffect(() => {
+    latest.current = { decide, upload, loadSample, send };
+  });
+  const onDecide = useCallback((approved: boolean) => void latest.current.decide(approved), []);
+  const onUpload = useCallback((files: File[]) => void latest.current.upload(files), []);
+  const onSample = useCallback((id: string) => void latest.current.loadSample(id), []);
+  const onAsk = useCallback(
+    (d: DocumentRecord) => void latest.current.send(`Please check ${d.document_id} (${d.filename}) for problems.`),
+    [],
+  );
 
   const maxMb = health?.max_upload_mb ?? 5;
   const offline = healthError !== null || health?.status === "degraded";
@@ -217,6 +321,18 @@ export default function Home() {
               <span className="dot bad" aria-hidden="true" />
               API offline
             </span>
+          )}
+          {items.length > 0 && (
+            <button
+              type="button"
+              className="btn quiet nav-link"
+              onClick={newConversation}
+              disabled={busy}
+              aria-label="Start a new conversation"
+            >
+              <span className="label-long">New chat</span>
+              <span className="label-short">New</span>
+            </button>
           )}
           <Link className="btn quiet nav-link" href="/evals" aria-label="Eval results">
             <span className="label-long">Eval results</span>
@@ -258,27 +374,7 @@ export default function Home() {
                 {health?.notice && <p className="msg note notice">{health.notice}</p>}
               </div>
             )}
-            {items.map((it) =>
-              it.kind === "docket" ? (
-                <Docket
-                  key={it.id}
-                  summary={it.pending.summary}
-                  state={it.state}
-                  trackingNumber={it.trackingNumber}
-                  onDecide={decide}
-                />
-              ) : it.kind === "agent" ? (
-                <div key={it.id} className="msg agent">
-                  <div className="md">
-                    <ReactMarkdown>{keepLineBreaks(it.text)}</ReactMarkdown>
-                  </div>
-                </div>
-              ) : (
-                <div key={it.id} className={`msg ${it.kind}`} role={it.kind === "error" ? "alert" : undefined}>
-                  {it.text}
-                </div>
-              ),
-            )}
+            <Messages items={items} onDecide={onDecide} />
             {busy && <p className="thinking">Working on it…</p>}
             <div ref={bottom} />
           </div>
@@ -295,12 +391,13 @@ export default function Home() {
             </label>
             <textarea
               id="composer-input"
+              ref={composer}
               rows={1}
               value={draft}
               placeholder="Ask the agent…"
               onChange={(e) => setDraft(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
+                if (e.key === "Enter" && !e.shiftKey && !e.nativeEvent.isComposing) {
                   e.preventDefault();
                   void send(draft);
                 }
@@ -320,9 +417,9 @@ export default function Home() {
             samples={samples}
             busy={busy}
             maxMb={maxMb}
-            onUpload={upload}
-            onSample={loadSample}
-            onAsk={(d) => send(`Please check ${d.document_id} (${d.filename}) for problems.`)}
+            onUpload={onUpload}
+            onSample={onSample}
+            onAsk={onAsk}
           />
         </aside>
       </main>

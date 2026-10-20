@@ -1,5 +1,6 @@
 "use client";
 
+import { memo } from "react";
 import type { TraceEntry } from "@/lib/api";
 
 export type TraceTurn = { id: number; label: string; entries: TraceEntry[] };
@@ -76,7 +77,9 @@ function Step({ entry }: { entry: TraceEntry }) {
   );
 }
 
-export function TraceLog({ turns }: { turns: TraceTurn[] }) {
+// Memoised: the page re-renders on every keystroke in the composer, and each tool step
+// pretty-prints its full arguments and carrier response.
+export const TraceLog = memo(function TraceLog({ turns }: { turns: TraceTurn[] }) {
   return (
     <section className="panel" aria-label="Agent trace">
       <h2>
@@ -105,4 +108,4 @@ export function TraceLog({ turns }: { turns: TraceTurn[] }) {
       )}
     </section>
   );
-}
+});

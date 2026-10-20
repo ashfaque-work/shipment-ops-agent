@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { memo, useRef, useState } from "react";
 import type { DocumentRecord, Sample } from "@/lib/api";
 
 const TYPE_LABEL: Record<string, string> = {
@@ -8,7 +8,7 @@ const TYPE_LABEL: Record<string, string> = {
   bill_of_lading: "Bill of lading",
 };
 
-export function DocumentsPanel({
+export const DocumentsPanel = memo(function DocumentsPanel({
   docs,
   samples,
   busy,
@@ -111,8 +111,8 @@ export function DocumentsPanel({
                 ))}
                 {errors.length > 0 ? (
                   <ul>
-                    {errors.map((i) => (
-                      <li key={i.field + i.code} className={i.severity}>
+                    {errors.map((i, n) => (
+                      <li key={`${n}-${i.field}-${i.code}`} className={i.severity}>
                         {i.message}
                       </li>
                     ))}
@@ -130,4 +130,4 @@ export function DocumentsPanel({
       )}
     </section>
   );
-}
+});

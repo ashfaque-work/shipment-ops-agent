@@ -103,18 +103,30 @@ export class ApiError extends Error {
   }
 }
 
+// A turn can chain several model and carrier calls (the outage scenario alone waits out
+// carrier retries), so allow minutes - but never leave the UI "working" forever.
+const TIMEOUT_MS = 180_000;
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
   let res: Response;
   try {
-    res = await fetch(`${API_URL}${path}`, init);
-  } catch {
+    res = await fetch(`${API_URL}${path}`, { ...init, signal: AbortSignal.timeout(TIMEOUT_MS) });
+  } catch (e) {
+    if (e instanceof DOMException && e.name === "TimeoutError") {
+      throw new ApiError("The agent took too long to answer. Please try again.", 0);
+    }
     throw new ApiError(`Can't reach the agent API at ${API_URL}. Is the backend running?`, 0);
   }
   if (!res.ok) {
     let detail = res.statusText;
     try {
       const body = await res.json();
-      detail = typeof body.detail === "string" ? body.detail : JSON.stringify(body.detail ?? body);
+      detail =
+        typeof body.detail === "string"
+          ? body.detail
+          : Array.isArray(body.detail) && typeof body.detail[0]?.msg === "string"
+            ? body.detail[0].msg // FastAPI validation error: show the reason, not the JSON
+            : JSON.stringify(body.detail ?? body);
     } catch {
       /* keep statusText */
     }

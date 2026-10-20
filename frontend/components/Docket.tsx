@@ -11,7 +11,12 @@ function addressLines(p: ShipmentSummary["recipient"]): string {
 }
 
 function money(amount: number, currency: string): string {
-  return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(amount);
+  try {
+    return new Intl.NumberFormat("en-US", { style: "currency", currency }).format(amount);
+  } catch {
+    // Not an ISO 4217 code: show it as given rather than crash the page.
+    return `${currency} ${amount.toFixed(2)}`;
+  }
 }
 
 function longDate(iso: string): string {
