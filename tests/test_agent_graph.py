@@ -229,9 +229,19 @@ def test_booked_order_cannot_be_booked_again(ctx: ToolContext) -> None:
     out = svc.chat("s", "Ship order 4550 again with express")
     assert out.pending_confirmation is None and out.reply == "already_shipped"
     assert _created(ctx) == 1
-    # The new label is now the order's tracking number.
-    assert ctx.order("4550").tracking_number == tn
-    assert svc.chat("s", "Where is order 4550?").reply == "label_created"
+    # Tracking the order follows the new label.
+    out = svc.chat("s", "Where is order 4550?")
+    assert out.reply == "label_created"
+    assert out.trace[-2]["result"]["tracking_number"] == tn
+
+
+def test_booking_in_one_conversation_does_not_block_another(ctx: ToolContext) -> None:
+    """Shared demo: one visitor booking order 4550 must not stop the next visitor."""
+    book = call("create_shipment", order_id="4550", service_code="STANDARD")
+    svc = AgentService(ScriptedLLM([book, say("Booked."), book]), ctx)
+    svc.chat("alice", "Ship order 4550 with standard")
+    svc.confirm("alice", True)
+    assert svc.chat("bob", "Ship order 4550 with standard").pending_confirmation
 
 
 def test_unknown_currency_is_rejected_before_confirmation(ctx: ToolContext) -> None:

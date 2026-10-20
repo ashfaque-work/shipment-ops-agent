@@ -44,16 +44,6 @@ class ToolContext:
     carrier: CarrierAdapter
     documents: Any = None  # DocumentStore (phase 3); optional
     extra: dict[str, Any] = field(default_factory=dict)
-    # order id -> tracking number for shipments booked by this process. The order book is a
-    # read-only fixture, so without this an order could be booked (and a label bought) twice.
-    booked: dict[str, str] = field(default_factory=dict)
-
-    def order(self, order_id: str | int) -> orders.Order | None:
-        order = orders.get_order(order_id)
-        tn = self.booked.get(order.order_id) if order else None
-        if order and tn and not order.tracking_number:
-            return order.model_copy(update={"tracking_number": tn, "status": "label_created"})
-        return order
 
 
 # ----------------------------------------------------------------------------------
@@ -243,14 +233,12 @@ def _tracking_summary(info: TrackingInfo, order: orders.Order | None) -> dict:
     return out
 
 
-def _resolve_tracking(
-    args: dict, ctx: ToolContext
-) -> tuple[str | None, orders.Order | None, dict | None]:
+def _resolve_tracking(args: dict) -> tuple[str | None, orders.Order | None, dict | None]:
     tn = (args.get("tracking_number") or "").strip().upper() or None
     oid = args.get("order_id")
     order = None
     if oid:
-        order = ctx.order(oid)
+        order = orders.get_order(oid)
         if order is None:
             return (
                 None,
@@ -261,7 +249,7 @@ def _resolve_tracking(
                     "Ask the user to check the order number.",
                 ),
             )
-        if not order.tracking_number:
+        if not order.tracking_number and not tn:
             return (
                 None,
                 order,
@@ -351,7 +339,7 @@ def recommend(
 
 
 def track_shipment(args: dict, ctx: ToolContext) -> dict:
-    tn, order, error = _resolve_tracking(args, ctx)
+    tn, order, error = _resolve_tracking(args)
     if error:
         return error
     try:
@@ -362,7 +350,7 @@ def track_shipment(args: dict, ctx: ToolContext) -> dict:
 
 
 def get_order(args: dict, ctx: ToolContext) -> dict:
-    order = ctx.order(args.get("order_id", ""))
+    order = orders.get_order(args.get("order_id", ""))
     if order is None:
         return error_result(
             "order_not_found", f"No order #{args.get('order_id')} in the order book."
@@ -452,7 +440,7 @@ def validate_address(args: dict, ctx: ToolContext) -> dict:
 
 
 def draft_customer_email(args: dict, ctx: ToolContext) -> dict:
-    tn, order, error = _resolve_tracking(args, ctx)
+    tn, order, error = _resolve_tracking(args)
     if error:
         return error
     try:
@@ -513,11 +501,11 @@ def parse_args(raw: str | dict | None) -> dict:
 # ----------------------------------------------------------------------------------
 
 
-def build_shipment_request(args: dict, ctx: ToolContext | None = None) -> ShipmentRequest | dict:
+def build_shipment_request(args: dict) -> ShipmentRequest | dict:
     """Merge order defaults with explicit arguments. Returns an error dict on failure."""
     order = None
     if args.get("order_id"):
-        order = ctx.order(args["order_id"]) if ctx else orders.get_order(args["order_id"])
+        order = orders.get_order(args["order_id"])
         if order is None:
             return error_result(
                 "order_not_found", f"No order #{args['order_id']} in the order book."
@@ -591,7 +579,7 @@ def preflight_shipment(args: dict, ctx: ToolContext) -> tuple[ShipmentRequest | 
 
     Returns (request, summary) when ready for human confirmation, else (None, error dict).
     """
-    req = build_shipment_request(args, ctx)
+    req = build_shipment_request(args)
     if isinstance(req, dict):
         return None, req
     try:
@@ -645,13 +633,51 @@ def preflight_shipment(args: dict, ctx: ToolContext) -> tuple[ShipmentRequest | 
     return req, summary
 
 
-def commit_shipment(req: ShipmentRequest, ctx: ToolContext, order_id: str | None = None) -> dict:
+def commit_shipment(req: ShipmentRequest, ctx: ToolContext) -> dict:
     """Actually create the shipment. Only the graph's confirm node may call this."""
     try:
         conf = ctx.carrier.create_shipment(req)
     except CarrierError as exc:
         return _carrier_err(exc) | {"created": False}
-    order = orders.get_order(order_id) if order_id else None
-    if order:
-        ctx.booked[order.order_id] = conf.tracking_number
     return {"ok": True, "created": True, **conf.model_dump(mode="json", exclude_none=True)}
+
+
+# ----------------------------------------------------------------------------------
+# Orders booked during a conversation
+# ----------------------------------------------------------------------------------
+# The order book is a read-only fixture, so a booking doesn't mark the order shipped. The
+# graph keeps {order_id: tracking_number} per conversation and uses these helpers so the
+# same order can't be booked twice and a fresh label can be tracked. Per conversation, not
+# per process: on a shared demo one visitor's booking must not block everyone else's.
+
+
+def booked_order_id(args: dict) -> str | None:
+    oid = args.get("order_id")
+    order = orders.get_order(oid) if oid else None
+    return order.order_id if order else None
+
+
+def already_booked(order_id: str, tracking_number: str) -> dict:
+    return error_result(
+        "already_shipped",
+        f"Order #{order_id} was already booked in this conversation as {tracking_number}.",
+        "Do not create a duplicate shipment; offer to track it instead.",
+    )
+
+
+def with_booking(name: str, args: dict, booked: dict[str, str]) -> dict:
+    """Point tracking/email tools at a label booked in this conversation."""
+    oid = booked_order_id(args)
+    tracks = name in ("track_shipment", "draft_customer_email")
+    if tracks and oid in booked and not args.get("tracking_number"):
+        return {**args, "tracking_number": booked[oid]}
+    return args
+
+
+def overlay_booking(name: str, result: dict, booked: dict[str, str]) -> dict:
+    """Show an order booked in this conversation as shipped in get_order results."""
+    oid = result.get("order_id")
+    shipped = result.get("tracking_number")
+    if name == "get_order" and result.get("ok") and oid in booked and not shipped:
+        return {**result, "status": "label_created", "tracking_number": booked[oid]}
+    return result

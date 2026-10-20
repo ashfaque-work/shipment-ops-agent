@@ -307,7 +307,7 @@ def build_server(ctx: T.ToolContext) -> MCPServer:
                 "message": "Shipment details changed after confirmation was requested. "
                 "Nothing was booked; please confirm again.",
             }
-        return T.commit_shipment(req, ctx, order_id=args.get("order_id"))
+        return T.commit_shipment(req, ctx)
 
     return server
 

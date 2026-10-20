@@ -33,11 +33,16 @@ MAX_HISTORY_MESSAGES = 40
 MAX_TOOL_RESULT_CHARS = 6000
 
 
+def _merge(a: dict[str, str] | None, b: dict[str, str] | None) -> dict[str, str]:
+    return {**(a or {}), **(b or {})}
+
+
 class AgentState(TypedDict, total=False):
     messages: Annotated[list[dict[str, Any]], operator.add]
     trace: Annotated[list[dict[str, Any]], operator.add]
     pending: dict[str, Any] | None
     steps: int
+    booked: Annotated[dict[str, str], _merge]  # order id -> tracking number, this conversation
 
 
 def window(messages: list[dict[str, Any]], limit: int = MAX_HISTORY_MESSAGES) -> list[dict]:
@@ -105,6 +110,7 @@ def build_graph(
 
     def tools(state: AgentState) -> dict:
         last = state["messages"][-1]
+        booked = state.get("booked") or {}
         out: list[dict[str, Any]] = []
         trace: list[dict[str, Any]] = []
         pending = None
@@ -114,12 +120,15 @@ def build_graph(
             t0 = time.perf_counter()
             if name in T.GATED_TOOLS:
                 ready = False
+                oid = T.booked_order_id(args)
                 if pending is not None:
                     result = T.error_result(
                         "one_at_a_time",
                         "Only one shipment can be confirmed at a time. "
                         "Ask the user about the next one afterwards.",
                     )
+                elif oid in booked:
+                    result = T.already_booked(oid, booked[oid])
                 else:
                     preview = gateway.preview_shipment(args)
                     ready = preview.get("status") == "confirmation_required"
@@ -148,7 +157,8 @@ def build_graph(
                 if status == "rejected":
                     out.append(_tool_msg(tc["id"], result))
                 continue
-            result = gateway.call(name, args)
+            result = gateway.call(name, T.with_booking(name, args, booked))
+            result = T.overlay_booking(name, result, booked)
             ms = int((time.perf_counter() - t0) * 1000)
             trace.append(
                 {
@@ -183,6 +193,12 @@ def build_graph(
                 "guidance": "Acknowledge this. Do not call create_shipment again "
                 "unless the user asks anew.",
             }
+        oid = T.booked_order_id(p["args"])
+        newly_booked = (
+            {oid: result["tracking_number"]}
+            if approved and oid and result.get("created") and result.get("tracking_number")
+            else {}
+        )
         msgs = [_tool_msg(p["tool_call_id"], result)]
         if isinstance(decision, dict) and decision.get("user_message"):
             msgs.append({"role": "user", "content": decision["user_message"]})
@@ -198,7 +214,7 @@ def build_graph(
                 "duration_ms": int((time.perf_counter() - t0) * 1000),
             }
         ]
-        return {"messages": msgs, "pending": None, "trace": trace}
+        return {"messages": msgs, "pending": None, "trace": trace, "booked": newly_booked}
 
     def after_agent(state: AgentState) -> str:
         return "tools" if state["messages"][-1].get("tool_calls") else END
