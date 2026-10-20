@@ -26,13 +26,17 @@ from shipops.samples import SAMPLES, get_sample, sample_files
 log = logging.getLogger(__name__)
 
 
+SESSION_ID = r"^[A-Za-z0-9_-]{1,64}$"
+
+
 class ChatRequest(BaseModel):
-    session_id: str | None = Field(default=None, max_length=64)
-    message: str = Field(min_length=1, max_length=4000)
+    session_id: str | None = Field(default=None, pattern=SESSION_ID)
+    # Whitespace-only messages are rejected here instead of costing an LLM call.
+    message: str = Field(min_length=1, max_length=4000, pattern=r"\S")
 
 
 class ConfirmRequest(BaseModel):
-    session_id: str = Field(max_length=64)
+    session_id: str = Field(pattern=SESSION_ID)
     approved: bool
 
 

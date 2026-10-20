@@ -143,3 +143,38 @@ def test_daily_quota_raises_quota_exhausted() -> None:
         llm.complete([], [])
     assert info.value.retry_after_s == pytest.approx(17 * 3600 + 29 * 60 + 50.9)
     assert slept == []  # no pointless waiting
+
+
+def _status_error(cls: type[openai.APIStatusError], code: int) -> openai.APIStatusError:
+    req = httpx.Request("POST", "http://x/chat/completions")
+    return cls("rejected", response=httpx.Response(code, request=req), body=None)
+
+
+@pytest.mark.parametrize(
+    "error",
+    [
+        _status_error(openai.BadRequestError, 400),  # Groq "tool_use_failed"
+        _status_error(openai.AuthenticationError, 401),  # revoked key
+        _status_error(openai.NotFoundError, 404),  # retired model
+    ],
+)
+def test_falls_back_on_provider_rejection(error: openai.APIStatusError) -> None:
+    gem = FakeClient([_resp("from gemini")])
+    llm = OpenAICompatLLM(P, clients={"groq": FakeClient([error]), "gemini": gem})
+    res = llm.complete([{"role": "user", "content": "x"}], [])
+    assert res.provider == "gemini" and res.message["content"] == "from gemini"
+
+
+def test_rejection_everywhere_is_an_llm_error() -> None:
+    """Must be LLMError (the agent answers politely), never a raw SDK error (HTTP 500)."""
+    bad = _status_error(openai.BadRequestError, 400)
+    llm = OpenAICompatLLM(P, clients={"groq": FakeClient([bad]), "gemini": FakeClient([bad])})
+    with pytest.raises(LLMError, match="HTTP 400"):
+        llm.complete([], [])
+
+
+def test_empty_choices_fall_back() -> None:
+    empty = SimpleNamespace(choices=[], usage=None)
+    gem = FakeClient([_resp("ok")])
+    llm = OpenAICompatLLM(P, clients={"groq": FakeClient([empty]), "gemini": gem})
+    assert llm.complete([], []).provider == "gemini"

@@ -175,6 +175,16 @@ class OpenAICompatLLM:
                 errors.append(f"{p.name}: {exc.__class__.__name__}")
                 log.warning("LLM provider %s unavailable; falling back (%s)", p.name, exc)
                 continue
+            except openai.APIStatusError as exc:
+                # 400 (e.g. Groq "tool_use_failed" on a malformed tool call), 401/403 (bad
+                # key), 404 (retired model): not transient, but the other provider may work.
+                errors.append(f"{p.name}: HTTP {exc.status_code} {exc.__class__.__name__}")
+                log.warning("LLM provider %s rejected the request; falling back (%s)", p.name, exc)
+                continue
+            if not resp.choices:
+                errors.append(f"{p.name}: empty response")
+                log.warning("LLM provider %s returned no choices; falling back", p.name)
+                continue
             usage = {}
             if resp.usage:
                 usage = {

@@ -10,6 +10,7 @@ stable `error` code plus `guidance` telling the model how to respond honestly.
 from __future__ import annotations
 
 import json
+import re
 from dataclasses import dataclass, field
 from typing import Any
 
@@ -43,6 +44,16 @@ class ToolContext:
     carrier: CarrierAdapter
     documents: Any = None  # DocumentStore (phase 3); optional
     extra: dict[str, Any] = field(default_factory=dict)
+    # order id -> tracking number for shipments booked by this process. The order book is a
+    # read-only fixture, so without this an order could be booked (and a label bought) twice.
+    booked: dict[str, str] = field(default_factory=dict)
+
+    def order(self, order_id: str | int) -> orders.Order | None:
+        order = orders.get_order(order_id)
+        tn = self.booked.get(order.order_id) if order else None
+        if order and tn and not order.tracking_number:
+            return order.model_copy(update={"tracking_number": tn, "status": "label_created"})
+        return order
 
 
 # ----------------------------------------------------------------------------------
@@ -232,12 +243,14 @@ def _tracking_summary(info: TrackingInfo, order: orders.Order | None) -> dict:
     return out
 
 
-def _resolve_tracking(args: dict) -> tuple[str | None, orders.Order | None, dict | None]:
+def _resolve_tracking(
+    args: dict, ctx: ToolContext
+) -> tuple[str | None, orders.Order | None, dict | None]:
     tn = (args.get("tracking_number") or "").strip().upper() or None
     oid = args.get("order_id")
     order = None
     if oid:
-        order = orders.get_order(oid)
+        order = ctx.order(oid)
         if order is None:
             return (
                 None,
@@ -338,7 +351,7 @@ def recommend(
 
 
 def track_shipment(args: dict, ctx: ToolContext) -> dict:
-    tn, order, error = _resolve_tracking(args)
+    tn, order, error = _resolve_tracking(args, ctx)
     if error:
         return error
     try:
@@ -349,7 +362,7 @@ def track_shipment(args: dict, ctx: ToolContext) -> dict:
 
 
 def get_order(args: dict, ctx: ToolContext) -> dict:
-    order = orders.get_order(args.get("order_id", ""))
+    order = ctx.order(args.get("order_id", ""))
     if order is None:
         return error_result(
             "order_not_found", f"No order #{args.get('order_id')} in the order book."
@@ -439,7 +452,7 @@ def validate_address(args: dict, ctx: ToolContext) -> dict:
 
 
 def draft_customer_email(args: dict, ctx: ToolContext) -> dict:
-    tn, order, error = _resolve_tracking(args)
+    tn, order, error = _resolve_tracking(args, ctx)
     if error:
         return error
     try:
@@ -500,11 +513,11 @@ def parse_args(raw: str | dict | None) -> dict:
 # ----------------------------------------------------------------------------------
 
 
-def build_shipment_request(args: dict) -> ShipmentRequest | dict:
+def build_shipment_request(args: dict, ctx: ToolContext | None = None) -> ShipmentRequest | dict:
     """Merge order defaults with explicit arguments. Returns an error dict on failure."""
     order = None
     if args.get("order_id"):
-        order = orders.get_order(args["order_id"])
+        order = ctx.order(args["order_id"]) if ctx else orders.get_order(args["order_id"])
         if order is None:
             return error_result(
                 "order_not_found", f"No order #{args['order_id']} in the order book."
@@ -543,6 +556,13 @@ def build_shipment_request(args: dict) -> ShipmentRequest | dict:
             "Missing shipment details: " + ", ".join(missing),
             "Ask the user for the missing details before trying again.",
         )
+    currency = str(pkg.get("currency") or "USD").strip().upper()
+    if not re.fullmatch(r"[A-Z]{3}", currency):
+        return error_result(
+            "invalid_arguments",
+            f"Unknown currency '{pkg.get('currency')}'.",
+            "Use a 3-letter ISO 4217 code such as USD, EUR or INR; ask the user if unsure.",
+        )
     dims = None
     if all(pkg.get(k) for k in ("length_cm", "width_cm", "height_cm")):
         dims = Dimensions(
@@ -557,7 +577,7 @@ def build_shipment_request(args: dict) -> ShipmentRequest | dict:
                 dimensions=dims,
                 description=str(pkg["description"]),
                 declared_value=float(pkg.get("declared_value") or 0),
-                currency=pkg.get("currency") or "USD",
+                currency=currency,
             ),
             service_code=str(args.get("service_code") or "").upper(),
             reference=args.get("reference") or (f"ORD-{order.order_id}" if order else None),
@@ -571,7 +591,7 @@ def preflight_shipment(args: dict, ctx: ToolContext) -> tuple[ShipmentRequest | 
 
     Returns (request, summary) when ready for human confirmation, else (None, error dict).
     """
-    req = build_shipment_request(args)
+    req = build_shipment_request(args, ctx)
     if isinstance(req, dict):
         return None, req
     try:
@@ -625,10 +645,13 @@ def preflight_shipment(args: dict, ctx: ToolContext) -> tuple[ShipmentRequest | 
     return req, summary
 
 
-def commit_shipment(req: ShipmentRequest, ctx: ToolContext) -> dict:
+def commit_shipment(req: ShipmentRequest, ctx: ToolContext, order_id: str | None = None) -> dict:
     """Actually create the shipment. Only the graph's confirm node may call this."""
     try:
         conf = ctx.carrier.create_shipment(req)
     except CarrierError as exc:
         return _carrier_err(exc) | {"created": False}
+    order = orders.get_order(order_id) if order_id else None
+    if order:
+        ctx.booked[order.order_id] = conf.tracking_number
     return {"ok": True, "created": True, **conf.model_dump(mode="json", exclude_none=True)}

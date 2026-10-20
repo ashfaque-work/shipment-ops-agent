@@ -81,3 +81,10 @@ def test_api_chat_and_confirm(api: TestClient) -> None:
 
 def test_api_validation(api: TestClient) -> None:
     assert api.post("/api/chat", json={"message": ""}).status_code == 422
+
+
+def test_api_rejects_blank_messages_and_bad_session_ids(api: TestClient) -> None:
+    assert api.post("/api/chat", json={"message": "   \n "}).status_code == 422
+    assert api.post("/api/chat", json={"session_id": "a b", "message": "hi"}).status_code == 422
+    r = api.post("/api/chat/confirm", json={"session_id": "", "approved": True})
+    assert r.status_code == 422

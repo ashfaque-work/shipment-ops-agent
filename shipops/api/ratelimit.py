@@ -65,6 +65,8 @@ class DemoLimiter:
             q.append(now)
             self._day_count += 1
             if len(self._hits) > 10_000:  # bound memory under abuse
-                for k in [k for k, v in self._hits.items() if not v][:5_000]:
+                # Queues are only trimmed when their own client calls again, so test the
+                # newest hit: anything older than the window is a client that went away.
+                for k in [k for k, v in self._hits.items() if not v or now - v[-1] >= 60]:
                     del self._hits[k]
             return True, 0, ""

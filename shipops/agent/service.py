@@ -6,6 +6,9 @@ Used by the HTTP API, the CLI and the eval harness.
 from __future__ import annotations
 
 import re
+import threading
+import time
+from collections import OrderedDict
 from typing import Any
 
 from langgraph.checkpoint.memory import InMemorySaver
@@ -26,6 +29,13 @@ _YES = re.compile(
 _NO = re.compile(r"^\s*(no|n|nope|cancel|stop|don'?t|do not|abort|decline)[\s.!]*$", re.I)
 
 
+def _pending(snap: Any) -> dict[str, Any] | None:
+    for intr in getattr(snap, "interrupts", ()) or ():
+        if isinstance(intr.value, dict) and intr.value.get("type") == "confirm_shipment":
+            return intr.value
+    return None
+
+
 class TurnResult(BaseModel):
     session_id: str
     reply: str | None
@@ -43,6 +53,9 @@ class AgentService:
         checkpointer=None,
         recursion_limit: int = 60,
         prompt_version: int | None = None,
+        max_sessions: int = 500,
+        session_ttl_s: float = 6 * 3600,
+        clock=time.monotonic,
     ):
         from shipops.mcp_server import build_server
 
@@ -54,6 +67,15 @@ class AgentService:
             llm, self.gateway, checkpointer or InMemorySaver(), prompt_version=prompt_version
         )
         self.recursion_limit = recursion_limit
+        # Conversations live in memory: bound them (LRU + idle TTL) so a long-running demo
+        # can't grow without limit, and serialise turns per session so a double-clicked
+        # "Book" (or two tabs) can't run the same conversation twice at once.
+        self._checkpointer = self.graph.checkpointer
+        self.max_sessions = max_sessions
+        self.session_ttl_s = session_ttl_s
+        self._clock = clock
+        self._sessions: OrderedDict[str, tuple[threading.Lock, float]] = OrderedDict()
+        self._sessions_lock = threading.Lock()
 
     def close(self) -> None:
         self.gateway.close()
@@ -64,6 +86,22 @@ class AgentService:
     def __exit__(self, *exc: object) -> None:
         self.close()
 
+    def _session_lock(self, session_id: str) -> threading.Lock:
+        """This session's turn lock; also evicts the oldest idle sessions (LRU order)."""
+        now = self._clock()
+        with self._sessions_lock:
+            lock = self._sessions.pop(session_id, (threading.Lock(), now))[0]
+            self._sessions[session_id] = (lock, now)  # most recent last
+            for sid, (old_lock, seen) in list(self._sessions.items()):
+                over = len(self._sessions) > self.max_sessions
+                if sid == session_id or not (over or now - seen > self.session_ttl_s):
+                    break  # the rest are newer
+                if old_lock.locked():
+                    continue  # a turn is running in it right now
+                del self._sessions[sid]
+                self._checkpointer.delete_thread(sid)
+        return lock
+
     def _config(self, session_id: str) -> dict:
         return {"configurable": {"thread_id": session_id}, "recursion_limit": self.recursion_limit}
 
@@ -71,21 +109,19 @@ class AgentService:
         return self.graph.get_state(self._config(session_id)).values or {}
 
     def pending(self, session_id: str) -> dict[str, Any] | None:
-        snap = self.graph.get_state(self._config(session_id))
-        for intr in getattr(snap, "interrupts", ()) or ():
-            if isinstance(intr.value, dict) and intr.value.get("type") == "confirm_shipment":
-                return intr.value
-        return None
+        return _pending(self.graph.get_state(self._config(session_id)))
 
     def history(self, session_id: str) -> list[dict[str, Any]]:
         return list(self._values(session_id).get("messages", []))
 
     def _run(self, session_id: str, payload: Any) -> TurnResult:
+        config = self._config(session_id)
         before = len(self._values(session_id).get("trace", []))
-        self.graph.invoke(payload, self._config(session_id))
-        values = self._values(session_id)
+        self.graph.invoke(payload, config)
+        snap = self.graph.get_state(config)
+        values = snap.values or {}
         trace = values.get("trace", [])[before:]
-        pending = self.pending(session_id)
+        pending = _pending(snap)
         reply = None
         if pending is None:
             last = (values.get("messages") or [{}])[-1]
@@ -96,16 +132,24 @@ class AgentService:
         )
 
     def chat(self, session_id: str, text: str) -> TurnResult:
+        with self._session_lock(session_id):
+            return self._chat(session_id, text)
+
+    def confirm(self, session_id: str, approved: bool) -> TurnResult:
+        with self._session_lock(session_id):
+            return self._confirm(session_id, approved)
+
+    def _chat(self, session_id: str, text: str) -> TurnResult:
         if self.pending(session_id):
             if _YES.match(text):
-                return self.confirm(session_id, True)
+                return self._confirm(session_id, True)
             if _NO.match(text):
-                return self.confirm(session_id, False)
+                return self._confirm(session_id, False)
             # Anything else cancels the pending shipment and is handled as a new request.
             return self._run(session_id, Command(resume={"approved": False, "user_message": text}))
         return self._run(session_id, {"messages": [{"role": "user", "content": text}], "steps": 0})
 
-    def confirm(self, session_id: str, approved: bool) -> TurnResult:
+    def _confirm(self, session_id: str, approved: bool) -> TurnResult:
         if not self.pending(session_id):
             return TurnResult(
                 session_id=session_id, reply="There is no shipment waiting for confirmation."
